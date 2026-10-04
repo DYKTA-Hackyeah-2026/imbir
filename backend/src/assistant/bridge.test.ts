@@ -17,7 +17,7 @@ import type {
   StoredSearchResult,
 } from './domain.js';
 import { hashEmbedding } from '../matchmaking/text.js';
-import { buildProgramSearchText, programSearchSimilarity } from './search-text.js';
+import { applyProgramSearchFallback, buildProgramSearchText, programSearchSimilarity } from './search-text.js';
 import type { EmbeddingProvider } from './embedding.js';
 
 type InnovationRow = typeof innovations.$inferSelect;
@@ -115,7 +115,7 @@ class InMemoryProgramRepository implements ProgramRepository {
 
   private readonly vectors = new Map<string, number[]>();
 
-  async semanticSearch({ embedding, limit, query }: SemanticSearchInput): Promise<ProgramCandidate[]> {
+  async semanticSearch({ embedding, limit, query, similarityThreshold }: SemanticSearchInput): Promise<ProgramCandidate[]> {
     const cosine = (a: number[], b: number[]): number => {
       let dot = 0;
       let na = 0;
@@ -127,11 +127,12 @@ class InMemoryProgramRepository implements ProgramRepository {
       }
       return na === 0 || nb === 0 ? 0 : dot / (Math.sqrt(na) * Math.sqrt(nb));
     };
-    return [...this.items.values()]
+    const candidates = [...this.items.values()]
       .map((program) => {
         const similarity = cosine(embedding, this.vectors.get(program.id) ?? []);
-        return { program, similarity: query ? programSearchSimilarity(query, program, similarity) : similarity };
-      })
+        return { program, similarity };
+      });
+    return applyProgramSearchFallback(candidates, query, similarityThreshold)
       .sort((a, b) => b.similarity - a.similarity)
       .slice(0, limit);
   }
@@ -287,5 +288,18 @@ describe('chatbot retrieves a bridged innovation', () => {
     assert.equal(programSearchSimilarity('Szukamy pomocy i wsparcia.', program, 0), 0);
     assert.equal(programSearchSimilarity('Potrzebujemy transportu publicznego.', program, 0), 0);
     assert.ok(programSearchSimilarity('Szukam innowacji BaWita', program, 0) >= config.assistant.similarityThreshold);
+  });
+
+  test('shows tag and title fallback matches only when no embedding match clears the cutoff', async () => {
+    const programs = new InMemoryProgramRepository({ async embed() { return [1, 0]; } });
+    await programs.add('semantic-match', innovationToProgram(makeInnovation({ title: 'Semantic match', problemTags: [] })));
+    await programs.add('fallback-match', innovationToProgram(makeInnovation()));
+    const [semantic, fallback] = await programs.getByIds(['semantic-match', 'fallback-match']);
+    const candidates = [{ program: semantic, similarity: 0.5 }, { program: fallback, similarity: 0.1 }];
+    const query = 'Szukamy wsparcia dla seniorów, na przykład BaWita';
+    assert.deepEqual(applyProgramSearchFallback(candidates, query, 0.35), [candidates[0]]);
+    const recovered = applyProgramSearchFallback(candidates, query, 0.6);
+    assert.ok(recovered.find((candidate) => candidate.program.id === 'fallback-match')!.similarity >= 0.6);
+    assert.equal(recovered.find((candidate) => candidate.program.id === 'semantic-match')!.similarity, 0.5);
   });
 });

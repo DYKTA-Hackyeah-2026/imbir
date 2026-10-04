@@ -7,13 +7,14 @@ import type {
   ProgramEligibility,
   ProgramStatus,
 } from './domain.js';
-import { buildProgramSearchText, programSearchSimilarity } from './search-text.js';
+import { applyProgramSearchFallback, buildProgramSearchText } from './search-text.js';
 import type { EmbeddingProvider } from './embedding.js';
 
 export interface SemanticSearchInput {
   embedding: number[];
   limit: number;
   query?: string;
+  similarityThreshold: number;
 }
 
 export interface ProgramWriteInput {
@@ -101,7 +102,7 @@ function writeValues(input: ProgramWriteInput, searchText: string) {
 export class PostgresProgramRepository implements ProgramRepository {
   constructor(private readonly embeddings: EmbeddingProvider) {}
 
-  async semanticSearch({ embedding, limit, query }: SemanticSearchInput): Promise<ProgramCandidate[]> {
+  async semanticSearch({ embedding, limit, query, similarityThreshold }: SemanticSearchInput): Promise<ProgramCandidate[]> {
     const literal = toVectorLiteral(embedding);
     const distance = sql<number>`(${programs.embedding} <=> ${literal}::vector)`;
 
@@ -114,14 +115,17 @@ export class PostgresProgramRepository implements ProgramRepository {
     // relevant catalogue rows (including rows awaiting an embedding).
     const rows = await (query ? statement : statement.limit(limit));
 
-    return rows.map((row) => {
+    const candidates = rows.map((row) => {
       const program = toProgram(row.program);
       const similarity = row.distance == null ? 0 : 1 - Number(row.distance);
       return {
         program,
-        similarity: query ? programSearchSimilarity(query, program, similarity) : similarity,
+        similarity,
       };
-    }).sort((a, b) => b.similarity - a.similarity || a.program.id.localeCompare(b.program.id)).slice(0, limit);
+    });
+    return applyProgramSearchFallback(candidates, query, similarityThreshold)
+      .sort((a, b) => b.similarity - a.similarity || a.program.id.localeCompare(b.program.id))
+      .slice(0, limit);
   }
 
   async getByIds(ids: string[]): Promise<Program[]> {

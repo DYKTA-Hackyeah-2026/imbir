@@ -216,6 +216,7 @@ export class AssistantService {
       embedding,
       limit: this.candidateLimit,
       query: searchQuery,
+      similarityThreshold: this.similarityThreshold,
     });
 
     const ranked = rankCandidates(

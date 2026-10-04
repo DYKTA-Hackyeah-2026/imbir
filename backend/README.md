@@ -119,10 +119,10 @@ npm run db:seed:assistant-innovations
 `RUN_SEED_INNOVATIONS=true` runs both steps automatically on container start
 (import first, then the assistant bridge); the bridge is idempotent and non-fatal.
 
-Search combines embedding similarity with explicit catalogue need tags and exact
-innovation titles, so offline embeddings or an embedding-provider outage do not
-hide matching catalogue entries. Generic support language alone does not match
-the tag/title fallback. The candidate limit is applied after this combined ranking.
+Search first uses embedding similarity. Only when no embedding match clears the
+relevance cutoff does it fall back to explicit catalogue need tags and exact
+innovation titles. Generic support language alone does not match the fallback.
+The candidate limit is applied after selecting the primary or fallback results.
 
 ### Synthetic demo data
 

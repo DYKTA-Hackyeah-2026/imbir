@@ -1,5 +1,6 @@
 import { detectNeeds } from '../matchmaking/needs.js';
 import { lexicalOverlap, normalizeText, tokenize, truncate } from '../matchmaking/text.js';
+import type { ProgramCandidate } from './domain.js';
 
 export interface ProgramSearchTextInput {
   title: string;
@@ -50,4 +51,19 @@ export function programSearchSimilarity(
   const title = normalizeText(program.title);
   const titleScore = title.length >= 4 && ` ${normalizeText(query)} `.includes(` ${title} `) ? 0.8 : 0;
   return Math.max(Number.isFinite(vectorSimilarity) ? vectorSimilarity : 0, taxonomyScore, titleScore);
+}
+
+/** Keep embedding matches unchanged; use catalogue evidence only for an empty search. */
+export function applyProgramSearchFallback(
+  candidates: ProgramCandidate[],
+  query: string | undefined,
+  similarityThreshold: number,
+): ProgramCandidate[] {
+  const matches = candidates.filter((candidate) => candidate.similarity >= similarityThreshold);
+  if (matches.length > 0) return matches;
+  if (!query) return candidates;
+  return candidates.map((candidate) => ({
+    ...candidate,
+    similarity: programSearchSimilarity(query, candidate.program, candidate.similarity),
+  }));
 }
