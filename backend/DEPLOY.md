@@ -13,7 +13,7 @@ API. You only need to provide environment variables in the Dokploy panel.
 
 | Item | Value |
 |------|-------|
-| Deploy method | Dockerfile (`backend/` monorepo app directory) |
+| Deploy method | Dockerfile (`backend/Dockerfile`, monorepo root context) |
 | Container port | `3000` |
 | Public routing | Dokploy/Traefik (HTTPS domain you assign) |
 | Database | Dokploy-managed PostgreSQL |
@@ -56,9 +56,9 @@ API. You only need to provide environment variables in the Dokploy panel.
 
 1. In the same Project, **Create Service** → **Application**.
 2. **Source**: connect your Git provider and select this monorepo and branch.
-3. Set **Build Path** to `/backend` so the backend directory is the build root.
+3. Set **Build Path** to `/` so the monorepo root is the build context.
 4. **Build type**: choose **Dockerfile**.
-   - **Dockerfile path**: `Dockerfile`.
+   - **Dockerfile path**: `backend/Dockerfile`.
    - **Docker context path**: `.`.
    - Leave build args empty (none are required).
 5. **Ports**: set the container port to **`3000`**. (Do not publish a host port; Traefik routes it.)
@@ -125,7 +125,7 @@ Important notes:
 1. Open the application's **Domains** tab → **Add Domain**.
    - Enter the hostname you want (e.g. `api.example.com`).
    - Set **Path** to `/`, **Container Port** to `3000`, enable **HTTPS** (Let's Encrypt).
-2. Click **Deploy**. Dokploy builds `backend/Dockerfile` with `backend/` as the context and starts the container.
+2. Click **Deploy**. Dokploy builds `backend/Dockerfile` with the repository root as the context and starts the container.
 3. Watch the **Logs**. A healthy start looks like:
 
    ```

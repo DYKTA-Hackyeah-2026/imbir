@@ -18,8 +18,8 @@ services:
 
   api:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: backend/Dockerfile
     image: backend:latest
     restart: unless-stopped
     depends_on:

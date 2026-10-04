@@ -1,16 +1,18 @@
 # syntax=docker/dockerfile:1
 
+# Build with the monorepo root as the context so Dokploy can use this file at
+# backend/Dockerfile without relying on a backend-only build context.
 # ---- Build stage ----
 FROM node:22-alpine AS build
 
 WORKDIR /app
 
 # Install full deps (incl. dev) to compile TypeScript.
-COPY package.json package-lock.json ./
+COPY backend/package.json backend/package-lock.json ./
 RUN npm ci
 
-COPY tsconfig.json tsconfig.build.json ./
-COPY src ./src
+COPY backend/tsconfig.json backend/tsconfig.build.json ./
+COPY backend/src ./src
 RUN npm run build
 
 # Drop dev dependencies for the runtime image.
@@ -31,11 +33,11 @@ RUN addgroup -S app && adduser -S app -G app
 
 COPY --from=build --chown=app:app /app/node_modules ./node_modules
 COPY --from=build --chown=app:app /app/dist ./dist
-COPY --chown=app:app drizzle ./drizzle
-COPY --chown=app:app public ./public
-COPY --chown=app:app data ./data
-COPY --chown=app:app docker-entrypoint.sh ./docker-entrypoint.sh
-COPY package.json package-lock.json ./
+COPY --chown=app:app backend/drizzle ./drizzle
+COPY --chown=app:app backend/public ./public
+COPY --chown=app:app backend/data ./data
+COPY --chown=app:app backend/docker-entrypoint.sh ./docker-entrypoint.sh
+COPY --chown=app:app backend/package.json backend/package-lock.json ./
 
 RUN chmod +x ./docker-entrypoint.sh
 
