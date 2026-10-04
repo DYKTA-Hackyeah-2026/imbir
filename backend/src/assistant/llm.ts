@@ -104,6 +104,7 @@ function messageToText(message: AssistantMessageInput, state: ConversationState)
 function optionNeeds(message: AssistantMessageInput, state: ConversationState): string[] {
   if (message.type !== 'clarification_answer') return [];
   const pending = state.pendingClarification;
+  if (pending?.id.startsWith('goal_')) return [];
   return message.selectedOptionIds
     .map((id) => pending?.options.find((option) => option.id === id)?.label ?? id)
     .filter((label) => label.length > 0);
@@ -166,6 +167,51 @@ function buildSearchQuery(state: ConversationState): string {
 }
 
 function buildClarification(state: ConversationState): Clarification {
+  const need = detectNeeds(state.summary)[0]?.id;
+  const topicOptions: Record<string, { question: string; options: ClarificationOption[] }> = {
+    senior_loneliness: {
+      question: 'Jaki konkretny problem seniorów chcesz rozwiązać w pierwszej kolejności?',
+      options: [
+        { id: 'loneliness', label: 'Samotność i brak kontaktu z innymi' },
+        { id: 'digital', label: 'Trudności w obsłudze telefonu i internetu' },
+        { id: 'care', label: 'Trudności w samodzielnym codziennym funkcjonowaniu' },
+        { id: 'activity', label: 'Brak okazji do aktywności i spotkań' },
+      ],
+    },
+    disability_accessibility: {
+      question: 'Jaka bariera najbardziej utrudnia życie osobom, którym chcesz pomóc?',
+      options: [
+        { id: 'access', label: 'Bariery w dostępie do budynków i usług' },
+        { id: 'communication', label: 'Trudności w komunikacji i uzyskiwaniu informacji' },
+        { id: 'independence', label: 'Trudności w samodzielnym codziennym funkcjonowaniu' },
+        { id: 'work', label: 'Trudności w znalezieniu pracy' },
+      ],
+    },
+    children_youth: {
+      question: 'Z jaką konkretną trudnością mierzą się dzieci lub młodzież?',
+      options: [
+        { id: 'learning', label: 'Trudności w nauce i rozwijaniu umiejętności' },
+        { id: 'relationships', label: 'Samotność i trudności w relacjach z rówieśnikami' },
+        { id: 'mental_health', label: 'Kryzys psychiczny i brak wsparcia' },
+        { id: 'activities', label: 'Brak dostępnych zajęć poza szkołą' },
+      ],
+    },
+  };
+  if (state.needs.length > 0) {
+    const topic = topicOptions[need ?? ''];
+    return {
+      id: `topic_${randomUUID()}`,
+      question: topic?.question ?? 'Jaki konkretny problem chcesz rozwiązać w pierwszej kolejności?',
+      selectionMode: 'single',
+      options: topic?.options ?? [
+        { id: 'access', label: 'Brak dostępu do potrzebnych usług' },
+        { id: 'skills', label: 'Trudności w zdobyciu potrzebnych umiejętności' },
+        { id: 'relationships', label: 'Samotność i brak wsparcia innych osób' },
+        { id: 'independence', label: 'Trudności w samodzielnym codziennym funkcjonowaniu' },
+      ],
+      allowAdditionalText: true,
+    };
+  }
   const used = new Set(state.needs.map((need) => normalizeText(need)));
   const remaining = CLARIFICATION_OPTIONS.filter((option) => !used.has(normalizeText(option.label)));
   const options = remaining.length >= 2 ? remaining.slice(0, 4) : CLARIFICATION_OPTIONS.slice(0, 4);
@@ -176,6 +222,31 @@ function buildClarification(state: ConversationState): Clarification {
     options: options.map((option) => ({ ...option })),
     allowAdditionalText: true,
   };
+}
+
+function buildGoalClarification(): Clarification {
+  return {
+    id: `goal_${randomUUID()}`,
+    question: 'Jaka zmiana będzie najważniejszym efektem rozwiązania tego problemu?',
+    selectionMode: 'single',
+    options: [
+      { id: 'independence', label: 'Większa samodzielność w codziennym życiu' },
+      { id: 'access', label: 'Łatwiejszy dostęp do usług i wsparcia' },
+      { id: 'relationships', label: 'Więcej kontaktów i udziału w życiu społeczności' },
+      { id: 'skills', label: 'Zdobycie konkretnych umiejętności' },
+    ],
+    allowAdditionalText: true,
+  };
+}
+
+function hasConcreteProblem(summary: string): boolean {
+  const text = normalizeText(summary);
+  return [
+    'samotn', 'izolacj', 'telefon', 'paczkomat', 'internet', 'komputer',
+    'bezrobot', 'bez pracy', 'do pracy', 'znalezieniu pracy', 'barier',
+    'dement', 'depresj', 'kryzys psychicz', 'jedzen', 'zywnos', 'bezdom',
+    'eksmisj', 'dokument', 'trudnos', 'brak dostep', 'brak okazji', 'brak wsparcia',
+  ].some((term) => text.includes(term));
 }
 
 /** Used when semantic search returns only weak candidates: ask instead of guessing. */
@@ -206,11 +277,23 @@ function createDeterministicLlm(): AssistantLlm {
         };
       }
 
-      if (message.type === 'clarification_answer' || needs.length > 0) {
+      const answeringTopic = state.pendingClarification?.id.startsWith('topic_');
+      const answeringGoal = state.pendingClarification?.id.startsWith('goal_');
+      if (answeringTopic && hasConcreteProblem(summary)) {
+        const clarification = buildGoalClarification();
+        return {
+          state: nextState,
+          decision: 'clarify',
+          assistantMessage: 'Zawęźmy jeszcze oczekiwany efekt, żeby dobrać trafniejsze innowacje.',
+          clarification,
+        };
+      }
+
+      if (answeringGoal || (needs.length > 0 && hasConcreteProblem(summary))) {
         return {
           state: nextState,
           decision: 'search',
-          assistantMessage: 'Sprawdzam, jakie programy mogą Ci pomóc.',
+          assistantMessage: 'Sprawdzam innowacje pasujące do opisanego problemu.',
           searchQuery: buildSearchQuery(nextState),
         };
       }
