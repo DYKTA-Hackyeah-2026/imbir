@@ -7,7 +7,7 @@
  */
 import { count } from 'drizzle-orm';
 import { createAiGateway } from '../ai/index.js';
-import { closeDatabase, db } from '../db/client.js';
+import { closeDatabase, db } from '../db/index.js';
 import { programs } from '../db/schema.js';
 import { createEmbeddingProvider } from './embedding.js';
 import { PostgresProgramRepository, type ProgramWriteInput } from './program.repository.js';

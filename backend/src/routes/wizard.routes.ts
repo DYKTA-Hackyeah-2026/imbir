@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { and, eq, desc } from 'drizzle-orm';
 import { ApiError } from '../http/errors.js';
+import { parsePositiveId } from '../http/parse.js';
 import { db } from '../db/index.js';
 import {
   innovationSubmissions,
@@ -31,6 +32,8 @@ import {
 
 const innovationsRouter = Router();
 
+type InnovationStatus = (typeof innovationStatusEnum.enumValues)[number];
+
 // Helper to validate enum values
 function validateEnumField<T extends readonly string[]>(
   val: unknown,
@@ -38,22 +41,10 @@ function validateEnumField<T extends readonly string[]>(
   fieldName: string
 ): string | null {
   if (val === undefined || val === null) return null;
-  if (typeof val !== 'string' || !allowed.includes(val as any)) {
+  if (typeof val !== 'string' || !allowed.includes(val as T[number])) {
     return `Niepoprawna wartość „${String(val)}” dla pola „${fieldName}”. Dozwolone wartości: ${allowed.join(', ')}.`;
   }
   return null;
-}
-
-// Strict identifier parsing: rejects values like "12abc" that Number.parseInt would accept.
-function parseInnovationId(raw: string | undefined): number {
-  if (typeof raw !== 'string' || !/^\d+$/.test(raw)) {
-    throw ApiError.validation('Niepoprawny identyfikator innowacji.');
-  }
-  const id = Number.parseInt(raw, 10);
-  if (!Number.isSafeInteger(id) || id < 1) {
-    throw ApiError.validation('Niepoprawny identyfikator innowacji.');
-  }
-  return id;
 }
 
 // 1. GET /innovations/options - Fetch all available enums and value options for wizard forms
@@ -92,9 +83,14 @@ innovationsRouter.get('/', async (req, res, next) => {
     if (acceptedFilter !== undefined && acceptedFilter !== 'true' && acceptedFilter !== 'false') {
       throw ApiError.validation('Parametr „accepted” musi mieć wartość „true” albo „false”.');
     }
+    if (statusFilter !== undefined && !innovationStatusEnum.enumValues.includes(statusFilter as InnovationStatus)) {
+      throw ApiError.validation(
+        `Parametr „status” musi mieć jedną z wartości: ${innovationStatusEnum.enumValues.join(', ')}.`,
+      );
+    }
 
     const conditions = [];
-    if (statusFilter) conditions.push(eq(innovationSubmissions.status, statusFilter as any));
+    if (statusFilter) conditions.push(eq(innovationSubmissions.status, statusFilter as InnovationStatus));
     if (acceptedFilter !== undefined) {
       conditions.push(eq(innovationSubmissions.isAccepted, acceptedFilter === 'true'));
     }
@@ -129,7 +125,7 @@ innovationsRouter.get('/', async (req, res, next) => {
 // 3. GET /innovations/:id - Get a single innovation with all related sub-entities and enums
 innovationsRouter.get('/:id', async (req, res, next) => {
   try {
-    const id = parseInnovationId(req.params.id);
+    const id = parsePositiveId(req.params.id, 'id');
 
     const item = await db.query.innovationSubmissions.findFirst({
       where: eq(innovationSubmissions.id, id),
@@ -425,7 +421,7 @@ innovationsRouter.post('/', async (req, res, next) => {
 // 5. PUT /innovations/:id - Update an innovation (e.g. saving steps in wizard)
 innovationsRouter.put('/:id', async (req, res, next) => {
   try {
-    const id = parseInnovationId(req.params.id);
+    const id = parsePositiveId(req.params.id, 'id');
 
     const [existing] = await db.select().from(innovationSubmissions).where(eq(innovationSubmissions.id, id)).limit(1);
     if (!existing) {
@@ -654,7 +650,7 @@ innovationsRouter.put('/:id', async (req, res, next) => {
 // 6. DELETE /innovations/:id - Delete an innovation
 innovationsRouter.delete('/:id', async (req, res, next) => {
   try {
-    const id = parseInnovationId(req.params.id);
+    const id = parsePositiveId(req.params.id, 'id');
 
     const [deleted] = await db.delete(innovationSubmissions).where(eq(innovationSubmissions.id, id)).returning();
     if (!deleted) {

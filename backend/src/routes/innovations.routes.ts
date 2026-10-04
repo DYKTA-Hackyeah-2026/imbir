@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ApiError } from '../http/errors.js';
+import { parseBooleanParam, parseInteger, parseRequiredText } from '../http/parse.js';
 import {
   EVIDENCE_STATUSES,
   INNOVATION_SORT_FIELDS,
@@ -12,53 +13,19 @@ const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 50;
 const MAX_OFFSET = 10000;
 
-function parseOptionalText(raw: unknown, field: string, maxLength: number): string | undefined {
-  if (raw === undefined) return undefined;
-  if (Array.isArray(raw) || typeof raw !== 'string') {
-    throw ApiError.validation(`Parametr „${field}” musi być pojedynczą wartością tekstową.`);
-  }
-  const value = raw.trim();
-  if (value.length === 0) {
-    throw ApiError.validation(`Parametr „${field}” nie może być pusty.`);
-  }
-  if (value.length > maxLength) {
-    throw ApiError.validation(`Parametr „${field}” może mieć maksymalnie ${maxLength} znaków.`);
-  }
-  return value;
-}
-
-function parseInteger(raw: unknown, field: string, fallback: number, min: number, max: number): number {
-  if (raw === undefined) return fallback;
-  if (Array.isArray(raw) || typeof raw !== 'string' || !/^\d+$/.test(raw)) {
-    throw ApiError.validation(`Parametr „${field}” musi być liczbą całkowitą.`);
-  }
-  const value = Number.parseInt(raw, 10);
-  if (!Number.isSafeInteger(value) || value < min || value > max) {
-    throw ApiError.validation(`Parametr „${field}” musi być liczbą z zakresu ${min}–${max}.`);
-  }
-  return value;
-}
-
-function parseOptionalBoolean(raw: unknown, field: string): boolean | undefined {
-  if (raw === undefined) return undefined;
-  if (raw === 'true') return true;
-  if (raw === 'false') return false;
-  throw ApiError.validation(`Parametr „${field}” musi mieć wartość „true” lub „false”.`);
-}
-
 export function createInnovationsRouter(service: MatchmakingService): Router {
   const router = Router();
 
   router.get('/', async (req, res, next) => {
     try {
-      const evidenceStatus = parseOptionalText(req.query.evidenceStatus, 'evidenceStatus', 40);
+      const evidenceStatus = parseRequiredText(req.query.evidenceStatus, 'evidenceStatus', 40);
       if (evidenceStatus && !EVIDENCE_STATUSES.includes(evidenceStatus as EvidenceStatus)) {
         throw ApiError.validation(
           `Parametr „evidenceStatus” musi mieć jedną z wartości: ${EVIDENCE_STATUSES.join(', ')}.`,
         );
       }
 
-      const sort = parseOptionalText(req.query.sort, 'sort', 20) ?? 'title';
+      const sort = parseRequiredText(req.query.sort, 'sort', 20) ?? 'title';
       if (!INNOVATION_SORT_FIELDS.includes(sort as InnovationSortField)) {
         throw ApiError.validation(
           `Parametr „sort” musi mieć jedną z wartości: ${INNOVATION_SORT_FIELDS.join(', ')}.`,
@@ -66,11 +33,11 @@ export function createInnovationsRouter(service: MatchmakingService): Router {
       }
 
       const response = await service.listInnovations({
-        q: parseOptionalText(req.query.q, 'q', 200),
-        problemTag: parseOptionalText(req.query.problemTag, 'problemTag', 120),
-        targetGroup: parseOptionalText(req.query.targetGroup, 'targetGroup', 120),
+        q: parseRequiredText(req.query.q, 'q', 200),
+        problemTag: parseRequiredText(req.query.problemTag, 'problemTag', 120),
+        targetGroup: parseRequiredText(req.query.targetGroup, 'targetGroup', 120),
         evidenceStatus: evidenceStatus as EvidenceStatus | undefined,
-        synthetic: parseOptionalBoolean(req.query.synthetic, 'synthetic'),
+        synthetic: parseBooleanParam(req.query.synthetic, 'synthetic'),
         sort: sort as InnovationSortField,
         limit: parseInteger(req.query.limit, 'limit', DEFAULT_LIMIT, 1, MAX_LIMIT),
         offset: parseInteger(req.query.offset, 'offset', 0, 0, MAX_OFFSET),

@@ -9,8 +9,16 @@ import {
   testerFeedback,
 } from '../db/schema.js';
 import { ApiError } from '../http/errors.js';
+import {
+  parseBodyBoolean,
+  parseBodyText,
+  parseInteger,
+  parseOptionalDate,
+  parseOptionalIntInRange,
+  parsePositiveId,
+  parseRequiredText,
+} from '../http/parse.js';
 import { resolveUserId, requireUserId } from '../utils/current-user.js';
-import { HttpError } from '../utils/http-error.js';
 
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 50;
@@ -18,85 +26,6 @@ const MAX_OFFSET = 10000;
 const MAX_TEXT = 5000;
 
 type TestStatus = (typeof innovationTestStatusEnum.enumValues)[number];
-
-function parseOptionalText(raw: unknown, field: string, maxLength: number): string | undefined {
-  if (raw === undefined) return undefined;
-  if (Array.isArray(raw) || typeof raw !== 'string') {
-    throw ApiError.validation(`Parametr „${field}” musi być pojedynczą wartością tekstową.`);
-  }
-  const value = raw.trim();
-  if (value.length === 0) {
-    throw ApiError.validation(`Parametr „${field}” nie może być pusty.`);
-  }
-  if (value.length > maxLength) {
-    throw ApiError.validation(`Parametr „${field}” może mieć maksymalnie ${maxLength} znaków.`);
-  }
-  return value;
-}
-
-function parseInteger(raw: unknown, field: string, fallback: number, min: number, max: number): number {
-  if (raw === undefined) return fallback;
-  if (Array.isArray(raw) || typeof raw !== 'string' || !/^\d+$/.test(raw)) {
-    throw ApiError.validation(`Parametr „${field}” musi być liczbą całkowitą.`);
-  }
-  const value = Number.parseInt(raw, 10);
-  if (!Number.isSafeInteger(value) || value < min || value > max) {
-    throw ApiError.validation(`Parametr „${field}” musi być liczbą z zakresu ${min}–${max}.`);
-  }
-  return value;
-}
-
-function parsePositiveId(raw: string | undefined, field: string): number {
-  if (typeof raw !== 'string' || !/^\d+$/.test(raw)) {
-    throw ApiError.validation(`Niepoprawny identyfikator: „${field}”.`);
-  }
-  const value = Number.parseInt(raw, 10);
-  if (!Number.isSafeInteger(value) || value < 1) {
-    throw ApiError.validation(`Niepoprawny identyfikator: „${field}”.`);
-  }
-  return value;
-}
-
-function parseOptionalIntInRange(raw: unknown, field: string, min: number, max: number): number | undefined {
-  if (raw === undefined || raw === null) return undefined;
-  if (typeof raw !== 'number' || !Number.isInteger(raw) || raw < min || raw > max) {
-    throw ApiError.validation(`Pole „${field}” musi być liczbą całkowitą z zakresu ${min}–${max}.`);
-  }
-  return raw;
-}
-
-function parseOptionalBoolean(raw: unknown, field: string): boolean | undefined {
-  if (raw === undefined || raw === null) return undefined;
-  if (typeof raw !== 'boolean') {
-    throw ApiError.validation(`Pole „${field}” musi być wartością logiczną.`);
-  }
-  return raw;
-}
-
-function parseOptionalBodyText(raw: unknown, field: string, maxLength: number): string | undefined {
-  if (raw === undefined || raw === null) return undefined;
-  if (typeof raw !== 'string') {
-    throw ApiError.validation(`Pole „${field}” musi być tekstem.`);
-  }
-  const value = raw.trim();
-  if (value.length === 0) return undefined;
-  if (value.length > maxLength) {
-    throw ApiError.validation(`Pole „${field}” może mieć maksymalnie ${maxLength} znaków.`);
-  }
-  return value;
-}
-
-function parseOptionalDate(raw: unknown, field: string): Date | undefined {
-  if (raw === undefined || raw === null) return undefined;
-  if (typeof raw !== 'string') {
-    throw ApiError.validation(`Pole „${field}” musi być datą w formacie ISO 8601.`);
-  }
-  const value = new Date(raw);
-  if (Number.isNaN(value.getTime())) {
-    throw ApiError.validation(`Pole „${field}” musi być poprawną datą w formacie ISO 8601.`);
-  }
-  return value;
-}
 
 function parseTestStatus(raw: unknown, field: string): TestStatus | undefined {
   if (raw === undefined || raw === null) return undefined;
@@ -114,7 +43,7 @@ const testerRouter = Router();
 testerRouter.get('/tests', async (req, res, next) => {
   try {
     const status = parseTestStatus(req.query.status, 'status');
-    const innovationId = parseOptionalText(req.query.innovationId, 'innovationId', 200);
+    const innovationId = parseRequiredText(req.query.innovationId, 'innovationId', 200);
     const limit = parseInteger(req.query.limit, 'limit', DEFAULT_LIMIT, 1, MAX_LIMIT);
     const offset = parseInteger(req.query.offset, 'offset', 0, 0, MAX_OFFSET);
 
@@ -165,18 +94,18 @@ testerRouter.post('/tests', async (req, res, next) => {
       throw ApiError.validation('Treść żądania musi być obiektem JSON.');
     }
 
-    const innovationId = parseOptionalBodyText(body.innovationId, 'innovationId', 200);
+    const innovationId = parseBodyText(body.innovationId, 'innovationId', 200);
     if (!innovationId) {
       throw ApiError.validation('Pole „innovationId” jest wymagane.');
     }
-    const title = parseOptionalBodyText(body.title, 'title', 300);
+    const title = parseBodyText(body.title, 'title', 300);
     if (!title) {
       throw ApiError.validation('Pole „title” jest wymagane.');
     }
 
-    const description = parseOptionalBodyText(body.description, 'description', MAX_TEXT);
-    const instructions = parseOptionalBodyText(body.instructions, 'instructions', MAX_TEXT);
-    const location = parseOptionalBodyText(body.location, 'location', 300);
+    const description = parseBodyText(body.description, 'description', MAX_TEXT);
+    const instructions = parseBodyText(body.instructions, 'instructions', MAX_TEXT);
+    const location = parseBodyText(body.location, 'location', 300);
     const maxTesters = parseOptionalIntInRange(body.maxTesters, 'maxTesters', 1, 100000);
     const startAt = parseOptionalDate(body.startAt, 'startAt');
     const endAt = parseOptionalDate(body.endAt, 'endAt');
@@ -281,7 +210,7 @@ testerRouter.post('/tests/:testId/applications', async (req, res, next) => {
     if (typeof body !== 'object' || Array.isArray(body)) {
       throw ApiError.validation('Treść żądania musi być obiektem JSON.');
     }
-    const motivation = parseOptionalBodyText(body.motivation, 'motivation', 2000);
+    const motivation = parseBodyText(body.motivation, 'motivation', 2000);
 
     const [test] = await db
       .select({ id: innovationTests.id, status: innovationTests.status })
@@ -292,7 +221,7 @@ testerRouter.post('/tests/:testId/applications', async (req, res, next) => {
       throw ApiError.notFound('Nie znaleziono testu o podanym identyfikatorze.');
     }
     if (test.status !== 'recruiting' && test.status !== 'active') {
-      throw HttpError.conflict('Nabór do tego testu jest zamknięty.');
+      throw ApiError.conflict('Nabór do tego testu jest zamknięty.');
     }
 
     const userId = await resolveUserId(req);
@@ -304,7 +233,7 @@ testerRouter.post('/tests/:testId/applications', async (req, res, next) => {
       .returning();
 
     if (!created) {
-      throw HttpError.conflict('Zgłoszenie do tego testu już istnieje.');
+      throw ApiError.conflict('Zgłoszenie do tego testu już istnieje.');
     }
 
     res.status(201).json({
@@ -362,11 +291,11 @@ testerRouter.post('/tester/applications/:applicationId/feedback', async (req, re
     }
     const usefulnessRating = parseOptionalIntInRange(body.usefulnessRating, 'usefulnessRating', 1, 5);
     const easeOfUseRating = parseOptionalIntInRange(body.easeOfUseRating, 'easeOfUseRating', 1, 5);
-    const wouldUseAgain = parseOptionalBoolean(body.wouldUseAgain, 'wouldUseAgain');
-    const whatWorked = parseOptionalBodyText(body.whatWorked, 'whatWorked', MAX_TEXT);
-    const problems = parseOptionalBodyText(body.problems, 'problems', MAX_TEXT);
-    const suggestions = parseOptionalBodyText(body.suggestions, 'suggestions', MAX_TEXT);
-    const comment = parseOptionalBodyText(body.comment, 'comment', MAX_TEXT);
+    const wouldUseAgain = parseBodyBoolean(body.wouldUseAgain, 'wouldUseAgain');
+    const whatWorked = parseBodyText(body.whatWorked, 'whatWorked', MAX_TEXT);
+    const problems = parseBodyText(body.problems, 'problems', MAX_TEXT);
+    const suggestions = parseBodyText(body.suggestions, 'suggestions', MAX_TEXT);
+    const comment = parseBodyText(body.comment, 'comment', MAX_TEXT);
 
     let answers: Record<string, unknown> = {};
     if (body.answers !== undefined && body.answers !== null) {

@@ -1,5 +1,5 @@
 import { asc, count, eq } from 'drizzle-orm';
-import { db } from '../db/client.js';
+import { db } from '../db/index.js';
 import { searchResults, searches } from '../db/schema.js';
 import type { EligibilityStatus, StoredSearch, StoredSearchResult } from './domain.js';
 

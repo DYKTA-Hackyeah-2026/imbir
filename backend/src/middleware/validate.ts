@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 import { type ZodType } from 'zod';
-import { HttpError } from '../utils/http-error.js';
+import { ApiError } from '../http/errors.js';
 
 export interface FieldError {
   path: string;
@@ -18,7 +18,7 @@ export function validateBody<T>(schema: ZodType<T>): RequestHandler {
   return (req, _res, next) => {
     const result = schema.safeParse(req.body);
     if (!result.success) {
-      next(new HttpError(422, 'Validation failed', 'VALIDATION_ERROR', toDetails(result.error)));
+      next(ApiError.unprocessable('Validation failed', toDetails(result.error)));
       return;
     }
     req.body = result.data as unknown;
@@ -30,7 +30,7 @@ export function validateQuery<T>(schema: ZodType<T>): RequestHandler {
   return (req, res, next) => {
     const result = schema.safeParse(req.query);
     if (!result.success) {
-      next(new HttpError(422, 'Validation failed', 'VALIDATION_ERROR', toDetails(result.error)));
+      next(ApiError.unprocessable('Validation failed', toDetails(result.error)));
       return;
     }
     res.locals.query = result.data;

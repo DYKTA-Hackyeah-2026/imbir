@@ -12,7 +12,7 @@ import {
   sql,
   type SQL,
 } from 'drizzle-orm';
-import { db } from '../../db/client.js';
+import { db } from '../../db/index.js';
 import {
   categories,
   contactMessages,
@@ -26,7 +26,7 @@ import {
   type Material,
   type Topic,
 } from '../../db/schema.js';
-import { HttpError } from '../../utils/http-error.js';
+import { ApiError } from '../../http/errors.js';
 import { sendMail } from '../../mail/mailer.js';
 import { paginationMeta, type PaginationMeta } from './content.query.js';
 import { typeLabel, type ContactInput } from './content.schemas.js';
@@ -579,7 +579,7 @@ export async function getMaterialBySlug(slug: string): Promise<MaterialDetail> {
     .limit(1);
 
   if (!row) {
-    throw HttpError.notFound('Material not found');
+    throw ApiError.notFound('Material not found');
   }
 
   const [topicMap, tagMap] = await Promise.all([
@@ -674,7 +674,7 @@ export async function getMaterialForDownload(
     .limit(1);
 
   if (!row) {
-    throw HttpError.notFound('Material not found');
+    throw ApiError.notFound('Material not found');
   }
   return row;
 }

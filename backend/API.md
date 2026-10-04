@@ -1894,7 +1894,6 @@ A type-checked example client lives at `web/client-example.ts`.
 These exist from the starter and are **not** part of this integration:
 
 - `GET /health` Ôćĺ `{ status, env, uptime }`.
-- `GET /users`, `GET /users/:id`, `POST /users` Ôćĺ PostgreSQL-backed user demo.
 
 Do not depend on them for the matchmaking feature.
 

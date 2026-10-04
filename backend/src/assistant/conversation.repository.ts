@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import { db } from '../db/client.js';
+import { db } from '../db/index.js';
 import { conversations, messages } from '../db/schema.js';
 import { parseConversationState, type ConversationState } from './domain.js';
 

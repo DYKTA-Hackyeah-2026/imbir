@@ -20,7 +20,7 @@ import { createEmbeddingProvider } from '../assistant/embedding.js';
 import { PostgresProgramRepository } from '../assistant/program.repository.js';
 import { bridgeInnovations } from '../assistant/seed.assistant-innovations.js';
 import { importCatalogue } from '../repositories/importer.js';
-import { closeDatabase, db } from './client.js';
+import { closeDatabase, db } from './index.js';
 import { innovationCitations, innovations, sources } from './schema.js';
 
 /**

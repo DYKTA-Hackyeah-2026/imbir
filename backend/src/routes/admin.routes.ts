@@ -13,6 +13,7 @@ import {
   users,
 } from '../db/schema.js';
 import { ApiError } from '../http/errors.js';
+import { parseInteger, parseOptionalText, parsePositiveId } from '../http/parse.js';
 import { requireAdmin, requireAuth } from '../middleware/auth.js';
 
 const DEFAULT_LIMIT = 20;
@@ -26,42 +27,6 @@ const RECENT_ACTIVITY_LIMIT = 8;
 const RECENT_SOURCE_LIMIT = 3;
 
 type InnovationStatus = (typeof innovationStatusEnum.enumValues)[number];
-
-function parseOptionalText(raw: unknown, field: string, maxLength: number): string | undefined {
-  if (raw === undefined) return undefined;
-  if (Array.isArray(raw) || typeof raw !== 'string') {
-    throw ApiError.validation(`Parametr „${field}” musi być pojedynczą wartością tekstową.`);
-  }
-  const value = raw.trim();
-  if (value.length === 0) return undefined;
-  if (value.length > maxLength) {
-    throw ApiError.validation(`Parametr „${field}” może mieć maksymalnie ${maxLength} znaków.`);
-  }
-  return value;
-}
-
-function parseInteger(raw: unknown, field: string, fallback: number, min: number, max: number): number {
-  if (raw === undefined) return fallback;
-  if (Array.isArray(raw) || typeof raw !== 'string' || !/^\d+$/.test(raw)) {
-    throw ApiError.validation(`Parametr „${field}” musi być liczbą całkowitą.`);
-  }
-  const value = Number.parseInt(raw, 10);
-  if (!Number.isSafeInteger(value) || value < min || value > max) {
-    throw ApiError.validation(`Parametr „${field}” musi być liczbą z zakresu ${min}–${max}.`);
-  }
-  return value;
-}
-
-function parsePositiveId(raw: unknown, field: string): number {
-  if (typeof raw !== 'string' || !/^\d+$/.test(raw)) {
-    throw ApiError.validation(`Niepoprawny identyfikator: „${field}”.`);
-  }
-  const value = Number.parseInt(raw, 10);
-  if (!Number.isSafeInteger(value) || value < 1) {
-    throw ApiError.validation(`Niepoprawny identyfikator: „${field}”.`);
-  }
-  return value;
-}
 
 function parseOptionalAccepted(raw: unknown): boolean | undefined {
   if (raw === undefined) return undefined;

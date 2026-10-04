@@ -5,7 +5,7 @@ import config from '../config/config.js';
 function tooManyRequests(_req: unknown, res: Response): void {
   res.status(429).json({
     error: {
-      code: 'TOO_MANY_REQUESTS',
+      code: 'too_many_requests',
       message: 'Too many requests, please try again later.',
     },
   });

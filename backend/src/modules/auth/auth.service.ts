@@ -1,7 +1,7 @@
 import { and, eq, isNull } from 'drizzle-orm';
 import config from '../../config/config.js';
 import { claimInvitations } from '../../chat/service.js';
-import { db } from '../../db/client.js';
+import { db } from '../../db/index.js';
 import {
   passwordResetTokens,
   refreshTokens,
@@ -9,7 +9,7 @@ import {
   type User,
 } from '../../db/schema.js';
 import { sendPasswordResetEmail } from '../../mail/mailer.js';
-import { HttpError } from '../../utils/http-error.js';
+import { ApiError } from '../../http/errors.js';
 import { hashPassword, verifyPassword, wasteTimeLikePasswordCheck } from '../../utils/password.js';
 import { generateOpaqueToken, hashToken, signAccessToken } from '../../utils/tokens.js';
 import type {
@@ -81,7 +81,7 @@ export async function register(input: RegisterInput): Promise<AuthResult> {
     .returning();
 
   if (!user) {
-    throw HttpError.conflict('An account with this email already exists');
+    throw ApiError.conflict('An account with this email already exists');
   }
 
   const tokens = await issueTokens(user);
@@ -94,12 +94,12 @@ export async function login(input: LoginInput): Promise<AuthResult> {
 
   if (!user) {
     await wasteTimeLikePasswordCheck(input.password);
-    throw HttpError.unauthorized('Invalid email or password');
+    throw ApiError.unauthorized('Invalid email or password');
   }
 
   const passwordMatches = await verifyPassword(input.password, user.passwordHash);
   if (!passwordMatches) {
-    throw HttpError.unauthorized('Invalid email or password');
+    throw ApiError.unauthorized('Invalid email or password');
   }
 
   const tokens = await issueTokens(user);
@@ -114,7 +114,7 @@ export async function refreshSession(refreshToken: string): Promise<AuthResult> 
     .limit(1);
 
   if (!stored || stored.revokedAt !== null || stored.expiresAt.getTime() <= Date.now()) {
-    throw HttpError.unauthorized('Invalid or expired refresh token');
+    throw ApiError.unauthorized('Invalid or expired refresh token');
   }
 
   const [rotated] = await db
@@ -124,12 +124,12 @@ export async function refreshSession(refreshToken: string): Promise<AuthResult> 
     .returning({ id: refreshTokens.id });
 
   if (!rotated) {
-    throw HttpError.unauthorized('Refresh token has already been used');
+    throw ApiError.unauthorized('Refresh token has already been used');
   }
 
   const [user] = await db.select().from(users).where(eq(users.id, stored.userId)).limit(1);
   if (!user) {
-    throw HttpError.unauthorized('Account no longer exists');
+    throw ApiError.unauthorized('Account no longer exists');
   }
 
   const tokens = await issueTokens(user);
@@ -173,7 +173,7 @@ export async function resetPassword(input: ResetPasswordInput): Promise<void> {
     .limit(1);
 
   if (!stored || stored.usedAt !== null || stored.expiresAt.getTime() <= now.getTime()) {
-    throw HttpError.badRequest('Invalid or expired password reset token');
+    throw ApiError.badRequest('Invalid or expired password reset token');
   }
 
   const passwordHash = await hashPassword(input.password);
@@ -186,7 +186,7 @@ export async function resetPassword(input: ResetPasswordInput): Promise<void> {
       .returning({ id: passwordResetTokens.id });
 
     if (!consumed) {
-      throw HttpError.badRequest('Password reset token has already been used');
+      throw ApiError.badRequest('Password reset token has already been used');
     }
 
     await tx

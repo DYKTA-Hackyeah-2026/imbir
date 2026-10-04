@@ -68,10 +68,10 @@ export function errorMessage(error: unknown): string {
     if (error.code === "429" || /rate.?limit/i.test(error.message)) {
       return "Usługa jest chwilowo ograniczona. Spróbuj ponownie za chwilę."
     }
-    if (error.code === "TOO_MANY_REQUESTS" || error.status === 429) {
+    if (error.code === "too_many_requests" || error.status === 429) {
       return "Zbyt wiele prób. Poczekaj chwilę i spróbuj ponownie."
     }
-    if (error.status === 502 || error.code === "INTERNAL_SERVER_ERROR") {
+    if (error.status === 502 || error.code === "internal_error" || error.code === "upstream_unavailable") {
       return "Usługa jest chwilowo niedostępna. Spróbuj ponownie później."
     }
     if (error.status >= 500) {

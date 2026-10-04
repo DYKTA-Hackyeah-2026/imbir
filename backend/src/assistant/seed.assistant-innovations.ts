@@ -15,7 +15,7 @@
  */
 import { and, eq } from 'drizzle-orm';
 import { createAiGateway } from '../ai/index.js';
-import { closeDatabase, db } from '../db/client.js';
+import { closeDatabase, db } from '../db/index.js';
 import { innovations, sources } from '../db/schema.js';
 import { createEmbeddingProvider } from './embedding.js';
 import {

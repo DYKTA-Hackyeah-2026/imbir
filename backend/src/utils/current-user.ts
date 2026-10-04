@@ -1,7 +1,7 @@
 import type { Request } from 'express';
 import { db } from '../db/index.js';
 import { users } from '../db/schema.js';
-import { HttpError } from './http-error.js';
+import { ApiError } from '../http/errors.js';
 import { verifyAccessToken } from './tokens.js';
 
 function extractBearerToken(header: string | undefined): string | null {
@@ -13,11 +13,11 @@ function extractBearerToken(header: string | undefined): string | null {
 
 async function userIdFromToken(token: string): Promise<number> {
   const payload = await verifyAccessToken(token).catch(() => {
-    throw HttpError.unauthorized('Niepoprawny lub wygasły token dostępu.');
+    throw ApiError.unauthorized('Niepoprawny lub wygasły token dostępu.');
   });
   const id = Number.parseInt(payload.sub, 10);
   if (!Number.isSafeInteger(id) || id < 1) {
-    throw HttpError.unauthorized('Niepoprawny lub wygasły token dostępu.');
+    throw ApiError.unauthorized('Niepoprawny lub wygasły token dostępu.');
   }
   return id;
 }
@@ -44,7 +44,7 @@ export async function resolveUserId(req: Request): Promise<number> {
 export async function requireUserId(req: Request): Promise<number> {
   const token = extractBearerToken(req.headers.authorization);
   if (!token) {
-    throw HttpError.unauthorized('Wymagane zalogowanie.');
+    throw ApiError.unauthorized('Wymagane zalogowanie.');
   }
   return userIdFromToken(token);
 }

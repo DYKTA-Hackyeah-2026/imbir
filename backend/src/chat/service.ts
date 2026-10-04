@@ -1,7 +1,7 @@
 import { and, asc, desc, eq, gt, ilike, inArray, lt, ne, or, sql } from 'drizzle-orm';
 import { db } from '../db/index.js';
 import { chatConversations as conversations, chatParticipants as participants, chatMessages as messages, chatRequests as requests, chatInvitations as invitations, users } from '../db/schema.js';
-import { HttpError } from '../utils/http-error.js';
+import { ApiError } from '../http/errors.js';
 import { emitChat } from './events.js';
 
 type Transaction = Parameters<Parameters<typeof db.transaction>[0]>[0];
@@ -12,7 +12,7 @@ async function pairLock(tx: Transaction, a: number, b: number) {
 }
 export async function requireParticipant(userId: number, conversationId: string) {
   const [participant] = await db.select().from(participants).where(and(eq(participants.userId, userId), eq(participants.conversationId, conversationId)));
-  if (!participant) throw HttpError.notFound('Conversation not found');
+  if (!participant) throw ApiError.notFound('Conversation not found');
   return participant;
 }
 async function recipients(conversationId: string) {
@@ -26,9 +26,9 @@ async function ensureConversation(tx: Transaction, a: number, b: number) {
   return created;
 }
 async function validateRecipient(userId: number, recipientId: number) {
-  if (userId === recipientId) throw HttpError.badRequest('Choose another user');
+  if (userId === recipientId) throw ApiError.badRequest('Choose another user');
   const [recipient] = await db.select({ id: users.id }).from(users).where(eq(users.id, recipientId));
-  if (!recipient) throw HttpError.notFound('User not found');
+  if (!recipient) throw ApiError.notFound('User not found');
 }
 export async function listConversations(userId: number) {
   const rows = await db.select({ conversation: conversations, participant: participants }).from(participants)
@@ -49,7 +49,7 @@ export async function createConversation(userId: number, recipientId: number) {
   // Conversations exist only after the recipient accepts a chat request.
   // Resolve an existing one; never create one here, or a sender could bypass acceptance.
   const [conversation] = await db.select().from(conversations).where(eq(conversations.pairKey, pair(userId, recipientId)));
-  if (!conversation) throw HttpError.forbidden('A chat request must be accepted first');
+  if (!conversation) throw ApiError.forbidden('A chat request must be accepted first');
   return (await listConversations(userId)).find(c => c.id === conversation.id)!;
 }
 export async function loadMessages(userId: number, conversationId: string, before?: string) {
@@ -57,7 +57,7 @@ export async function loadMessages(userId: number, conversationId: string, befor
   let cursor: typeof messages.$inferSelect | undefined;
   if (before) {
     [cursor] = await db.select().from(messages).where(and(eq(messages.id, before), eq(messages.conversationId, conversationId)));
-    if (!cursor) throw HttpError.badRequest('Invalid message cursor');
+    if (!cursor) throw ApiError.badRequest('Invalid message cursor');
   }
   const rows = await db.select().from(messages).where(and(eq(messages.conversationId, conversationId), cursor ? or(lt(messages.createdAt, cursor.createdAt), and(eq(messages.createdAt, cursor.createdAt), lt(messages.id, cursor.id))) : undefined)).orderBy(desc(messages.createdAt), desc(messages.id)).limit(51);
   return { messages: rows.slice(0, 50).reverse(), hasMore: rows.length > 50 };
@@ -69,7 +69,7 @@ export async function sendMessage(userId: number, conversationId: string, conten
     await tx.select().from(conversations).where(eq(conversations.id, conversationId)).for('update');
     const [prior] = await tx.select().from(messages).where(and(eq(messages.senderId, userId), eq(messages.clientMessageId, clientMessageId)));
     if (prior) {
-      if (prior.conversationId !== conversationId || prior.content !== content) throw HttpError.conflict('Message identifier already used');
+      if (prior.conversationId !== conversationId || prior.content !== content) throw ApiError.conflict('Message identifier already used');
       return prior;
     }
     // PostgreSQL timestamps are microsecond precision, while the JSON/JS boundary is
@@ -79,7 +79,7 @@ export async function sendMessage(userId: number, conversationId: string, conten
     const [created] = await tx.insert(messages).values({ conversationId, senderId: userId, content, clientMessageId, createdAt: updated.updatedAt }).onConflictDoNothing().returning();
     if (!created) {
       const [existing] = await tx.select().from(messages).where(and(eq(messages.senderId, userId), eq(messages.clientMessageId, clientMessageId)));
-      if (!existing || existing.conversationId !== conversationId || existing.content !== content) throw HttpError.conflict('Message identifier already used');
+      if (!existing || existing.conversationId !== conversationId || existing.content !== content) throw ApiError.conflict('Message identifier already used');
       return existing;
     }
     return created;
@@ -90,7 +90,7 @@ export async function sendMessage(userId: number, conversationId: string, conten
 export async function markRead(userId: number, conversationId: string, messageId: string) {
   await requireParticipant(userId, conversationId);
   const [message] = await db.select().from(messages).where(and(eq(messages.id, messageId), eq(messages.conversationId, conversationId)));
-  if (!message) throw HttpError.notFound('Message not found');
+  if (!message) throw ApiError.notFound('Message not found');
   const [participant] = await db.update(participants).set({ lastReadAt: sql`greatest(coalesce(${participants.lastReadAt}, '-infinity'::timestamptz), ${message.createdAt})` }).where(and(eq(participants.userId, userId), eq(participants.conversationId, conversationId))).returning();
   emitChat(await recipients(conversationId), 'message:read', { conversationId, userId, lastReadAt: participant.lastReadAt });
   return { lastReadAt: participant.lastReadAt };
@@ -131,10 +131,10 @@ export async function respondToRequest(userId: number, requestId: string, accept
   const result = await db.transaction(async tx => {
     // Lock canonical pair first, keeping lock ordering consistent with all creation paths.
     const [initial] = await tx.select().from(requests).where(and(eq(requests.id, requestId), eq(requests.recipientId, userId)));
-    if (!initial) throw HttpError.notFound('Request not found');
+    if (!initial) throw ApiError.notFound('Request not found');
     await pairLock(tx, initial.senderId, userId);
     const [request] = await tx.select().from(requests).where(eq(requests.id, requestId)).for('update');
-    if (request.status !== 'pending') throw HttpError.conflict('Request already resolved');
+    if (request.status !== 'pending') throw ApiError.conflict('Request already resolved');
     await tx.update(requests).set({ status: accept ? 'accepted' : 'declined', updatedAt: new Date() }).where(eq(requests.id, requestId));
     const conversation = accept ? await ensureConversation(tx, request.senderId, userId) : null;
     return { request, conversation };

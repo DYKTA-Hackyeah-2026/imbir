@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import config from '../config/config.js';
-import { pingDatabase } from '../db/client.js';
+import { pingDatabase } from '../db/index.js';
 
 const healthRouter = Router();
 

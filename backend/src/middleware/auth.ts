@@ -1,5 +1,5 @@
 import type { RequestHandler } from 'express';
-import { HttpError } from '../utils/http-error.js';
+import { ApiError } from '../http/errors.js';
 import { verifyAccessToken } from '../utils/tokens.js';
 
 function extractBearerToken(header: string | undefined): string | null {
@@ -16,7 +16,7 @@ function extractBearerToken(header: string | undefined): string | null {
 export const requireAuth: RequestHandler = async (req, _res, next) => {
   const token = extractBearerToken(req.headers.authorization);
   if (!token) {
-    next(HttpError.unauthorized('Missing or malformed Authorization header'));
+    next(ApiError.unauthorized('Missing or malformed Authorization header'));
     return;
   }
 
@@ -30,17 +30,17 @@ export const requireAuth: RequestHandler = async (req, _res, next) => {
     };
     next();
   } catch {
-    next(HttpError.unauthorized('Invalid or expired access token'));
+    next(ApiError.unauthorized('Invalid or expired access token'));
   }
 };
 
 export const requireAdmin: RequestHandler = (req, _res, next) => {
   if (!req.user) {
-    next(HttpError.unauthorized('Missing or malformed Authorization header'));
+    next(ApiError.unauthorized('Missing or malformed Authorization header'));
     return;
   }
   if (!req.user.isAdmin && req.user.role !== 'admin') {
-    next(HttpError.forbidden('Admin role required'));
+    next(ApiError.forbidden('Admin role required'));
     return;
   }
   next();

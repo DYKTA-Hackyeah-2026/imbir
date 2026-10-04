@@ -11,7 +11,7 @@ docker compose -f docker-compose.dev.yml up -d db   # if you need Postgres
 npm run db:generate      # after every src/db/schema.ts change
 ```
 
-There is no lint or test runner configured. `npm run typecheck` is the gate. Do not invent a test framework without being asked.
+There is no lint runner for the backend. `npm run typecheck` is the gate; `npm test` runs the Node test suite (`src/**/*.test.ts`).
 
 Keep diffs small and single-purpose. Prefer editing existing files over new abstractions.
 
@@ -30,7 +30,7 @@ Keep diffs small and single-purpose. Prefer editing existing files over new abst
 
 1. **ESM imports need `.js` extensions.** `import x from './foo.js'` even though the file is `foo.ts` (NodeNext). Getting this wrong breaks prod build only.
 2. **Never read `process.env` outside `src/config/config.ts`.** Add the field to the `Env` interface and export it via `config`.
-3. **Routes throw to `next(err)`.** Wrap async handlers in `try/catch` and call `next(err)`; an un-awaited rejection crashes the whole process (`index.ts` exits on `unhandledRejection`).
+3. **Errors go through `ApiError`.** Throw `ApiError.*` from `src/http/errors.ts`; the error handler in `src/app.ts` renders the JSON envelope. Route handlers should still `try/catch` and call `next(err)` (Express 5 also forwards rejected promises, but the explicit form keeps behavior obvious).
 4. **SQL goes through Drizzle.** Use `eq()`, `and()`, placeholders — never string-concatenate SQL. User input is not SQL.
 5. **Validate every request input.** Check types/ranges before use; do not trust `req.body`, `req.params`, or `req.query`. Reject with `400`.
 6. **Update `src/db/schema.ts` + run `db:generate`** for schema changes. Never hand-edit files in `drizzle/`.
@@ -41,7 +41,7 @@ Keep diffs small and single-purpose. Prefer editing existing files over new abst
 - **The `postgres:postgres` default in `config.ts`, `drizzle.config.ts`, and `docker-compose.yml` is dev-only.** Production must supply `DATABASE_URL` via `.env`. Do not ship a change that relies on the hardcoded password.
 - **Keep `express.json({ limit: '1mb' })`.** Removing/raising the body limit is a DoS footgun.
 - **Keep `app.disable('x-powered-by')`.**
-- **Do not leak internals.** There is currently **no error-handling middleware** in `app.ts`: Express's default handler returns stack traces and HTML. When adding error handling, log server-side and return a generic JSON error (never `err.message`/stack) in production.
+- **Do not leak internals.** Error handling lives in `src/http/errorHandler.ts` and is mounted in `app.ts`; it logs server-side and returns a generic JSON error (never `err.message`/stack) in production.
 - **Do not log secrets or full request bodies.** Error logs must not include credentials, tokens, or connection strings.
 - **Non-root + `init: true` in Docker are intentional.** Preserve the non-root `USER app` in `Dockerfile`; don't run the API as root.
 - **`db:push` is dev-only.** Production uses generated migrations (`db:migrate`), never `db:push`.
@@ -49,10 +49,8 @@ Keep diffs small and single-purpose. Prefer editing existing files over new abst
 
 ## Known gaps (fix when you touch the area)
 
-- `app.ts` has no error handler despite routes calling `next(err)`.
-- `Number.parseInt(req.params.id, 10)` accepts `"12abc"`; use a strict integer check.
-- Prod compose hardcodes the DB password (`docker-compose.yml:20,34`).
-- No test/lint tooling; add deliberately, not by reflex.
+- Two route styles coexist: `src/modules/*` (controller/service) and `src/routes/*` (inline handlers). Prefer the module style for new work; consolidate when touching a file.
+- `src/openapi.ts` is hand-written and does not cover auth/content/chat/wizard; keep it in sync with `emit-openapi.ts`.
 
 ## Definition of done
 

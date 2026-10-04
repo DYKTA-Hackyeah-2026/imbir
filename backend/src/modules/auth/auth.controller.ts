@@ -1,5 +1,5 @@
 import type { RequestHandler } from 'express';
-import { HttpError } from '../../utils/http-error.js';
+import { ApiError } from '../../http/errors.js';
 import type {
   ForgotPasswordInput,
   LoginInput,
@@ -46,7 +46,7 @@ export const resetPassword: RequestHandler = async (req, res) => {
 export const me: RequestHandler = async (req, res) => {
   const user = await authService.getUserById(req.user!.id);
   if (!user) {
-    throw HttpError.notFound('User not found');
+    throw ApiError.notFound('User not found');
   }
   res.json({ user });
 };
