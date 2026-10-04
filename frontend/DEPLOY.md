@@ -1,18 +1,20 @@
 # Deploying the frontend to Dokploy
 
-Deploy the frontend as a separate Dokploy Application using the monorepo's frontend directory as its build root.
+Deploy the frontend as a separate Dokploy Application using the monorepo root as its build root and context.
 
 ## Dokploy build settings
 
 1. Create an Application from this repository and select the branch to deploy.
-2. Set **Build Path** to `/frontend`.
+2. Set **Build Path** to `/`.
 3. Choose **Dockerfile** as the build type.
-   - **Dockerfile path**: `Dockerfile`
+   - **Dockerfile path**: `frontend/Dockerfile`
    - **Docker context path**: `.`
 4. Set the application container port and domain target port to **`80`**.
 5. Deploy.
 
-Dokploy builds `frontend/Dockerfile` with `frontend/` as the context. The Dockerfile compiles the Vite app and serves it with nginx; the runtime container does not need Node.js.
+Dokploy builds `frontend/Dockerfile` with the repository root as the context. The Dockerfile copies the frontend sources from `frontend/`, compiles the Vite app and serves it with nginx; the runtime container does not need Node.js.
+
+In the Environment settings, leave **Create Environment File** disabled. Dokploy writes that generated file into the build context, and this app does not need it: runtime variables are supplied to the container, while `VITE_API_URL` is an optional Docker build argument.
 
 ## Runtime environment
 

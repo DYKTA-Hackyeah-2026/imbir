@@ -4,11 +4,12 @@
 FROM node:22-alpine AS build
 WORKDIR /app
 
+# Use the monorepo root as the Docker context (frontend/Dockerfile).
 # Install dependencies first so the layer is cached when only source changes.
-COPY package.json package-lock.json ./
+COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
 
-COPY . .
+COPY frontend/ ./
 
 # By default the app uses relative API paths and nginx proxies them to the
 # backend (avoids the backend's browser CORS restrictions). Provide an absolute
@@ -25,7 +26,7 @@ ENV BACKEND_URL=https://hackathon-backend.makonew.com
 ENV NGINX_PORT=80
 
 RUN rm -f /etc/nginx/conf.d/default.conf
-COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
+COPY frontend/nginx/default.conf.template /etc/nginx/templates/default.conf.template
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
