@@ -19,8 +19,11 @@ interface AiConfig {
   readonly timeoutMs: number;
 }
 
+// Browsers send the Origin header without a trailing slash, so normalize
+// configured origins the same way. A trailing slash would otherwise silently
+// break CORS matching and WebSocket upgrade origin checks.
 const corsOrigins = env.CORS_ORIGINS.split(',')
-  .map((origin) => origin.trim())
+  .map((origin) => origin.trim().replace(/\/+$/, ''))
   .filter((origin) => origin.length > 0);
 
 const config = {
