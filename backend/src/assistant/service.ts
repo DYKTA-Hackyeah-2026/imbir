@@ -215,6 +215,7 @@ export class AssistantService {
     const candidates = await this.programs.semanticSearch({
       embedding,
       limit: this.candidateLimit,
+      query: searchQuery,
     });
 
     const ranked = rankCandidates(

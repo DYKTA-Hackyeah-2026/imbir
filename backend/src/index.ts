@@ -2,6 +2,9 @@ import { createAiGateway } from './ai/index.js';
 import { createApp } from './app.js';
 import { attachChatWebSocket } from './chat/websocket.js';
 import { createAssistantService } from './assistant/index.js';
+import { createEmbeddingProvider } from './assistant/embedding.js';
+import { PostgresProgramRepository } from './assistant/program.repository.js';
+import { bridgeInnovations } from './assistant/seed.assistant-innovations.js';
 import config from './config/config.js';
 import { closeDatabase, pingDatabase } from './db/index.js';
 import { initDatabase } from './db/init.js';
@@ -54,6 +57,14 @@ async function start(): Promise<void> {
 
   const { repository, warnings, hasVerifiedCatalogue } = await createRepository();
   const ai = createAiGateway();
+  if (databaseReachable) {
+    try {
+      const result = await bridgeInnovations(new PostgresProgramRepository(createEmbeddingProvider(ai)));
+      process.stdout.write(`[assistant] indexed ${result.upserted} catalogue innovations\n`);
+    } catch {
+      process.stderr.write('[assistant] catalogue indexing failed; run db:seed:assistant-innovations to retry\n');
+    }
+  }
   const matchmakingService = new MatchmakingService({
     repository,
     ai,
