@@ -7,7 +7,7 @@ import WebSocket from 'ws';
 const base = new URL(process.argv[2] ?? 'http://127.0.0.1:4000');
 assert(['localhost', '127.0.0.1', '[::1]'].includes(base.hostname), 'Refusing to create test accounts on a remote server');
 const prefix = `chat-e2e-${randomUUID()}`;
-type User = { token: string; id: number; email: string };
+type User = { token: string; id: number; email: string; name: string };
 type Event = { type: string; payload: Record<string, any> };
 const sockets: WebSocket[] = [];
 let checks = 0;
@@ -26,8 +26,10 @@ async function request(method: string, path: string, token?: string, body?: unkn
 const chat = (path: string) => `/api/v1/chat${path}`;
 async function register(suffix: string): Promise<User> {
   const email = `${prefix}-${suffix}@example.com`;
-  const result = await request('POST', '/auth/register', undefined, { email, password: 'ChatTest123!' }, 201);
-  return { token: result.accessToken, id: Number(result.user.id), email };
+  const name = `Tester ${suffix}`;
+  const result = await request('POST', '/auth/register', undefined, { name, email, password: 'ChatTest123!' }, 201);
+  assert.equal(result.user.name, name, 'register must echo the chosen name');
+  return { token: result.accessToken, id: Number(result.user.id), email, name };
 }
 function check(label: string, condition: unknown) { assert(condition, label); checks++; console.log(`PASS ${label}`); }
 
@@ -71,6 +73,9 @@ async function rejectedSocket(url: URL) {
 try {
   const [a, b, outsider] = await Promise.all([register('a'), register('b'), register('outsider')]);
   const [sa, sb, sc] = await Promise.all([connect(a), connect(b), connect(outsider)]);
+  check('GET /auth/me exposes the chosen name', (await request('GET', '/auth/me', a.token)).user.name === a.name);
+  const loggedIn = await request('POST', '/auth/login', undefined, { email: a.email, password: 'ChatTest123!' });
+  check('Login response exposes the chosen name', loggedIn.user.name === a.name);
   check('WebSocket tickets are single use', await rejectedSocket(sb.url) === 401);
   const badSocket = new URL(chat('/ws?ticket=invalid'), base); badSocket.protocol = 'ws:';
   check('Unauthenticated WebSocket rejected', await rejectedSocket(badSocket) === 401);
@@ -80,6 +85,7 @@ try {
   const pending = (await request('GET', chat('/requests'), b.token)).data;
   const requestId = pending.find((item: any) => item.sender.id === a.id)?.id;
   check('Request persisted and delivered in real time', requestId && (await sb.event('chat_request:new')).payload.request.id === requestId);
+  check('Chat exposes the registered username to the other participant', (await sb.event('chat_request:new')).payload.request.sender.name === a.name);
   await request('POST', chat('/requests'), a.token, { recipientId: b.id });
   check('Duplicate requests coalesce', (await request('GET', chat('/requests'), b.token)).data.length === 1);
   await request('POST', chat(`/requests/${requestId}/accept`), outsider.token, {}, 404);

@@ -21,6 +21,7 @@ import type {
 
 export interface PublicUser {
   id: string;
+  name: string;
   email: string;
   role: string;
   isAdmin: boolean;
@@ -40,6 +41,7 @@ export interface AuthResult extends TokenPair {
 function toPublicUser(user: User): PublicUser {
   return {
     id: String(user.id),
+    name: user.name,
     email: user.email,
     role: user.role,
     isAdmin: user.isAdmin || user.role === 'admin',
@@ -74,7 +76,7 @@ export async function register(input: RegisterInput): Promise<AuthResult> {
 
   const [user] = await db
     .insert(users)
-    .values({ email: input.email, passwordHash })
+    .values({ name: input.name, email: input.email, passwordHash })
     .onConflictDoNothing({ target: users.email })
     .returning();
 

@@ -94,7 +94,7 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
             user ? (
               <>
                 <span className="hidden max-w-40 truncate text-sm text-slate-600 xl:inline dark:text-neutral-300">
-                  {user.email}
+                  {user.name || user.email}
                 </span>
                 <button
                   type="button"
