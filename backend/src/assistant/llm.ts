@@ -33,9 +33,9 @@ export interface AssistantLlm {
 const GREETING_PATTERN = /^(czesc|dzien dobry|dobry wieczor|hej|witam|hello|hi)$/;
 
 const AGE_WITH_UNIT = /\b(\d{1,3})\s*(?:lat|lata|rok|roku)\b/i;
-const AGE_WITH_MAM = /\bmam\s+(\d{1,3})\b/i;
 const LOCATION_PATTERN =
-  /\b(?:w gminie|w miescie|w miejscowosci|mieszkam w|z gminy|w powiecie)\s+([\p{Lu}][\p{L}-]+(?:\s+[\p{Lu}][\p{L}-]+)?)/u;
+  /\b(?:w gminie|w mieście|w miescie|w miejscowości|w miejscowosci|mieszkam w|z gminy|w powiecie)\s+/iu;
+const LOCATION_NAME_PATTERN = /^([\p{L}][\p{L}-]+(?:\s+[\p{Lu}][\p{L}-]+)?)/u;
 
 /** Simple-language options the assistant can offer when the request is unclear. */
 export const CLARIFICATION_OPTIONS: readonly ClarificationOption[] = [
@@ -113,7 +113,7 @@ function detectFacts(text: string): ConversationFacts {
   const folded = normalizeText(text);
   const facts: ConversationFacts = {};
 
-  const ageMatch = text.match(AGE_WITH_UNIT) ?? text.match(AGE_WITH_MAM);
+  const ageMatch = text.match(AGE_WITH_UNIT);
   if (ageMatch) {
     const age = Number.parseInt(ageMatch[1], 10);
     if (Number.isInteger(age) && age >= 0 && age <= 130) {
@@ -121,7 +121,10 @@ function detectFacts(text: string): ConversationFacts {
     }
   }
 
-  const locationMatch = text.match(LOCATION_PATTERN);
+  const locationPrefix = text.match(LOCATION_PATTERN);
+  const locationMatch = locationPrefix
+    ? text.slice((locationPrefix.index ?? 0) + locationPrefix[0].length).match(LOCATION_NAME_PATTERN)
+    : null;
   if (locationMatch) {
     facts.location = truncate(locationMatch[1], 120);
   }

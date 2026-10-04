@@ -172,6 +172,21 @@ export class AssistantService {
     if (!pending || pending.id !== input.message.questionId) {
       throw ApiError.validation('To pytanie doprecyzowujące nie jest już aktualne. Rozpocznij nową wiadomość.');
     }
+    const selected = input.message.selectedOptionIds;
+    const validIds = new Set(pending.options.map((option) => option.id));
+    if (selected.some((id) => !validIds.has(id)) || new Set(selected).size !== selected.length) {
+      throw ApiError.validation('Wybierz aktualne opcje pytania bez powtórzeń.');
+    }
+    if (pending.selectionMode === 'single' && selected.length > 1) {
+      throw ApiError.validation('W tym pytaniu możesz wybrać tylko jedną opcję.');
+    }
+    const additionalText = input.message.additionalText?.trim();
+    if (additionalText && !pending.allowAdditionalText) {
+      throw ApiError.validation('To pytanie nie pozwala na dodatkowy opis.');
+    }
+    if (selected.length === 0 && !additionalText) {
+      throw ApiError.validation('Wybierz opcję lub opisz potrzebę.');
+    }
   }
 
   private userMessageContent(input: SendAssistantMessageRequest): string {
@@ -203,18 +218,18 @@ export class AssistantService {
     });
 
     const ranked = rankCandidates(
-      candidates.map((candidate) => ({
-        program: candidate.program,
-        similarity: candidate.similarity,
-        eligibilityStatus: evaluateEligibility(state, candidate.program),
-      })),
+      candidates
+        .filter((candidate) => candidate.similarity >= this.similarityThreshold)
+        .map((candidate) => ({
+          program: candidate.program,
+          similarity: candidate.similarity,
+          eligibilityStatus: evaluateEligibility(state, candidate.program),
+        })),
     );
-
-    const hasStrongResult = ranked.some((item) => item.similarity >= this.similarityThreshold);
 
     // No candidate clears the relevance bar (or there are none at all): stop
     // re-searching and offer to capture the unmet need as a new innovation.
-    if (!hasStrongResult) {
+    if (ranked.length === 0) {
       await this.conversations.updateState(conversationId, {
         ...state,
         searchQuery,

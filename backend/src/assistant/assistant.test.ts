@@ -11,7 +11,7 @@ import type {
   StoredSearchResult,
 } from './domain.js';
 import type { EmbeddingProvider } from './embedding.js';
-import { createAssistantLlm } from './llm.js';
+import { createAssistantLlm, type AssistantLlm } from './llm.js';
 import type { ProgramRepository, ProgramWriteInput } from './program.repository.js';
 import type { SearchRepository } from './search.repository.js';
 import { buildProgramSearchText } from './search-text.js';
@@ -144,13 +144,13 @@ class FakeSearchRepository implements SearchRepository {
   }
 }
 
-function buildService(programs: Program[], overrides: { similarityThreshold?: number } = {}): AssistantService {
+function buildService(programs: Program[], overrides: { similarityThreshold?: number; llm?: AssistantLlm } = {}): AssistantService {
   return new AssistantService({
     programs: new FakeProgramRepository(programs),
     conversations: new FakeConversationRepository(),
     searches: new FakeSearchRepository(),
     embeddings,
-    llm: createAssistantLlm(),
+    llm: overrides.llm ?? createAssistantLlm(),
     similarityThreshold: overrides.similarityThreshold ?? -1,
     candidateLimit: 20,
     defaultPageSize: 2,
@@ -167,6 +167,97 @@ const PROGRAMS: Program[] = [
 ];
 
 describe('AssistantService', () => {
+  test('extracts explicit ages and Polish locations without treating counts as ages', async () => {
+    const llm = createAssistantLlm();
+    for (const [text, expectedAge, expectedLocation] of [
+      ['Mam 2 dzieci i potrzebuję pomocy dla rodziny.', undefined, undefined],
+      ['Mam 72 lata. Mieszkam w Warszawie i potrzebuję pomocy z telefonem.', 72, 'Warszawie'],
+      ['Mam 34 lata i mieszkam w Nowym Sączu.', 34, 'Nowym Sączu'],
+      ['Potrzebuję pomocy w mieście Kraków.', undefined, 'Kraków'],
+      ['Mieszkam w warszawie i szukam pracy.', undefined, 'warszawie'],
+    ] as const) {
+      const analysis = await llm.analyze({
+        state: { summary: '', facts: {}, needs: [] },
+        message: { type: 'text', text },
+      });
+      assert.equal(analysis.state.facts.age, expectedAge, text);
+      assert.equal(analysis.state.facts.location, expectedLocation, text);
+    }
+  });
+
+  test('validates clarification choices and allows an additional-text-only answer', async () => {
+    const service = buildService(PROGRAMS);
+    const response = await service.sendMessage({ message: { type: 'text', text: 'Potrzebuję pomocy.' } });
+    if (response.type !== 'clarification') throw new Error('expected clarification');
+    for (const selectedOptionIds of [[], ['not-offered'], ['job', 'job']]) {
+      await assert.rejects(service.sendMessage({
+        conversationId: response.conversationId,
+        message: { type: 'clarification_answer', questionId: response.clarification.id, selectedOptionIds },
+      }), (error: unknown) => error instanceof Error && 'statusCode' in error && error.statusCode === 400);
+    }
+    const answer = await service.sendMessage({
+      conversationId: response.conversationId,
+      message: {
+        type: 'clarification_answer', questionId: response.clarification.id,
+        selectedOptionIds: [], additionalText: 'Potrzebuję pomocy z telefonem.',
+      },
+    });
+    assert.equal(answer.type, 'recommendations');
+  });
+
+  test('respects single-choice questions and disabled additional text', async () => {
+    const llm: AssistantLlm = {
+      kind: 'deterministic',
+      async analyze({ state }) {
+        return {
+          state, decision: 'clarify', assistantMessage: 'Wybierz opcję.',
+          clarification: {
+            id: 'single-question', question: 'Jaka potrzeba?', selectionMode: 'single',
+            options: [{ id: 'job', label: 'Praca' }, { id: 'food', label: 'Jedzenie' }],
+            allowAdditionalText: false,
+          },
+        };
+      },
+    };
+    const service = buildService(PROGRAMS, { llm });
+    const first = await service.sendMessage({ message: { type: 'text', text: 'Pomoc' } });
+    for (const message of [
+      { selectedOptionIds: ['job', 'food'] },
+      { selectedOptionIds: ['job'], additionalText: 'Dodatkowy opis' },
+    ]) {
+      await assert.rejects(service.sendMessage({
+        conversationId: first.conversationId,
+        message: { type: 'clarification_answer', questionId: 'single-question', ...message },
+      }), (error: unknown) => error instanceof Error && 'statusCode' in error && error.statusCode === 400);
+    }
+    const valid = await service.sendMessage({
+      conversationId: first.conversationId,
+      message: { type: 'clarification_answer', questionId: 'single-question', selectedOptionIds: ['job'] },
+    });
+    assert.equal(valid.type, 'clarification');
+  });
+
+  test('excludes weak matches from recommendations and persisted pagination', async () => {
+    const message = { type: 'text' as const, text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' };
+    const analysis = await createAssistantLlm().analyze({ state: { summary: '', facts: {}, needs: [] }, message });
+    const queryVector = await embeddings.embed(analysis.searchQuery!);
+    const scores = PROGRAMS.map((program) => ({
+      id: program.id,
+      score: cosineSimilarity(queryVector, programVectors.get(program.id)!),
+    })).sort((a, b) => b.score - a.score);
+    const threshold = (scores[0].score + scores[1].score) / 2;
+    assert.ok(scores[0].score > scores[1].score);
+    const service = buildService(PROGRAMS, { similarityThreshold: threshold });
+    const response = await service.sendMessage({ message });
+    if (response.type !== 'recommendations') throw new Error('expected recommendations');
+    assert.deepEqual(response.search.recommendations.map((program) => program.id), [scores[0].id]);
+    assert.equal(response.search.pagination.totalResults, 1);
+    const persisted = await service.getSearchPage(response.search.id, 1, 2);
+    assert.deepEqual(persisted.recommendations.map((program) => program.id), [scores[0].id]);
+    assert.equal(persisted.pagination.totalResults, 1);
+    assert.equal(persisted.pagination.hasNextPage, false);
+  });
+
   test('asks for clarification on a vague request without a conversation id', async () => {
     const service = buildService(PROGRAMS);
     const response = await service.sendMessage({ message: { type: 'text', text: 'Potrzebuję pomocy.' } });
