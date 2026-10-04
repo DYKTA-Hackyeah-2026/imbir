@@ -84,6 +84,8 @@ export function errorMessage(error: unknown): string {
 }
 
 const VALIDATION_MESSAGES: Record<string, string> = {
+  "Name must be at least 2 characters": "Nazwa musi mieć co najmniej 2 znaki.",
+  "Name must be at most 60 characters": "Nazwa może mieć maksymalnie 60 znaków.",
   "Password must contain a digit": "Hasło musi zawierać cyfrę.",
   "Password must contain a lowercase letter": "Hasło musi zawierać małą literę.",
   "Password must contain an uppercase letter": "Hasło musi zawierać wielką literę.",
@@ -116,6 +118,7 @@ export function validationDetails(error: unknown): FieldError[] {
 
 export type User = {
   id: string
+  name: string
   email: string
   role: string
   isAdmin: boolean
@@ -232,13 +235,14 @@ async function requestJson<T>(path: string, options?: RequestInit): Promise<T> {
 // ---------------------------------------------------------------------------
 
 export async function register(
+  name: string,
   email: string,
   password: string,
 ): Promise<AuthSession> {
   const res = await fetch(url("/auth/register"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ name, email, password }),
   })
   if (!res.ok) throw await parseError(res)
   const session = (await res.json()) as AuthSession

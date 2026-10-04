@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Eye, EyeOff, Loader2, LockKeyhole, Mail } from "lucide-react"
+import { Eye, EyeOff, Loader2, LockKeyhole, Mail, User } from "lucide-react"
 
 import AuthLayout from "@/components/AuthLayout"
 import { Button } from "@/components/ui/button"
@@ -12,14 +12,29 @@ import { useAuth } from "@/lib/auth"
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 type SignUpErrors = {
+  name?: string
   email?: string
   password?: string
   confirmPassword?: string
 }
 
-function validate(email: string, password: string, confirm: string): SignUpErrors {
+function validate(
+  name: string,
+  email: string,
+  password: string,
+  confirm: string,
+): SignUpErrors {
   const errors: SignUpErrors = {}
   const trimmed = email.trim()
+  const trimmedName = name.trim()
+
+  if (!trimmedName) {
+    errors.name = "Podaj nazwę użytkownika."
+  } else if (trimmedName.length < 2) {
+    errors.name = "Nazwa musi mieć co najmniej 2 znaki."
+  } else if (trimmedName.length > 60) {
+    errors.name = "Nazwa może mieć maksymalnie 60 znaków."
+  }
 
   if (!trimmed) {
     errors.email = "Podaj adres e-mail."
@@ -51,7 +66,11 @@ function validate(email: string, password: string, confirm: string): SignUpError
 function mapServerErrors(error: unknown): SignUpErrors {
   const mapped: SignUpErrors = {}
   for (const detail of validationDetails(error)) {
-    if (detail.path === "email" || detail.path === "password") {
+    if (
+      detail.path === "name" ||
+      detail.path === "email" ||
+      detail.path === "password"
+    ) {
       mapped[detail.path] = detail.message
     }
   }
@@ -65,6 +84,7 @@ export default function RegisterPage() {
   const navigate = useNavigate()
   const { register } = useAuth()
 
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirm, setConfirm] = useState("")
@@ -81,21 +101,28 @@ export default function RegisterPage() {
     event.preventDefault()
     setFormError("")
 
-    const nextErrors = validate(email, password, confirm)
+    const nextErrors = validate(name, email, password, confirm)
     setErrors(nextErrors)
-    if (nextErrors.email || nextErrors.password || nextErrors.confirmPassword) {
-      const first = nextErrors.email
-        ? "register-email"
-        : nextErrors.password
-          ? "register-password"
-          : "register-confirm"
+    if (
+      nextErrors.name ||
+      nextErrors.email ||
+      nextErrors.password ||
+      nextErrors.confirmPassword
+    ) {
+      const first = nextErrors.name
+        ? "register-name"
+        : nextErrors.email
+          ? "register-email"
+          : nextErrors.password
+            ? "register-password"
+            : "register-confirm"
       document.getElementById(first)?.focus()
       return
     }
 
     setIsSubmitting(true)
     try {
-      await register(email.trim(), password)
+      await register(name.trim(), email.trim(), password)
       navigate("/", { replace: true })
     } catch (error) {
       const serverErrors = mapServerErrors(error)
@@ -123,6 +150,48 @@ export default function RegisterPage() {
             {formError}
           </p>
         ) : null}
+
+        <div className="space-y-2">
+          <Label htmlFor="register-name">Nazwa użytkownika</Label>
+          <div className="relative">
+            <User
+              aria-hidden="true"
+              className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2"
+            />
+            <Input
+              id="register-name"
+              name="name"
+              type="text"
+              placeholder="Jan Kowalski"
+              autoComplete="nickname"
+              required
+              aria-required="true"
+              aria-invalid={errors.name ? true : undefined}
+              aria-describedby={
+                errors.name ? "register-name-error" : "register-name-hint"
+              }
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              className="h-10 pl-10"
+            />
+          </div>
+          {errors.name ? (
+            <p
+              id="register-name-error"
+              role="alert"
+              className="text-destructive text-sm"
+            >
+              {errors.name}
+            </p>
+          ) : (
+            <p
+              id="register-name-hint"
+              className="text-muted-foreground text-sm"
+            >
+              Ta nazwa będzie widoczna w czatach.
+            </p>
+          )}
+        </div>
 
         <div className="space-y-2">
           <Label htmlFor="register-email">Adres e-mail</Label>

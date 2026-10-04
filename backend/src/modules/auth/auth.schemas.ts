@@ -13,7 +13,14 @@ export const passwordSchema = z
     message: 'Password is too long',
   });
 
+export const nameSchema = z
+  .string()
+  .trim()
+  .min(2, 'Name must be at least 2 characters')
+  .max(60, 'Name must be at most 60 characters');
+
 export const registerSchema = z.object({
+  name: nameSchema,
   email: emailSchema,
   password: passwordSchema,
 });
