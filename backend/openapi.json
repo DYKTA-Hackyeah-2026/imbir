@@ -1261,7 +1261,7 @@
         ],
         "operationId": "sendAssistantMessage",
         "summary": "Send a message and receive the next assistant step",
-        "description": "Send free text (omit `conversationId` to start a new conversation) or answer a clarification question. Depending on the updated conversation state the response is `clarification`, `recommendations` (a first page of a stable search) or `message`.",
+        "description": "Send free text (omit `conversationId` to start a new conversation) or answer a clarification question. Depending on the updated conversation state the response is `clarification`, `recommendations` (a first page of a stable search), `no_solution` (nothing matches; offers to submit a new idea) or `message`.",
         "requestBody": {
           "required": true,
           "content": {
@@ -2819,6 +2819,41 @@
           }
         }
       },
+      "NoSolutionResponse": {
+        "type": "object",
+        "required": [
+          "type",
+          "conversationId",
+          "assistantMessage",
+          "action"
+        ],
+        "properties": {
+          "type": {
+            "const": "no_solution"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "assistantMessage": {
+            "type": "string"
+          },
+          "action": {
+            "type": "object",
+            "required": [
+              "label",
+              "href"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "href": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
       "SendAssistantMessageResponse": {
         "oneOf": [
           {
@@ -2826,6 +2861,9 @@
           },
           {
             "$ref": "#/components/schemas/RecommendationsResponse"
+          },
+          {
+            "$ref": "#/components/schemas/NoSolutionResponse"
           },
           {
             "$ref": "#/components/schemas/AssistantMessageResponse"
@@ -2836,6 +2874,7 @@
           "mapping": {
             "clarification": "#/components/schemas/ClarificationResponse",
             "recommendations": "#/components/schemas/RecommendationsResponse",
+            "no_solution": "#/components/schemas/NoSolutionResponse",
             "message": "#/components/schemas/AssistantMessageResponse"
           }
         }

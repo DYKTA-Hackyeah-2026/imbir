@@ -15,13 +15,11 @@ import llmRouter from './modules/llm-cache/llm-cache.routes.js';
 import { openApiDocument } from './openapi.js';
 import adminRouter from './routes/admin.routes.js';
 import contactRouter from './routes/contact.routes.js';
-import enumsRouter from './routes/enums.routes.js';
 import healthRouter from './routes/health.routes.js';
 import { createInnovationsRouter } from './routes/innovations.routes.js';
 import { createMatchmakingRouter } from './routes/matchmaking.routes.js';
 import problemReportsRouter from './routes/problem-reports.routes.js';
 import testerRouter from './routes/tester.routes.js';
-import usersRouter from './routes/users.routes.js';
 import wizardRouter from './routes/wizard.routes.js';
 
 export interface AppDependencies {
@@ -76,8 +74,6 @@ export function createApp(deps: AppDependencies): express.Express {
       name: 'HubMi Backend API',
       endpoints: {
         health: '/health',
-        users: '/users',
-        testEnums: '/test-enums',
         innovations: '/innovations',
         wizardOptions: '/innovations/options',
         tests: '/api/v1/tests',
@@ -96,7 +92,6 @@ export function createApp(deps: AppDependencies): express.Express {
   app.use('/content', contentRouter);
   app.use('/contact', contactRouter);
   app.use('/llm', llmRouter);
-  app.use('/users', usersRouter);
   app.use('/api/v1/matchmaking', createMatchmakingRouter(deps.matchmakingService));
   app.use('/api/v1/innovations', createInnovationsRouter(deps.matchmakingService));
   if (deps.assistantService) {
@@ -105,8 +100,6 @@ export function createApp(deps: AppDependencies): express.Express {
   app.use('/api/v1', testerRouter);
   app.use('/api/v1/problem-reports', problemReportsRouter);
   app.use('/api/v1/admin', adminRouter);
-  app.use('/test-enums', enumsRouter);
-  app.use('/enums', enumsRouter);
   app.use('/innovations', wizardRouter);
 
   app.get('/openapi.json', (_req, res) => {

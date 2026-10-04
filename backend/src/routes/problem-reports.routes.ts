@@ -7,6 +7,7 @@ import {
   problemReports,
 } from '../db/schema.js';
 import { ApiError } from '../http/errors.js';
+import { parseBodyText, parseInteger, parseOptionalEmail, parsePositiveId } from '../http/parse.js';
 import { requireAdmin, requireAuth } from '../middleware/auth.js';
 import { resolveUserId } from '../utils/current-user.js';
 
@@ -16,53 +17,6 @@ const MAX_OFFSET = 10000;
 
 type ReportStatus = (typeof problemReportStatusEnum.enumValues)[number];
 type ReporterType = (typeof problemReportReporterEnum.enumValues)[number];
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function parseOptionalText(raw: unknown, field: string, maxLength: number): string | undefined {
-  if (raw === undefined || raw === null) return undefined;
-  if (typeof raw !== 'string') {
-    throw ApiError.validation(`Pole „${field}” musi być tekstem.`);
-  }
-  const value = raw.trim();
-  if (value.length === 0) return undefined;
-  if (value.length > maxLength) {
-    throw ApiError.validation(`Pole „${field}” może mieć maksymalnie ${maxLength} znaków.`);
-  }
-  return value;
-}
-
-function parseOptionalEmail(raw: unknown): string | undefined {
-  const value = parseOptionalText(raw, 'contactEmail', 320);
-  if (!value) return undefined;
-  if (!EMAIL_PATTERN.test(value)) {
-    throw ApiError.validation('Pole „contactEmail” musi być poprawnym adresem e-mail.');
-  }
-  return value;
-}
-
-function parseInteger(raw: unknown, field: string, fallback: number, min: number, max: number): number {
-  if (raw === undefined) return fallback;
-  if (Array.isArray(raw) || typeof raw !== 'string' || !/^\d+$/.test(raw)) {
-    throw ApiError.validation(`Parametr „${field}” musi być liczbą całkowitą.`);
-  }
-  const value = Number.parseInt(raw, 10);
-  if (!Number.isSafeInteger(value) || value < min || value > max) {
-    throw ApiError.validation(`Parametr „${field}” musi być liczbą z zakresu ${min}–${max}.`);
-  }
-  return value;
-}
-
-function parsePositiveId(raw: unknown, field: string): number {
-  if (typeof raw !== 'string' || !/^\d+$/.test(raw)) {
-    throw ApiError.validation(`Niepoprawny identyfikator: „${field}”.`);
-  }
-  const value = Number.parseInt(raw, 10);
-  if (!Number.isSafeInteger(value) || value < 1) {
-    throw ApiError.validation(`Niepoprawny identyfikator: „${field}”.`);
-  }
-  return value;
-}
 
 function parseStatus(raw: unknown, field: string): ReportStatus | undefined {
   if (raw === undefined || raw === null || raw === '') return undefined;
@@ -149,18 +103,18 @@ problemReportsRouter.post('/', async (req, res, next) => {
       throw ApiError.validation('Treść żądania musi być obiektem JSON.');
     }
 
-    const title = parseOptionalText(body.title, 'title', 300);
+    const title = parseBodyText(body.title, 'title', 300);
     if (!title || title.length < 3) {
       throw ApiError.validation('Pole „title” jest wymagane (co najmniej 3 znaki).');
     }
-    const description = parseOptionalText(body.description, 'description', 5000);
+    const description = parseBodyText(body.description, 'description', 5000);
     if (!description || description.length < 20) {
       throw ApiError.validation('Pole „description” jest wymagane (co najmniej 20 znaków).');
     }
 
-    const category = parseOptionalText(body.category, 'category', 160);
-    const municipality = parseOptionalText(body.municipality, 'municipality', 160);
-    const county = parseOptionalText(body.county, 'county', 160);
+    const category = parseBodyText(body.category, 'category', 160);
+    const municipality = parseBodyText(body.municipality, 'municipality', 160);
+    const county = parseBodyText(body.county, 'county', 160);
     const contactEmail = parseOptionalEmail(body.contactEmail);
     const reporterType = parseReporterType(body.reporterType);
 
@@ -217,7 +171,7 @@ problemReportsRouter.patch('/:id', requireAuth, requireAdmin, async (req, res, n
       throw ApiError.validation('Treść żądania musi być obiektem JSON.');
     }
     const status = parseStatus(body.status, 'status');
-    const adminResponse = parseOptionalText(body.adminResponse, 'adminResponse', 5000);
+    const adminResponse = parseBodyText(body.adminResponse, 'adminResponse', 5000);
     if (status === undefined && adminResponse === undefined) {
       throw ApiError.validation('Podaj „status” lub „adminResponse”.');
     }

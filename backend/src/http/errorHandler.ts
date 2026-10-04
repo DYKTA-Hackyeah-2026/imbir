@@ -1,5 +1,4 @@
 import type { ErrorRequestHandler, RequestHandler } from 'express';
-import { HttpError } from '../utils/http-error.js';
 import { ApiError } from './errors.js';
 
 interface BodyParserError extends Error {
@@ -64,22 +63,6 @@ export function createErrorHandler(onError?: (error: unknown, requestId: string)
 
     const requestId = res.locals.requestId ?? 'unknown';
 
-    // Auth/content/llm routes raise HttpError with their own code taxonomy.
-    if (err instanceof HttpError) {
-      if (err.status >= 500) {
-        onError?.(err, requestId);
-      }
-      res.status(err.status).json({
-        error: {
-          code: err.code,
-          message: err.message,
-          requestId,
-          ...(err.details === undefined ? {} : { details: err.details }),
-        },
-      });
-      return;
-    }
-
     const apiError = toApiError(err);
     if (apiError.statusCode >= 500) {
       onError?.(err, requestId);
@@ -90,6 +73,7 @@ export function createErrorHandler(onError?: (error: unknown, requestId: string)
         message: apiError.message,
         requestId,
         retryable: apiError.retryable,
+        ...(apiError.details === undefined ? {} : { details: apiError.details }),
       },
     });
   };

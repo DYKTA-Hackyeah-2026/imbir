@@ -1,5 +1,5 @@
 import { and, eq, inArray, isNotNull, sql } from 'drizzle-orm';
-import { db } from '../db/client.js';
+import { db } from '../db/index.js';
 import { programs } from '../db/schema.js';
 import type {
   Program,

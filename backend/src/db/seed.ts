@@ -6,7 +6,7 @@
  * Usage: npm run db:seed
  */
 import { sql } from 'drizzle-orm';
-import { closeDatabase, db } from './client.js';
+import { closeDatabase, db } from './index.js';
 import {
   categories,
   materialTags,

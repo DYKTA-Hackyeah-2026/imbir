@@ -1,5 +1,5 @@
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
-import { closeDatabase, db, pool } from './client.js';
+import { closeDatabase, db, pool } from './index.js';
 
 async function main(): Promise<void> {
   process.stdout.write('[db] ensuring pgvector extension...\n');

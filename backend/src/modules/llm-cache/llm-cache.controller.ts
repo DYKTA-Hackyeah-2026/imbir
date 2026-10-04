@@ -1,5 +1,5 @@
 import type { Request, RequestHandler } from 'express';
-import { HttpError } from '../../utils/http-error.js';
+import { ApiError } from '../../http/errors.js';
 import * as client from './llm-cache.client.js';
 
 function forwardCacheHeaders(headers: Headers, res: Parameters<RequestHandler>[1]): void {
@@ -34,7 +34,7 @@ function paramId(req: Request): string {
   const value = req.params.id;
   const id = Array.isArray(value) ? value[0] : value;
   if (!id) {
-    throw HttpError.badRequest('Missing id');
+    throw ApiError.badRequest('Missing id');
   }
   return id;
 }

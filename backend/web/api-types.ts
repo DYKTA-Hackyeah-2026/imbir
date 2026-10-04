@@ -291,7 +291,7 @@ export interface paths {
         put?: never;
         /**
          * Send a message and receive the next assistant step
-         * @description Send free text (omit `conversationId` to start a new conversation) or answer a clarification question. Depending on the updated conversation state the response is `clarification`, `recommendations` (a first page of a stable search) or `message`.
+         * @description Send free text (omit `conversationId` to start a new conversation) or answer a clarification question. Depending on the updated conversation state the response is `clarification`, `recommendations` (a first page of a stable search), `no_solution` (nothing matches; offers to submit a new idea) or `message`.
          */
         post: operations["sendAssistantMessage"];
         delete?: never;
@@ -671,7 +671,20 @@ export interface components {
             conversationId: string;
             assistantMessage: string;
         };
-        SendAssistantMessageResponse: components["schemas"]["ClarificationResponse"] | components["schemas"]["RecommendationsResponse"] | components["schemas"]["AssistantMessageResponse"];
+        NoSolutionResponse: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "no_solution";
+            conversationId: string;
+            assistantMessage: string;
+            action: {
+                label: string;
+                href: string;
+            };
+        };
+        SendAssistantMessageResponse: components["schemas"]["ClarificationResponse"] | components["schemas"]["RecommendationsResponse"] | components["schemas"]["NoSolutionResponse"] | components["schemas"]["AssistantMessageResponse"];
         SearchPageResponse: {
             searchId: string;
             recommendations: components["schemas"]["Recommendation"][];
