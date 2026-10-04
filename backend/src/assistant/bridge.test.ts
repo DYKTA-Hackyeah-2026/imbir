@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { describe, test } from 'node:test';
 import { createAssistantLlm } from './llm.js';
 import { AssistantService } from './service.js';
-import type { ProgramRepository } from './program.repository.js';
+import type { ProgramRepository, SemanticSearchInput } from './program.repository.js';
+import config from '../config/config.js';
 import {
   innovationToProgram,
   programIdForInnovation,
@@ -15,7 +17,7 @@ import type {
   StoredSearchResult,
 } from './domain.js';
 import { hashEmbedding } from '../matchmaking/text.js';
-import { buildProgramSearchText } from './search-text.js';
+import { buildProgramSearchText, programSearchSimilarity } from './search-text.js';
 import type { EmbeddingProvider } from './embedding.js';
 
 type InnovationRow = typeof innovations.$inferSelect;
@@ -113,7 +115,7 @@ class InMemoryProgramRepository implements ProgramRepository {
 
   private readonly vectors = new Map<string, number[]>();
 
-  async semanticSearch({ embedding, limit }: { embedding: number[]; limit: number }): Promise<ProgramCandidate[]> {
+  async semanticSearch({ embedding, limit, query }: SemanticSearchInput): Promise<ProgramCandidate[]> {
     const cosine = (a: number[], b: number[]): number => {
       let dot = 0;
       let na = 0;
@@ -126,7 +128,10 @@ class InMemoryProgramRepository implements ProgramRepository {
       return na === 0 || nb === 0 ? 0 : dot / (Math.sqrt(na) * Math.sqrt(nb));
     };
     return [...this.items.values()]
-      .map((program) => ({ program, similarity: cosine(embedding, this.vectors.get(program.id) ?? []) }))
+      .map((program) => {
+        const similarity = cosine(embedding, this.vectors.get(program.id) ?? []);
+        return { program, similarity: query ? programSearchSimilarity(query, program, similarity) : similarity };
+      })
       .sort((a, b) => b.similarity - a.similarity)
       .slice(0, limit);
   }
@@ -218,7 +223,7 @@ describe('chatbot retrieves a bridged innovation', () => {
       searches: new InMemorySearchRepository() as any,
       embeddings,
       llm: createAssistantLlm(),
-      similarityThreshold: 0.05,
+      similarityThreshold: config.assistant.similarityThreshold,
       candidateLimit: 20,
       defaultPageSize: 3,
       maxPageSize: 20,
@@ -238,5 +243,49 @@ describe('chatbot retrieves a bridged innovation', () => {
     assert.equal(top.id, id);
     assert.equal(top.title, 'BaWita');
     assert.ok(top.details.some((detail) => detail.label === 'Tematy'));
+  });
+
+  test('retrieves imported innovations at the default cutoff even with incompatible stored vectors', async () => {
+    const catalogue = JSON.parse(readFileSync(new URL('../../data/import/rops-innovations.json', import.meta.url), 'utf8')) as {
+      innovations: InnovationRow[];
+    };
+    // Simulate an embedding provider change/outage: query and catalogue vectors
+    // have no similarity, so only explicit catalogue evidence can recover results.
+    const storedEmbeddings: EmbeddingProvider = { async embed() { return [1, 0]; } };
+    const queryEmbeddings: EmbeddingProvider = { async embed() { return [0, 1]; } };
+    const programs = new InMemoryProgramRepository(storedEmbeddings);
+    for (const innovation of catalogue.innovations) {
+      await programs.add(programIdForInnovation(innovation.id), innovationToProgram(innovation));
+    }
+    const service = new AssistantService({
+      programs,
+      conversations: new InMemoryConversationRepository() as any,
+      searches: new InMemorySearchRepository() as any,
+      embeddings: queryEmbeddings,
+      llm: createAssistantLlm(),
+      similarityThreshold: config.assistant.similarityThreshold,
+      candidateLimit: 20,
+      defaultPageSize: 3,
+      maxPageSize: 20,
+    });
+    for (const text of [
+      'Szukamy wsparcia dla samotnych seniorów w naszej gminie.',
+      'Chcemy pomóc osobom bezrobotnym wrócić do pracy.',
+      'Potrzebujemy innowacji dla osób z niepełnosprawnością.',
+    ]) {
+      const response = await service.sendMessage({ message: { type: 'text', text } });
+      assert.equal(response.type, 'recommendations', text);
+      if (response.type !== 'recommendations') continue;
+      assert.ok(response.search.recommendations.length > 0);
+      const page = await service.getSearchPage(response.search.id, 1, 3);
+      assert.deepEqual(page.recommendations, response.search.recommendations);
+    }
+  });
+
+  test('does not treat generic support language as a catalogue match', () => {
+    const program = innovationToProgram(makeInnovation());
+    assert.equal(programSearchSimilarity('Szukamy pomocy i wsparcia.', program, 0), 0);
+    assert.equal(programSearchSimilarity('Potrzebujemy transportu publicznego.', program, 0), 0);
+    assert.ok(programSearchSimilarity('Szukam innowacji BaWita', program, 0) >= config.assistant.similarityThreshold);
   });
 });
