@@ -3,7 +3,10 @@
 Platforma, która łączy realny problem społeczny z gotowym rozwiązaniem: katalogiem innowacji ROPS, bazą wiedzy, kreatorem pomysłów, 
 testami w terenie i asystentem AI. Full-stack, wdrożona w Dockerze.
 
-**Demo na żywo:** https://hackathon-frontend.makonew.com/  konto admina - email: jan@example.com | hasło: HackYeah123!
+##Demo na żywo:
+**wejdź na strone:** https://hackathon-frontend.makonew.com/  
+**konto admina** - email: jan@example.com | hasło: HackYeah123!
+
 **API (produkcja):** https://hackathon-backend.makonew.com/ — `GET /health`, `GET /openapi.json`
 
 ---
