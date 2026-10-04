@@ -158,6 +158,10 @@ export default function AssistantPage() {
     if (search) void handlePageChange(lastResultsPageRef.current ?? search.pagination.page)
   }
 
+  function handleAskAgain() {
+    window.location.reload()
+  }
+
   const split = search !== null
   const totalResults = search?.pagination.totalResults ?? 0
 
@@ -181,9 +185,11 @@ export default function AssistantPage() {
             loading={loading}
             error={error}
             showIntro={!split}
+            hasResults={split}
             onSendText={handleSendText}
             onClarificationSubmit={handleClarificationSubmit}
             onRetry={handleRetry}
+            onAskAgain={handleAskAgain}
             className={CHAT_CLASSNAME}
           />
         }
