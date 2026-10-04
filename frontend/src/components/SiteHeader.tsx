@@ -1,3 +1,4 @@
+import { useRef, useState } from "react"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { LogIn, LogOut, Menu, Moon, Sun } from "lucide-react"
 
@@ -24,6 +25,8 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
   const { dark, toggle } = useTheme()
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuButton = useRef<HTMLButtonElement>(null)
 
   async function handleLogout() {
     await logout()
@@ -32,7 +35,7 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/80">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4">
+      <div className="mx-auto flex min-h-16 w-full max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-2 sm:flex-nowrap sm:gap-4">
         <Link to="/" className="flex shrink-0 items-center gap-2.5">
           <span className="flex size-9 items-center justify-center rounded-lg bg-blue-600 text-base font-black text-white">
             M
@@ -45,7 +48,7 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
         </Link>
 
         {!compact ? (
-          <nav className="hidden min-w-0 items-center gap-0.5 overflow-x-auto lg:flex">
+          <nav aria-label="Nawigacja główna" className="hidden min-w-0 items-center gap-0.5 overflow-x-auto lg:flex">
             {NAV.map((item) => (
               <NavLink
                 key={item.label}
@@ -55,7 +58,7 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
                   cn(
                     "shrink-0 border-b-2 px-2.5 py-2 text-[0.8rem] font-medium whitespace-nowrap transition-colors",
                     isActive
-                      ? "border-blue-600 text-blue-600"
+                      ? "border-blue-600 text-blue-600 dark:border-blue-300 dark:text-blue-300"
                       : "border-transparent text-slate-600 hover:text-blue-600 dark:text-neutral-300 dark:hover:text-blue-400",
                   )
                 }
@@ -111,6 +114,10 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
             <button
               type="button"
               aria-label="Menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
+              ref={menuButton}
+              onClick={() => setMenuOpen((open) => !open)}
               className="flex size-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 lg:hidden dark:border-neutral-700 dark:text-neutral-300"
             >
               <Menu aria-hidden="true" className="size-4" />
@@ -118,6 +125,34 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
           ) : null}
         </div>
       </div>
+      {!compact && menuOpen ? (
+        <nav
+          id="mobile-navigation"
+          aria-label="Nawigacja główna na telefonie"
+          className="max-h-[70dvh] overflow-y-auto border-t px-4 py-2 lg:hidden"
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              setMenuOpen(false)
+              menuButton.current?.focus()
+            }
+          }}
+        >
+          {NAV.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) => cn(
+                "block rounded-lg px-3 py-2 text-sm font-medium",
+                isActive ? "bg-blue-50 text-blue-700 dark:bg-neutral-800 dark:text-blue-300" : "text-slate-700 dark:text-neutral-200",
+              )}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+      ) : null}
     </header>
   )
 }

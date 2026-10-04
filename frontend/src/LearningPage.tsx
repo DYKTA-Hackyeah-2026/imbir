@@ -81,17 +81,18 @@ export default function LearningPage() {
             Ucz się i działaj
           </h1>
           {meta ? (
-            <p className="text-muted-foreground mt-1 text-sm">
+            <p role="status" className="text-muted-foreground mt-1 text-sm">
               {meta.total} {meta.total === 1 ? "materiał" : "materiałów"}
             </p>
           ) : null}
         </div>
-        <div className="bg-muted flex flex-wrap items-center gap-1 rounded-lg p-1">
+        <div role="group" aria-label="Typ materiałów edukacyjnych" className="bg-muted flex flex-wrap items-center gap-1 rounded-lg p-1">
           {TABS.map((tab) => (
             <button
               key={tab.value || "all"}
               type="button"
               onClick={() => selectType(tab.value)}
+              aria-pressed={type === tab.value}
               className={cn(
                 "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
                 type === tab.value

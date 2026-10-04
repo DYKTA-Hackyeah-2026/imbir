@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   AlertCircle,
@@ -74,6 +74,25 @@ export function CreatorFlow() {
   const [save, setSave] = useState<SaveState>({ status: "idle" })
   const [formError, setFormError] = useState("")
   const [submittedId, setSubmittedId] = useState<number | null>(null)
+  const previousStep = useRef(currentStep)
+
+  useEffect(() => {
+    if (loadingDraft) return
+    if (submittedId !== null) {
+      document.getElementById("creator-success")?.focus()
+      return
+    }
+    if (formError) {
+      const panel = document.getElementById(`creator-step-panel-${currentStep}`)
+      const invalid = panel?.querySelector<HTMLElement>(
+        'input[aria-invalid="true"], textarea[aria-invalid="true"], fieldset[aria-invalid="true"] input',
+      )
+      invalid?.focus()
+    } else if (previousStep.current !== currentStep) {
+      document.getElementById(`creator-step-header-${currentStep}`)?.focus()
+    }
+    previousStep.current = currentStep
+  }, [currentStep, formError, loadingDraft, submittedId])
 
   useEffect(() => {
     document.title = "Opowiedz nam o swoim pomyśle – Małopolski Hub Innowacji Społecznych"
@@ -232,7 +251,7 @@ export function CreatorFlow() {
         <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-950/60">
           <CheckCircle2 aria-hidden="true" className="size-8 text-emerald-700 dark:text-emerald-400" />
         </div>
-        <h2 className="mt-4 text-2xl font-bold">Dziękujemy! Twój pomysł został wysłany.</h2>
+        <h2 id="creator-success" tabIndex={-1} className="mt-4 text-2xl font-bold">Dziękujemy! Twój pomysł został wysłany.</h2>
         <p className="mx-auto mt-2 max-w-xl text-slate-600 dark:text-neutral-400">
           Zgłoszenie nr <strong>#{submittedId}</strong> trafiło do Małopolskiego Hubu
           Innowacji Społecznych. Zespół ROPS Kraków skontaktuje się z Tobą, jeśli będzie
@@ -244,7 +263,7 @@ export function CreatorFlow() {
           </Button>
           <Link
             to="/"
-            className={buttonVariants({ className: "bg-blue-600 hover:bg-blue-700" })}
+            className={buttonVariants({ className: "bg-blue-600 text-white hover:bg-blue-700" })}
           >
             Wróć do strony głównej
           </Link>
@@ -312,7 +331,7 @@ export function CreatorFlow() {
             </SectionCard>
           ))}
 
-          <div className="sticky bottom-4 z-20 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-lg backdrop-blur sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800 dark:bg-neutral-900/95">
+          <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-lg backdrop-blur sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800 dark:bg-neutral-900/95">
             <div className="flex min-w-0 items-center gap-3">
               <Button
                 type="button"

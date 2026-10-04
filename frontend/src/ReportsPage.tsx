@@ -86,12 +86,12 @@ export default function ReportsPage() {
             {type === "problems" ? "Zgłoszone problemy" : "Raporty i publikacje"}
           </h1>
           {type !== "problems" && meta ? (
-            <p className="text-muted-foreground mt-1 text-sm">
+            <p role="status" className="text-muted-foreground mt-1 text-sm">
               {meta.total} {meta.total === 1 ? "pozycja" : "pozycji"}
             </p>
           ) : null}
           {type === "problems" ? (
-            <p className="text-muted-foreground mt-1 text-sm">
+            <p role="status" className="text-muted-foreground mt-1 text-sm">
               Problemy społeczne zgłaszane oddolnie przez mieszkańców, organizacje i
               instytucje.
             </p>
@@ -99,7 +99,7 @@ export default function ReportsPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <div className="bg-muted flex items-center gap-1 rounded-lg p-1">
+          <div role="group" aria-label="Rodzaj raportów" className="bg-muted flex flex-wrap items-center gap-1 rounded-lg p-1">
             {TABS.map((tab) => (
               <button
                 key={tab.value}

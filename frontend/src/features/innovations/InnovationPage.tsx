@@ -113,8 +113,8 @@ export function InnovationPage() {
   const [reloadKey, setReloadKey] = useState(0)
 
   useEffect(() => {
-    document.title = "Innowacja – Małopolski Hub Innowacji Społecznych"
-  }, [])
+    document.title = `${detail?.title ?? "Innowacja"} – Małopolski Hub Innowacji Społecznych`
+  }, [detail])
 
   useEffect(() => {
     if (invalidId || !innovationId) return
@@ -156,15 +156,15 @@ export function InnovationPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-5xl px-4 py-16">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-16">
         <LoadingState label="Wczytywanie innowacji…" />
-      </div>
+      </main>
     )
   }
 
   if (error || !detail) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-16">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl px-4 py-16">
         <ErrorState
           message={error || "Nie znaleziono innowacji."}
           onRetry={() => setReloadKey((key) => key + 1)}
@@ -177,7 +177,7 @@ export function InnovationPage() {
             Wróć do biblioteki innowacji
           </Link>
         </p>
-      </div>
+      </main>
     )
   }
 
@@ -188,7 +188,7 @@ export function InnovationPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-neutral-950 dark:text-neutral-100">
-      <main className="mx-auto max-w-5xl px-4 py-8">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-8">
         <Link
           to="/innowacje"
           className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:underline dark:text-blue-300"

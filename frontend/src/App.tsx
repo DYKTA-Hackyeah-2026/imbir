@@ -1,4 +1,5 @@
-import { Navigate, Route, Routes } from "react-router-dom"
+import { useEffect, useRef } from "react"
+import { Navigate, Route, Routes, useLocation } from "react-router-dom"
 
 import HomePage from "./HomePage"
 import LoginPage from "./LoginPage"
@@ -30,8 +31,21 @@ import AssistantPage from "./features/assistant/AssistantPage"
 import FloatingChat from "./features/chat/FloatingChat"
 
 function App() {
+  const { pathname } = useLocation()
+  const previousPath = useRef(pathname)
+
+  useEffect(() => {
+    if (previousPath.current === pathname) return
+    previousPath.current = pathname
+    const frame = requestAnimationFrame(() => {
+      document.getElementById("main-content")?.focus({ preventScroll: true })
+      window.scrollTo(0, 0)
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [pathname])
+
   return (
-    <><Routes>
+    <><a className="skip-link" href="#main-content">Przejdź do treści</a><Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/chat" element={<AssistantPage />} />
       <Route path="/materialy" element={<MaterialsPage />} />

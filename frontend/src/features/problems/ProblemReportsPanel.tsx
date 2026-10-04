@@ -166,7 +166,7 @@ export function ProblemReportsPanel() {
         </div>
       ) : (
         <>
-          <p className="mb-3 text-sm text-slate-500 dark:text-neutral-400">
+          <p role="status" className="mb-3 text-sm text-slate-500 dark:text-neutral-400">
             {total} {total === 1 ? "zgłoszenie" : "zgłoszenia"}
           </p>
           <ul className="space-y-4">

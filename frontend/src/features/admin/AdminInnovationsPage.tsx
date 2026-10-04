@@ -337,6 +337,7 @@ export default function AdminInnovationsPage() {
                     <div className="flex shrink-0 gap-2">
                       <Button
                         size="sm"
+                        aria-label={`Zatwierdź: ${submission.title}`}
                         disabled={busy || acceptDisabled}
                         title={
                           acceptDisabled ? "Zgłoszenie jest już zatwierdzone" : undefined
@@ -353,6 +354,7 @@ export default function AdminInnovationsPage() {
                       <Button
                         size="sm"
                         variant="outline"
+                        aria-label={`Odrzuć: ${submission.title}`}
                         disabled={busy || rejectDisabled}
                         onClick={() => void handleDecision(submission, "reject")}
                       >

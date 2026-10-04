@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export function LoadingState({ label = "Wczytywanie…" }: { label?: string }) {
   return (
-    <div className="text-muted-foreground flex items-center justify-center gap-2 py-16 text-sm">
+    <div role="status" className="text-muted-foreground flex items-center justify-center gap-2 py-16 text-sm">
       <Loader2 aria-hidden="true" className="size-4 animate-spin" />
       {label}
     </div>
@@ -36,7 +36,7 @@ export function ErrorState({
 
 export function EmptyState({ message = "Brak materiałów." }: { message?: string }) {
   return (
-    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-slate-300 py-16 text-center text-sm text-slate-500 dark:border-neutral-700 dark:text-neutral-400">
+    <div role="status" className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-slate-300 py-16 text-center text-sm text-slate-500 dark:border-neutral-700 dark:text-neutral-400">
       <Inbox aria-hidden="true" className="size-6" />
       <p>{message}</p>
     </div>

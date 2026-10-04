@@ -165,11 +165,12 @@ export default function ContactPage() {
                       autoComplete="name"
                       required
                       aria-invalid={errors.name ? true : undefined}
+                      aria-describedby={errors.name ? "contact-name-error" : undefined}
                       className="h-10 pl-10"
                     />
                   </div>
                   {errors.name ? (
-                    <p role="alert" className="text-destructive text-sm">
+                    <p id="contact-name-error" role="alert" className="text-destructive text-sm">
                       {errors.name}
                     </p>
                   ) : null}
@@ -192,11 +193,12 @@ export default function ContactPage() {
                       autoComplete="email"
                       required
                       aria-invalid={errors.email ? true : undefined}
+                      aria-describedby={errors.email ? "contact-email-error" : undefined}
                       className="h-10 pl-10"
                     />
                   </div>
                   {errors.email ? (
-                    <p role="alert" className="text-destructive text-sm">
+                    <p id="contact-email-error" role="alert" className="text-destructive text-sm">
                       {errors.email}
                     </p>
                   ) : null}
@@ -207,13 +209,15 @@ export default function ContactPage() {
                 <Label htmlFor="contact-subject">Temat</Label>
                 <Input
                   id="contact-subject"
+                  aria-invalid={errors.subject ? true : undefined}
+                  aria-describedby={errors.subject ? "contact-subject-error" : undefined}
                   value={subject}
                   onChange={(event) => setSubject(event.target.value)}
                   placeholder="Opcjonalnie"
                   className="h-10"
                 />
                 {errors.subject ? (
-                  <p role="alert" className="text-destructive text-sm">
+                  <p id="contact-subject-error" role="alert" className="text-destructive text-sm">
                     {errors.subject}
                   </p>
                 ) : null}
@@ -229,10 +233,11 @@ export default function ContactPage() {
                   rows={5}
                   required
                   aria-invalid={errors.message ? true : undefined}
+                  aria-describedby={errors.message ? "contact-message-error" : undefined}
                   className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 w-full resize-y rounded-lg border px-3 py-2 text-sm outline-none focus-visible:ring-3"
                 />
                 {errors.message ? (
-                  <p role="alert" className="text-destructive text-sm">
+                  <p id="contact-message-error" role="alert" className="text-destructive text-sm">
                     {errors.message}
                   </p>
                 ) : null}

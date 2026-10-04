@@ -66,6 +66,7 @@ export function ChatPanel({
       className={className ?? "flex flex-col gap-0 overflow-hidden py-0"}
       aria-busy={loading}
     >
+      {!showHero && <h1 className="sr-only">Asystent AI — pomoc w znalezieniu programów i wsparcia</h1>}
       <div className="flex items-center gap-3 border-b border-slate-200/80 px-4 py-3 dark:border-neutral-800">
         <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white">
           <Bot aria-hidden="true" className="size-4.5" />

@@ -27,7 +27,7 @@ export function ChatInput({
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
-    if (event.key === "Enter" && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) {
       event.preventDefault()
       submit()
     }
@@ -49,7 +49,8 @@ export function ChatInput({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           rows={2}
-          disabled={disabled}
+          readOnly={disabled}
+          aria-busy={disabled}
           aria-describedby="assistant-chat-hint"
           className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 min-h-14 w-full resize-y rounded-lg border px-3 py-2 text-base outline-none focus-visible:ring-3 disabled:opacity-60 md:text-sm dark:bg-input/30"
         />

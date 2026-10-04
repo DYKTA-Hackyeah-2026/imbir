@@ -235,14 +235,16 @@ export default function AdminPage() {
     <div className="bg-background flex min-h-screen flex-col">
       <AppHeader />
 
-      <main className="mx-auto w-full max-w-4xl flex-1 space-y-4 p-4">
+      <main id="main-content" tabIndex={-1} className="mx-auto w-full max-w-4xl flex-1 space-y-4 p-4">
+        <h1 className="text-2xl font-bold">Administracja</h1>
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="bg-muted flex items-center gap-1 rounded-lg p-1">
+          <div role="group" aria-label="Sekcje administracji" className="bg-muted flex flex-wrap items-center gap-1 rounded-lg p-1">
             {TABS.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => setTab(item.id)}
+                aria-pressed={tab === item.id}
                 className={cn(
                   "focus-visible:ring-ring rounded-md px-3 py-1.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none",
                   tab === item.id
@@ -287,7 +289,7 @@ export default function AdminPage() {
         ) : null}
 
         {loading && !overview ? (
-          <div className="text-muted-foreground flex items-center gap-2 p-8 text-sm">
+          <div role="status" className="text-muted-foreground flex items-center gap-2 p-8 text-sm">
             <Loader2 aria-hidden="true" className="size-4 animate-spin" />
             Wczytywanie danych administracyjnych…
           </div>
@@ -642,7 +644,7 @@ export default function AdminPage() {
             </Card>
 
             {entriesLoading ? (
-              <div className="text-muted-foreground flex items-center gap-2 p-4 text-sm">
+              <div role="status" className="text-muted-foreground flex items-center gap-2 p-4 text-sm">
                 <Loader2 aria-hidden="true" className="size-4 animate-spin" />
                 Wczytywanie wpisów…
               </div>

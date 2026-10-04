@@ -39,12 +39,12 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: oklch(0.46 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  --input: oklch(0.55 0 0);
   --ring: oklch(0.623 0.214 259.815);
 }
 .dark {
@@ -54,8 +54,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.623 0.214 259.815);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.809 0.105 251.813);
+  --primary-foreground: oklch(0.208 0.042 265.755);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -64,13 +64,56 @@
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
+  --input: oklch(0.65 0 0);
   --ring: oklch(0.623 0.214 259.815);
 }
 @layer base {
   * { @apply border-border outline-ring/50; }
   body { @apply bg-background text-foreground; }
 }
+
+/* Keep muted copy readable on cards, tinted panels and both themes. */
+@theme {
+  --color-slate-400: #52647c;
+  --color-slate-500: #52647c;
+  --color-neutral-500: #595959;
+}
+
+.dark {
+  --color-neutral-500: #a3a3a3;
+}
+
+/* An opaque outline remains visible even when individual controls reset it. */
+:is(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 3px;
+}
+
+.dark :is(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline-color: #93c5fd;
+}
+
+[id] { scroll-margin-top: 6rem; }
+main { overflow-wrap: anywhere; }
+
+/* Raw controls use the same distinguishable boundary as shared inputs. */
+:is(input:not([type="checkbox"]):not([type="radio"]), textarea, select):not(:disabled) {
+  border-color: var(--input);
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #1d4ed8;
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: translateY(0); }
 
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -229,7 +229,7 @@ function AdminTopBar() {
 
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/80">
-      <div className="flex h-16 items-center gap-3 px-4">
+      <div className="flex min-h-16 flex-wrap items-center gap-3 px-4 py-2">
         <Link
           to="/admin"
           className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-base font-black text-white lg:hidden"
@@ -328,7 +328,7 @@ export default function AdminLayout() {
           <div className="border-b border-slate-200/80 bg-white dark:border-neutral-800 dark:bg-neutral-900 lg:hidden">
             <SidebarNav orientation="horizontal" />
           </div>
-          <main className="mx-auto w-full max-w-6xl px-4 py-6">
+          <main id="main-content" tabIndex={-1} className="mx-auto w-full max-w-6xl px-4 py-6">
             <Outlet />
           </main>
         </div>

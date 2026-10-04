@@ -58,10 +58,10 @@ export function DescribeStep({ draft, onChange, onSubmit }: DescribeStepProps) {
             placeholder="Np. W naszej gminie wiele starszych osób mieszka samotnie i ma utrudniony dostęp do lekarza."
             aria-required="true"
             aria-invalid={error ? true : undefined}
-            aria-describedby="need-description-help need-description-example"
+            aria-describedby={`need-description-help need-description-example${error ? " need-description-error" : ""}`}
           />
           {error ? (
-            <p className="text-sm font-medium text-destructive" role="alert">
+            <p id="need-description-error" className="text-sm font-medium text-destructive" role="alert">
               {error}
             </p>
           ) : null}

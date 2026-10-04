@@ -24,6 +24,7 @@ export function ChatMessageList({
 
   return (
     <div
+      tabIndex={0}
       role="log"
       aria-live="polite"
       aria-relevant="additions text"

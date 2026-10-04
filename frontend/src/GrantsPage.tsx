@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   ArrowUpRight,
   BadgePercent,
@@ -152,8 +152,8 @@ const STATUS_LABELS: Record<GrantStatus, string> = {
 }
 
 const STATUS_STYLES: Record<GrantStatus, string> = {
-  open: "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  soon: "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400",
+  open: "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+  soon: "border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-400",
   closed: "border-slate-300 bg-slate-100 text-slate-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400",
 }
 
@@ -183,15 +183,15 @@ function formatDeadline(deadline: string | null): string {
 
 function GrantCard({ grant }: { grant: Grant }) {
   return (
-    <article className="flex flex-col gap-4 rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex min-w-0 items-start gap-3">
+    <article className="flex min-w-0 flex-col gap-4 rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex min-w-0 flex-1 basis-48 items-start gap-3">
           <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-white">
             <HandCoins aria-hidden="true" className="size-5" />
           </span>
           <div className="min-w-0">
-            <h3 className="leading-snug font-semibold">{grant.name}</h3>
-            <p className="text-muted-foreground mt-0.5 inline-flex items-center gap-1.5 text-sm">
+            <h2 className="leading-snug font-semibold">{grant.name}</h2>
+            <p className="text-muted-foreground mt-0.5 flex min-w-0 items-center gap-1.5 text-sm">
               <Building2 aria-hidden="true" className="size-3.5 shrink-0" />
               <span className="truncate">{grant.funder}</span>
             </p>
@@ -211,8 +211,8 @@ function GrantCard({ grant }: { grant: Grant }) {
         {grant.description}
       </p>
 
-      <div className="grid gap-2 text-sm sm:grid-cols-3">
-        <div className="bg-muted/50 flex items-center gap-2 rounded-lg px-3 py-2">
+      <div className="grid min-w-0 grid-cols-1 gap-2 text-sm sm:grid-cols-3">
+        <div className="bg-muted/50 flex min-w-0 items-center gap-2 rounded-lg px-3 py-2">
           <Wallet aria-hidden="true" className="size-4 text-blue-600" />
           <div>
             <p className="text-muted-foreground text-xs">Dofinansowanie</p>
@@ -221,14 +221,14 @@ function GrantCard({ grant }: { grant: Grant }) {
             </p>
           </div>
         </div>
-        <div className="bg-muted/50 flex items-center gap-2 rounded-lg px-3 py-2">
+        <div className="bg-muted/50 flex min-w-0 items-center gap-2 rounded-lg px-3 py-2">
           <CalendarDays aria-hidden="true" className="size-4 text-blue-600" />
           <div>
             <p className="text-muted-foreground text-xs">Termin</p>
             <p className="font-medium">{formatDeadline(grant.deadline)}</p>
           </div>
         </div>
-        <div className="bg-muted/50 flex items-center gap-2 rounded-lg px-3 py-2">
+        <div className="bg-muted/50 flex min-w-0 items-center gap-2 rounded-lg px-3 py-2">
           <BadgePercent aria-hidden="true" className="size-4 text-blue-600" />
           <div>
             <p className="text-muted-foreground text-xs">Poziom wsparcia</p>
@@ -264,6 +264,10 @@ function GrantCard({ grant }: { grant: Grant }) {
 export default function GrantsPage() {
   const [status, setStatus] = useState<GrantStatus | "all">("all")
   const [query, setQuery] = useState("")
+
+  useEffect(() => {
+    document.title = "Granty · Małopolski Hub Innowacji Społecznych"
+  }, [])
 
   const grants = useMemo(() => {
     const needle = query.trim().toLowerCase()
@@ -322,12 +326,13 @@ export default function GrantsPage() {
 
       {/* Filters */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div className="bg-muted flex flex-wrap items-center gap-1 rounded-lg p-1">
+        <div role="group" aria-label="Status naboru" className="bg-muted flex flex-wrap items-center gap-1 rounded-lg p-1">
           {FILTERS.map((filter) => (
             <button
               key={filter.value}
               type="button"
               onClick={() => setStatus(filter.value)}
+              aria-pressed={status === filter.value}
               className={cn(
                 "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
                 status === filter.value
@@ -356,10 +361,11 @@ export default function GrantsPage() {
         </div>
       </div>
 
+      <p role="status" className="sr-only">Znaleziono {grants.length} grantów.</p>
       {grants.length === 0 ? (
         <EmptyState message="Brak grantów spełniających kryteria." />
       ) : (
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {grants.map((grant) => (
             <GrantCard key={grant.id} grant={grant} />
           ))}

@@ -26,7 +26,7 @@ export function ChatMessageBubble({ message }: { message: ChatMessageType }) {
             : "bg-muted/60 rounded-tl-sm",
         )}
       >
-        <p className="whitespace-pre-wrap">{message.text}</p>
+        <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere]"><span className="sr-only">{isUser ? "Ty: " : "Asystent: "}</span>{message.text}</p>
       </div>
     </div>
   )

@@ -118,6 +118,10 @@ export default function MaterialsPage() {
   if (category) subtitle = "Kategoria"
   else if (topic) subtitle = "Temat"
 
+  useEffect(() => {
+    document.title = `${showHero ? "Baza wiedzy" : title} · Małopolski Hub Innowacji Społecznych`
+  }, [showHero, title])
+
   return (
     <SiteLayout>
       {showHero ? (
@@ -135,7 +139,7 @@ export default function MaterialsPage() {
               role="search"
               className="mt-6 flex max-w-xl gap-2"
             >
-              <div className="relative flex-1">
+              <div className="relative min-w-0 flex-1">
                 <Search
                   aria-hidden="true"
                   className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-slate-400"
@@ -201,7 +205,7 @@ export default function MaterialsPage() {
             </h1>
           )}
           {meta ? (
-            <p className="text-muted-foreground mt-1 text-sm">
+            <p role="status" className="text-muted-foreground mt-1 text-sm">
               {meta.total} {meta.total === 1 ? "materiał" : "materiałów"}
             </p>
           ) : null}

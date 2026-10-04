@@ -16,7 +16,7 @@ export default function SiteLayout({
       <SiteHeader />
 
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 px-4 py-6 lg:flex-row">
-        <main className="min-w-0 flex-1">{children}</main>
+        <main id="main-content" tabIndex={-1} className="min-w-0 flex-1">{children}</main>
         {aside ? (
           <aside className="w-full space-y-4 lg:sticky lg:top-20 lg:w-80 lg:shrink-0 lg:self-start">
             {aside}
