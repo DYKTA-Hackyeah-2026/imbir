@@ -131,7 +131,7 @@ export function TestDetailPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 py-8">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-8">
         <Link
           to="/tester"
           className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:underline dark:text-blue-300"

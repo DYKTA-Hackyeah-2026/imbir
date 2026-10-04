@@ -17,7 +17,7 @@ export default function AuthLayout({
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-sky-50 via-slate-50 to-slate-50 text-slate-900 dark:from-neutral-950 dark:via-neutral-950 dark:to-neutral-950 dark:text-neutral-100">
       <SiteHeader compact />
 
-      <main className="flex flex-1 items-center justify-center px-4 py-10">
+      <main id="main-content" tabIndex={-1} className="flex flex-1 items-center justify-center px-4 py-10">
         <div className="w-full max-w-md">
           <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8 dark:border-neutral-800 dark:bg-neutral-900">
             <h1 className="text-center text-2xl font-bold tracking-tight">

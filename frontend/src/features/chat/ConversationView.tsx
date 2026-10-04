@@ -15,21 +15,23 @@ export function ConversationView({ messages, userId, loading, hasMore, onOlder, 
   useEffect(() => { bottom.current?.scrollIntoView({ block: "end" }) }, [lastId])
   const send = () => { if (!draft.trim()) return; onSend(draft.trim()); setDraft("") }
   return <div className="flex min-h-0 flex-1 flex-col">
-    <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4" aria-label="Historia wiadomości">
+    <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4" role="region" tabIndex={0} aria-label="Historia wiadomości">
       {hasMore && <Button variant="ghost" disabled={loading} className="mb-3 w-full" onClick={onOlder}>Starsze wiadomości</Button>}
       {loading && <p role="status" className="text-muted-foreground text-center text-sm">Ładowanie…</p>}
       {!loading && !messages.length && <p className="text-muted-foreground text-center text-sm">Napisz pierwszą wiadomość.</p>}
-      <ol className="space-y-3">{messages.map((message) => <li key={message.id} className={`flex ${message.senderId === userId ? "justify-end" : "justify-start"}`}>
+      <ol role="log" aria-label="Wiadomości" aria-live="polite" aria-relevant="additions" className="space-y-3">{messages.map((message) => <li key={message.id} className={`flex ${message.senderId === userId ? "justify-end" : "justify-start"}`}>
         <div className={`max-w-[85%] rounded-xl px-3 py-2 ${message.senderId === userId ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"}`}>
+          <span className="sr-only">{message.senderId === userId ? "Ty: " : "Rozmówca: "}</span>
           <p className="whitespace-pre-wrap break-words text-sm [overflow-wrap:anywhere]">{message.content}</p>
-          <div className="mt-1 text-right text-[10px] opacity-75"><time dateTime={message.createdAt} title={new Date(message.createdAt).toLocaleString("pl-PL")}>{new Date(message.createdAt).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" })}</time>{message.state === "sending" && " · Wysyłanie…"}</div>
+          <div className="mt-1 text-right text-xs"><time dateTime={message.createdAt} title={new Date(message.createdAt).toLocaleString("pl-PL")}>{new Date(message.createdAt).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" })}</time>{message.state === "sending" && " · Wysyłanie…"}</div>
           {message.state === "failed" && <button className="mt-1 text-xs underline" onClick={() => onRetry(message)}>Nie wysłano. Spróbuj ponownie</button>}
         </div>
       </li>)}</ol><div ref={bottom} />
     </div>
     <form className="flex items-end gap-2 border-t p-3" onSubmit={(event) => { event.preventDefault(); send() }}>
-      <Textarea aria-label="Wiadomość" placeholder="Napisz wiadomość…" className="min-h-16 max-h-32 resize-none" maxLength={4000} value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); send() } }} />
+      <Textarea aria-label="Wiadomość" aria-describedby="chat-send-hint" placeholder="Napisz wiadomość…" className="min-h-16 max-h-32 resize-none" maxLength={4000} value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); send() } }} />
       <Button type="submit" size="icon" aria-label="Wyślij wiadomość" disabled={!draft.trim()}><Send /></Button>
     </form>
+    <p id="chat-send-hint" className="sr-only">Enter wysyła wiadomość. Shift+Enter dodaje nową linię.</p>
   </div>
 }

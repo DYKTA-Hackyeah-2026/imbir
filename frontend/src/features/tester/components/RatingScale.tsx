@@ -63,7 +63,7 @@ export function RatingScale({
   const groupId = useId()
 
   return (
-    <fieldset aria-describedby={hint ? `${groupId}-hint` : undefined}>
+    <fieldset aria-invalid={error ? true : undefined} aria-describedby={[hint ? `${groupId}-hint` : undefined, error ? `${groupId}-error` : undefined].filter(Boolean).join(" ") || undefined}>
       <legend className="text-base font-medium">
         {legend}{" "}
         {required ? (
@@ -93,6 +93,9 @@ export function RatingScale({
               >
                 <input
                   type="radio"
+                  required={required}
+                  aria-invalid={error ? true : undefined}
+                  aria-describedby={error ? `${groupId}-error` : undefined}
                   name={name}
                   value={rating}
                   checked={selected}
@@ -118,7 +121,7 @@ export function RatingScale({
         </div>
       </div>
       {error ? (
-        <p role="alert" className="mt-2 text-sm font-medium text-rose-600 dark:text-rose-400">
+        <p id={`${groupId}-error`} role="alert" className="mt-2 text-sm font-medium text-rose-600 dark:text-rose-400">
           {error}
         </p>
       ) : null}

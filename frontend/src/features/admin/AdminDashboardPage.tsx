@@ -211,6 +211,16 @@ function ActivityChart({ data }: { data: AdminStats["activityByDay"] }) {
           </g>
         ))}
       </svg>
+      <details className="mt-3 text-sm">
+        <summary className="cursor-pointer">Dane wykresu</summary>
+        <ul className="mt-2 space-y-1">
+          {data.map((day) => (
+            <li key={day.date}>
+              {formatDate(day.date)}: innowacje {day.submissions}, problemy {day.reports}.
+            </li>
+          ))}
+        </ul>
+      </details>
 
       <div className="mt-2 flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-neutral-400">
         <span className="inline-flex items-center gap-1.5">

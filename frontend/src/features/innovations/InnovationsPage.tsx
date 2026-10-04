@@ -78,7 +78,7 @@ export function InnovationsPage() {
     <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-neutral-950 dark:text-neutral-100">
       <SiteHeader />
 
-      <main className="mx-auto w-full max-w-7xl px-4 py-6">
+      <main id="main-content" tabIndex={-1} className="mx-auto w-full max-w-7xl px-4 py-6">
         <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-br from-sky-50 via-white to-blue-50 p-6 sm:p-8 dark:border-neutral-800 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-950">
           <div className="relative z-10 max-w-2xl">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-600/10 px-3 py-1 text-xs font-semibold text-blue-700 dark:text-blue-300">
@@ -121,7 +121,7 @@ export function InnovationsPage() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Szukaj po nazwie, opisie lub tagu…"
-              className="h-10"
+              className="h-10 min-w-0"
             />
             <Button type="submit" variant="outline" className="h-10 shrink-0">
               <Search aria-hidden="true" />
@@ -175,7 +175,7 @@ export function InnovationsPage() {
                 </Alert>
               ) : null}
 
-              <p className="mb-3 text-sm text-slate-500 dark:text-neutral-400">
+              <p role="status" className="mb-3 text-sm text-slate-500 dark:text-neutral-400">
                 Znaleziono {data.total}{" "}
                 {data.total === 1 ? "innowację" : "innowacji"}.
               </p>

@@ -28,6 +28,7 @@ export default function ReportCard({
     >
       <Link
         to={`/material/${material.slug}`}
+        aria-label={material.title}
         className="flex h-28 w-20 shrink-0 items-center justify-center overflow-hidden rounded-md bg-gradient-to-br from-sky-500 to-blue-600 text-white"
       >
         {cover ? (
@@ -75,7 +76,7 @@ export default function ReportCard({
             <Download aria-hidden="true" className="size-3.5" />
             Pobierz PDF
             {material.fileSizeBytes ? (
-              <span className="font-normal opacity-70">
+              <span className="font-normal">
                 ({formatBytes(material.fileSizeBytes)})
               </span>
             ) : null}

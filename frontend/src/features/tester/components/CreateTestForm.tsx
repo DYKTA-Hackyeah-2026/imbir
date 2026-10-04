@@ -77,7 +77,11 @@ export function CreateTestForm({ onCreated }: { onCreated: () => void }) {
     setFormError("")
     const nextErrors = validate()
     setErrors(nextErrors)
-    if (Object.keys(nextErrors).length > 0) return
+    if (Object.keys(nextErrors).length > 0) {
+      const field = nextErrors.innovationId ? "test-innovation" : nextErrors.title ? "test-title" : "test-max"
+      document.getElementById(field)?.focus()
+      return
+    }
 
     setIsSubmitting(true)
     try {
@@ -140,12 +144,14 @@ export function CreateTestForm({ onCreated }: { onCreated: () => void }) {
           <Label htmlFor="test-innovation">Innowacja</Label>
           <Input
             id="test-innovation"
+            required
             list="catalogue-innovations"
             value={innovationId}
             onChange={(event) => setInnovationId(event.target.value)}
             placeholder="Wybierz lub wpisz identyfikator, np. syn-senior-neighborhood"
             className="h-10"
             aria-invalid={errors.innovationId ? true : undefined}
+            aria-describedby={errors.innovationId ? "test-innovation-error" : undefined}
           />
           <datalist id="catalogue-innovations">
             {catalogue.map((item) => (
@@ -155,7 +161,7 @@ export function CreateTestForm({ onCreated }: { onCreated: () => void }) {
             ))}
           </datalist>
           {errors.innovationId ? (
-            <p role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
+            <p id="test-innovation-error" role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
               {errors.innovationId}
             </p>
           ) : null}
@@ -165,14 +171,16 @@ export function CreateTestForm({ onCreated }: { onCreated: () => void }) {
           <Label htmlFor="test-title">Nazwa testu</Label>
           <Input
             id="test-title"
+            required
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             placeholder="Np. Pilotaż centrów sąsiedzkich"
             className="h-10"
             aria-invalid={errors.title ? true : undefined}
+            aria-describedby={errors.title ? "test-title-error" : undefined}
           />
           {errors.title ? (
-            <p role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
+            <p id="test-title-error" role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
               {errors.title}
             </p>
           ) : null}
@@ -211,9 +219,10 @@ export function CreateTestForm({ onCreated }: { onCreated: () => void }) {
             placeholder="Np. 10"
             className="h-10"
             aria-invalid={errors.maxTesters ? true : undefined}
+            aria-describedby={errors.maxTesters ? "test-max-error" : undefined}
           />
           {errors.maxTesters ? (
-            <p role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
+            <p id="test-max-error" role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
               {errors.maxTesters}
             </p>
           ) : null}

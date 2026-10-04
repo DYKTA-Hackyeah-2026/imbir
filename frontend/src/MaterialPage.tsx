@@ -31,6 +31,7 @@ export default function MaterialPage() {
   const [notFound, setNotFound] = useState(false)
 
   useEffect(() => {
+    document.title = "Materiał · Małopolski Hub Innowacji Społecznych"
     if (!slug) return
     let active = true
     async function run() {
@@ -46,6 +47,7 @@ export default function MaterialPage() {
         if (!active) return
         if (caught instanceof ApiError && caught.status === 404) {
           setNotFound(true)
+          document.title = "Nie znaleziono materiału · Małopolski Hub Innowacji Społecznych"
         } else {
           setError(errorMessage(caught))
         }
@@ -210,7 +212,7 @@ export default function MaterialPage() {
 
           {material.body ? (
             <div
-              className="space-y-4 leading-relaxed text-slate-700 [&_a]:text-blue-600 [&_a]:underline [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-bold [&_h3]:mt-4 [&_h3]:text-lg [&_h3]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_ul]:space-y-1 dark:text-neutral-300"
+              className="space-y-4 break-words leading-relaxed text-slate-700 [&_a]:text-blue-600 [&_a]:underline [&_h2]:mt-6 [&_h2]:text-xl [&_h2]:font-bold [&_h3]:mt-4 [&_h3]:text-lg [&_h3]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_ul]:space-y-1 [&_img]:max-w-full [&_iframe]:max-w-full [&_video]:max-w-full [&_pre]:overflow-x-auto dark:text-neutral-300 dark:[&_a]:text-blue-300"
               dangerouslySetInnerHTML={{ __html: material.body }}
             />
           ) : null}

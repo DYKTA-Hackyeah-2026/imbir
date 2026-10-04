@@ -89,7 +89,11 @@ export default function ProblemReportPage() {
     setFormError("")
     const nextErrors = validate()
     setErrors(nextErrors)
-    if (Object.keys(nextErrors).length > 0) return
+    if (Object.keys(nextErrors).length > 0) {
+      const field = nextErrors.title ? "report-title" : nextErrors.description ? "report-description" : "report-email"
+      document.getElementById(field)?.focus()
+      return
+    }
 
     setIsSubmitting(true)
     try {
@@ -186,9 +190,10 @@ export default function ProblemReportPage() {
                   className="h-10"
                   required
                   aria-invalid={errors.title ? true : undefined}
+                  aria-describedby={errors.title ? "report-title-error" : undefined}
                 />
                 {errors.title ? (
-                  <p role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
+                  <p id="report-title-error" role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
                     {errors.title}
                   </p>
                 ) : null}
@@ -204,10 +209,11 @@ export default function ProblemReportPage() {
                   placeholder="Opisz, kogo dotyczy problem, jak często występuje i jakie ma skutki. Nie podawaj danych osobowych."
                   required
                   aria-invalid={errors.description ? true : undefined}
+                  aria-describedby={errors.description ? "report-description-error" : undefined}
                 />
                 <div className="flex items-center justify-between gap-3">
                   {errors.description ? (
-                    <p role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
+                    <p id="report-description-error" role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
                       {errors.description}
                     </p>
                   ) : (
@@ -298,6 +304,7 @@ export default function ProblemReportPage() {
                 <Label htmlFor="report-email">Kontaktowy adres e-mail (opcjonalnie)</Label>
                 <Input
                   id="report-email"
+                  autoComplete="email"
                   type="email"
                   inputMode="email"
                   value={contactEmail}
@@ -305,12 +312,13 @@ export default function ProblemReportPage() {
                   placeholder="Np. jan@example.com"
                   className="h-10"
                   aria-invalid={errors.contactEmail ? true : undefined}
+                  aria-describedby={errors.contactEmail ? "report-email-error" : undefined}
                 />
                 <p className="text-xs text-slate-500 dark:text-neutral-400">
                   Podaj, jeśli chcesz otrzymać odpowiedź. Adres nie jest publikowany.
                 </p>
                 {errors.contactEmail ? (
-                  <p role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
+                  <p id="report-email-error" role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
                     {errors.contactEmail}
                   </p>
                 ) : null}

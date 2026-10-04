@@ -28,6 +28,7 @@ function FacetChip({
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors",
         active
@@ -133,7 +134,7 @@ export default function SearchPage() {
       )}
 
       <form onSubmit={handleSubmit} role="search" className="mt-4 flex max-w-xl gap-2">
-        <div className="relative flex-1">
+        <div className="relative min-w-0 flex-1">
           <Search
             aria-hidden="true"
             className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-slate-400"
@@ -156,7 +157,7 @@ export default function SearchPage() {
       {facets ? (
         <div className="mt-5 space-y-3">
           {facets.types.length > 0 ? (
-            <div className="flex flex-wrap items-center gap-2">
+            <div role="group" aria-label="Filtry typu" className="flex flex-wrap items-center gap-2">
               <span className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
                 Typ
               </span>
@@ -172,7 +173,7 @@ export default function SearchPage() {
             </div>
           ) : null}
           {facets.topics.length > 0 ? (
-            <div className="flex flex-wrap items-center gap-2">
+            <div role="group" aria-label="Filtry tematu" className="flex flex-wrap items-center gap-2">
               <span className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
                 Temat
               </span>
@@ -193,7 +194,7 @@ export default function SearchPage() {
             </div>
           ) : null}
           {facets.categories.length > 0 ? (
-            <div className="flex flex-wrap items-center gap-2">
+            <div role="group" aria-label="Filtry kategorii" className="flex flex-wrap items-center gap-2">
               <span className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
                 Kategoria
               </span>
@@ -216,6 +217,9 @@ export default function SearchPage() {
         </div>
       ) : null}
 
+      <p role="status" className="sr-only">
+        {!loading && !error && result ? `Znaleziono ${result.meta.total} wyników.` : ""}
+      </p>
       <div className="mt-6">
         {loading ? (
           <LoadingState label="Szukanie…" />

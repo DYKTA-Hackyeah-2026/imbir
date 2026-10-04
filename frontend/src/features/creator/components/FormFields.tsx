@@ -6,10 +6,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { TEXT_LIMIT } from "../types"
 
-export function FieldError({ message }: { message?: string }) {
+export function FieldError({ message, id }: { message?: string; id?: string }) {
   if (!message) return null
   return (
-    <p role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
+    <p id={id} role="alert" className="text-sm font-medium text-rose-600 dark:text-rose-400">
       {message}
     </p>
   )
@@ -17,9 +17,10 @@ export function FieldError({ message }: { message?: string }) {
 
 export function RequiredMark() {
   return (
-    <span aria-hidden="true" className="text-rose-600 dark:text-rose-400">
-      *
-    </span>
+    <>
+      <span aria-hidden="true" className="text-rose-600 dark:text-rose-400">*</span>
+      <span className="sr-only">(wymagane)</span>
+    </>
   )
 }
 
@@ -72,10 +73,11 @@ export function CountedTextarea({
         placeholder={placeholder}
         aria-required={required ? true : undefined}
         aria-invalid={error ? true : undefined}
-        aria-describedby={helpId}
+        aria-describedby={[helpId, `${fieldId}-limit`, error ? `${fieldId}-error` : undefined].filter(Boolean).join(" ")}
       />
+      <p id={`${fieldId}-limit`} className="sr-only">Maksymalnie {limit} znaków.</p>
       <div className="flex items-center justify-between gap-3">
-        <FieldError message={error} />
+        <FieldError id={`${fieldId}-error`} message={error} />
         <span
           aria-hidden="true"
           className={cn(
@@ -133,11 +135,12 @@ export function TextField({
         className="h-10"
         aria-required={required ? true : undefined}
         aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${fieldId}-error` : help ? `${fieldId}-help` : undefined}
       />
       {help && !error ? (
-        <p className="text-sm text-slate-500 dark:text-neutral-400">{help}</p>
+        <p id={`${fieldId}-help`} className="text-sm text-slate-500 dark:text-neutral-400">{help}</p>
       ) : null}
-      <FieldError message={error} />
+      <FieldError id={`${fieldId}-error`} message={error} />
     </div>
   )
 }

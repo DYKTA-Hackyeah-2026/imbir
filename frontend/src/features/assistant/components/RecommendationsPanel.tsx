@@ -22,10 +22,18 @@ export function RecommendationsPanel({
   onRetry?: () => void
 }) {
   const headingRef = useRef<HTMLHeadingElement>(null)
+  const restoreResultsFocus = useRef(false)
 
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true })
   }, [search.id])
+
+  useEffect(() => {
+    if (!loading && restoreResultsFocus.current) {
+      restoreResultsFocus.current = false
+      headingRef.current?.focus({ preventScroll: true })
+    }
+  }, [loading, search.pagination.page])
 
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -82,7 +90,7 @@ export function RecommendationsPanel({
           <RecommendationsPagination
             pagination={search.pagination}
             disabled={loading}
-            onPageChange={onPageChange}
+            onPageChange={(page) => { restoreResultsFocus.current = true; onPageChange(page) }}
           />
         </>
       )}

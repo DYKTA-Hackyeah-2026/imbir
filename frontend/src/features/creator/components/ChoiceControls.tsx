@@ -6,9 +6,12 @@ import type { ChoiceOption } from "../types"
 import { FieldError, RequiredMark } from "./FormFields"
 
 function optionClass(selected: boolean): string {
-  return selected
-    ? "border-blue-600 bg-blue-50/70 ring-1 ring-blue-600 dark:border-blue-500 dark:bg-blue-950/40"
-    : "border-slate-200 bg-white hover:border-blue-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-800"
+  return cn(
+    "flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-blue-500 has-[:focus-visible]:ring-offset-2",
+    selected
+      ? "border-blue-600 bg-blue-50/70 ring-1 ring-blue-600 dark:border-blue-500 dark:bg-blue-950/40"
+      : "border-slate-200 bg-white hover:border-blue-300 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-blue-800",
+  )
 }
 
 export function RadioCardGroup<T extends string>({
@@ -34,7 +37,7 @@ export function RadioCardGroup<T extends string>({
 }) {
   const groupId = useId()
   return (
-    <fieldset aria-describedby={hint ? `${groupId}-hint` : undefined}>
+    <fieldset aria-invalid={error ? true : undefined} aria-describedby={[hint ? `${groupId}-hint` : undefined, error ? `${groupId}-error` : undefined].filter(Boolean).join(" ") || undefined}>
       <legend className="text-base font-medium">
         {legend} {required ? <RequiredMark /> : null}
       </legend>
@@ -56,7 +59,10 @@ export function RadioCardGroup<T extends string>({
               <input
                 type="radio"
                 name={name}
+                required={required}
                 value={option.value}
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? `${groupId}-error` : undefined}
                 checked={selected}
                 onChange={() => onChange(option.value)}
                 className="sr-only"
@@ -88,7 +94,7 @@ export function RadioCardGroup<T extends string>({
         })}
       </div>
       <div className="mt-2">
-        <FieldError message={error} />
+        <FieldError id={`${groupId}-error`} message={error} />
       </div>
     </fieldset>
   )
@@ -122,7 +128,7 @@ export function CheckboxCardGroup({
   }
 
   return (
-    <fieldset>
+    <fieldset aria-invalid={error ? true : undefined} aria-describedby={[hint ? `${groupId}-hint` : undefined, error ? `${groupId}-error` : undefined].filter(Boolean).join(" ") || undefined}>
       <legend className="text-base font-medium">
         {legend} <RequiredMark />
       </legend>
@@ -143,6 +149,8 @@ export function CheckboxCardGroup({
             <label key={option} className={cn(optionClass(selected), "py-3")}>
               <input
                 type="checkbox"
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? `${groupId}-error` : undefined}
                 checked={selected}
                 onChange={() => toggle(option)}
                 className="sr-only"
@@ -164,7 +172,7 @@ export function CheckboxCardGroup({
         })}
       </div>
       <div className="mt-2">
-        <FieldError message={error} />
+        <FieldError id={`${groupId}-error`} message={error} />
       </div>
     </fieldset>
   )
@@ -196,7 +204,7 @@ export function FrequencyScale<T extends string>({
 }) {
   const groupId = useId()
   return (
-    <fieldset aria-describedby={hint ? `${groupId}-hint` : undefined}>
+    <fieldset aria-invalid={error ? true : undefined} aria-describedby={[hint ? `${groupId}-hint` : undefined, error ? `${groupId}-error` : undefined].filter(Boolean).join(" ") || undefined}>
       <legend className="text-base font-medium">
         {legend} <RequiredMark />
       </legend>
@@ -221,7 +229,10 @@ export function FrequencyScale<T extends string>({
                 <input
                   type="radio"
                   name={name}
+                  required
                   value={option.value}
+                  aria-invalid={error ? true : undefined}
+                  aria-describedby={error ? `${groupId}-error` : undefined}
                   checked={selected}
                   onChange={() => onChange(option.value)}
                   className="sr-only"
@@ -247,7 +258,7 @@ export function FrequencyScale<T extends string>({
         </div>
       </div>
       <div className="mt-2">
-        <FieldError message={error} />
+        <FieldError id={`${groupId}-error`} message={error} />
       </div>
     </fieldset>
   )
@@ -270,11 +281,12 @@ export function RadioChipGroup<T extends string>({
   onChange: (value: T) => void
   error?: string
 }) {
+  const groupId = useId()
   return (
-    <fieldset>
+    <fieldset aria-invalid={error ? true : undefined} aria-describedby={[hint ? `${groupId}-hint` : undefined, error ? `${groupId}-error` : undefined].filter(Boolean).join(" ") || undefined}>
       <legend className="text-base font-medium">{legend}</legend>
       {hint ? (
-        <p className="mt-1 text-sm text-slate-500 dark:text-neutral-400">{hint}</p>
+        <p id={`${groupId}-hint`} className="mt-1 text-sm text-slate-500 dark:text-neutral-400">{hint}</p>
       ) : null}
       <div className="mt-3 flex flex-wrap gap-2">
         {options.map((option) => {
@@ -293,6 +305,8 @@ export function RadioChipGroup<T extends string>({
                 type="radio"
                 name={name}
                 value={option.value}
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? `${groupId}-error` : undefined}
                 checked={selected}
                 onChange={() => onChange(option.value)}
                 className="sr-only"
@@ -303,7 +317,7 @@ export function RadioChipGroup<T extends string>({
         })}
       </div>
       <div className="mt-2">
-        <FieldError message={error} />
+        <FieldError id={`${groupId}-error`} message={error} />
       </div>
     </fieldset>
   )

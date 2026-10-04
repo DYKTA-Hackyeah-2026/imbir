@@ -5,13 +5,6 @@ import { MatchmakingFlow } from "./MatchmakingFlow"
 export function MatchmakingPage() {
   return (
     <div className="min-h-screen bg-background">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
-      >
-        Przejdź do treści
-      </a>
-
       <header className="border-b border-border">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-4">
           <HeartHandshake aria-hidden="true" className="size-7 text-primary" />

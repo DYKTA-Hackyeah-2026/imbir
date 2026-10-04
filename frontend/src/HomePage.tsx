@@ -194,7 +194,7 @@ export default function HomePage() {
       <SiteHeader />
 
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 lg:flex-row">
-        <main className="min-w-0 flex-1 space-y-8">
+        <main id="main-content" tabIndex={-1} className="min-w-0 flex-1 space-y-8">
           {/* AI assistant hero */}
           <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-br from-sky-50 via-white to-blue-50 p-6 sm:p-8 dark:border-neutral-800 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-950">
             <div className="relative z-10 max-w-xl">
