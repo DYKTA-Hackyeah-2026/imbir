@@ -10,9 +10,9 @@ All routes below start with `/api/v1/chat`, require `Authorization: Bearer <acce
 
 | Method and route | Input | Result |
 | --- | --- | --- |
-| `GET /users?q=...` | Public name search | Public user IDs/names; no email directory |
+| `GET /users?q=...` | Public name search | Public user IDs/names; a blank `q` returns nobody; no email directory |
 | `GET /conversations` | — | Conversations, latest message, unread count, other participant |
-| `POST /conversations` | `{ recipientId }` | Existing or new direct conversation |
+| `POST /conversations` | `{ recipientId }` | Existing conversation only; `403` until a chat request is accepted |
 | `GET /conversations/:id/messages` | Optional `before` message UUID | `{ messages, hasMore }`, chronological page |
 | `POST /conversations/:id/messages` | `{ content, clientMessageId }` | Persisted message; identical retries return the same message |
 | `POST /conversations/:id/read` | `{ messageId }` | Advances read state through an actually displayed message |
@@ -23,7 +23,7 @@ All routes below start with `/api/v1/chat`, require `Authorization: Bearer <acce
 | `POST /invitations` | `{ email }` | Same acknowledgement for registered and unregistered emails |
 | `POST /ws-ticket` | — | `{ ticket, expiresAt }` for one WebSocket upgrade |
 
-Invitations are stored, not emailed. For a registered recipient, the invitation creates a request. For an unregistered email, registration attaches the stored invitation to the new account and creates one request. The acknowledgement does not reveal which case occurred.
+Users invite each other by username: search the directory with `GET /users?q=...` and send a request with `POST /requests`. A conversation is created only when the recipient accepts, so nobody can be messaged without accepting first. The email invitation endpoint is retained for unregistered recipients: the invitation is stored, not emailed, and registration attaches it to the new account as one request. The acknowledgement does not reveal which case occurred.
 
 ## Real-time transport
 

@@ -1,5 +1,6 @@
-import { Bot, MessagesSquare } from "lucide-react"
+import { Bot, MessagesSquare, RefreshCw } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 
 import { AssistantError } from "./AssistantError"
@@ -43,9 +44,11 @@ export function ChatPanel({
   loading = false,
   error = "",
   showIntro = false,
+  hasResults = false,
   onSendText,
   onClarificationSubmit,
   onRetry,
+  onAskAgain,
   className,
 }: {
   messages: ChatMessage[]
@@ -54,9 +57,11 @@ export function ChatPanel({
   loading?: boolean
   error?: string
   showIntro?: boolean
+  hasResults?: boolean
   onSendText: (text: string) => void
   onClarificationSubmit: (answer: ClarificationAnswer) => void
   onRetry: () => void
+  onAskAgain?: () => void
   className?: string
 }) {
   const showHero = showIntro && messages.length === 0
@@ -106,7 +111,21 @@ export function ChatPanel({
         </div>
       ) : null}
 
-      <ChatInput onSend={onSendText} disabled={loading} />
+      {hasResults ? (
+        <div className="border-t border-slate-200/80 p-3 dark:border-neutral-800">
+          <Button
+            type="button"
+            size="lg"
+            className="w-full"
+            onClick={onAskAgain}
+          >
+            <RefreshCw aria-hidden="true" />
+            Zapytaj jeszcze raz
+          </Button>
+        </div>
+      ) : (
+        <ChatInput onSend={onSendText} disabled={loading} />
+      )}
     </Card>
   )
 }

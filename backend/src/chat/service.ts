@@ -46,15 +46,10 @@ export async function listConversations(userId: number) {
 }
 export async function createConversation(userId: number, recipientId: number) {
   await validateRecipient(userId, recipientId);
-  const { conversation, resolved } = await db.transaction(async tx => {
-    await pairLock(tx, userId, recipientId);
-    const conversation = await ensureConversation(tx, userId, recipientId);
-    const resolved = await tx.update(requests).set({ status: 'accepted', updatedAt: new Date() })
-      .where(and(eq(requests.pairKey, pair(userId, recipientId)), eq(requests.status, 'pending'))).returning();
-    return { conversation, resolved };
-  });
-  for (const request of resolved) emitChat([userId, recipientId], 'chat_request:accepted', { requestId: request.id, conversationId: conversation.id });
-  emitChat([userId, recipientId], 'conversation:created', { conversationId: conversation.id });
+  // Conversations exist only after the recipient accepts a chat request.
+  // Resolve an existing one; never create one here, or a sender could bypass acceptance.
+  const [conversation] = await db.select().from(conversations).where(eq(conversations.pairKey, pair(userId, recipientId)));
+  if (!conversation) throw HttpError.forbidden('A chat request must be accepted first');
   return (await listConversations(userId)).find(c => c.id === conversation.id)!;
 }
 export async function loadMessages(userId: number, conversationId: string, before?: string) {
@@ -101,8 +96,11 @@ export async function markRead(userId: number, conversationId: string, messageId
   return { lastReadAt: participant.lastReadAt };
 }
 export async function searchUsers(userId: number, query: string) {
-  const escaped = query.replace(/[\\%_]/g, '\\$&');
-  const rows = await db.select({ id: users.id, name: users.name }).from(users).where(and(ne(users.id, userId), query ? ilike(users.name, `%${escaped}%`) : undefined)).orderBy(asc(users.name), asc(users.id)).limit(20);
+  // Never list the whole directory: require a non-empty term before searching.
+  const term = query.trim();
+  if (!term) return [];
+  const escaped = term.replace(/[\\%_]/g, '\\$&');
+  const rows = await db.select({ id: users.id, name: users.name }).from(users).where(and(ne(users.id, userId), ilike(users.name, `%${escaped}%`))).orderBy(asc(users.name), asc(users.id)).limit(20);
   return rows.map(publicUser);
 }
 export async function listRequests(userId: number) {
