@@ -1,5 +1,6 @@
 import { createAiGateway } from './ai/index.js';
 import { createApp } from './app.js';
+import { attachChatWebSocket } from './chat/websocket.js';
 import { createAssistantService } from './assistant/index.js';
 import config from './config/config.js';
 import { closeDatabase, pingDatabase } from './db/index.js';
@@ -74,6 +75,7 @@ async function start(): Promise<void> {
       `[api] listening on http://localhost:${config.port} (${config.nodeEnv})\n`,
     );
   });
+  const closeChatWebSocket = attachChatWebSocket(server);
 
   let shuttingDown = false;
 
@@ -82,6 +84,7 @@ async function start(): Promise<void> {
       return;
     }
     shuttingDown = true;
+    closeChatWebSocket();
     process.stdout.write(`[api] ${signal} received, shutting down\n`);
 
     const forceExit = setTimeout(() => {

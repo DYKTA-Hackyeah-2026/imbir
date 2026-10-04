@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
     '/contact': { target: backend, changeOrigin: true, secure: true },
     '/api/assistant': { target: backend, changeOrigin: true, secure: true },
     '/innovations': { target: backend, changeOrigin: true, secure: true },
-    '/api/v1': { target: backend, changeOrigin: true, secure: true },
+    '/api/v1': { target: backend, changeOrigin: true, secure: true, ws: true },
   }
 
   return {

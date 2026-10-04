@@ -1,5 +1,6 @@
 import { and, eq, isNull } from 'drizzle-orm';
 import config from '../../config/config.js';
+import { claimInvitations } from '../../chat/service.js';
 import { db } from '../../db/client.js';
 import {
   passwordResetTokens,
@@ -82,6 +83,7 @@ export async function register(input: RegisterInput): Promise<AuthResult> {
   }
 
   const tokens = await issueTokens(user);
+  await claimInvitations(user.id, user.email);
   return { user: toPublicUser(user), ...tokens };
 }
 
