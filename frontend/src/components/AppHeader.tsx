@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import { Link, NavLink, useNavigate } from "react-router-dom"
-import { LogOut, Settings2, Sparkles } from "lucide-react"
+import { LogOut, Settings2, ShieldCheck, Sparkles } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/lib/auth"
@@ -10,14 +10,17 @@ function NavItem({
   to,
   icon,
   children,
+  end,
 }: {
   to: string
   icon: ReactNode
   children: ReactNode
+  end?: boolean
 }) {
   return (
     <NavLink
       to={to}
+      end={end}
       className={({ isActive }) =>
         cn(
           "focus-visible:ring-ring inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none",
@@ -51,6 +54,11 @@ export default function AppHeader() {
             Małopolski Hub
           </Link>
           <nav className="ml-2 flex items-center gap-1">
+            {user?.isAdmin && (
+              <NavItem to="/admin" end icon={<ShieldCheck aria-hidden="true" />}>
+                Panel admina
+              </NavItem>
+            )}
             <NavItem to="/admin/cache" icon={<Settings2 aria-hidden="true" />}>
               Administracja
             </NavItem>

@@ -27,6 +27,9 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
   const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
   const menuButton = useRef<HTMLButtonElement>(null)
+  const navItems = user?.isAdmin
+    ? [...NAV, { label: "Panel admina", to: "/admin", end: true }]
+    : NAV
 
   async function handleLogout() {
     await logout()
@@ -49,7 +52,7 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
 
         {!compact ? (
           <nav aria-label="Nawigacja główna" className="hidden min-w-0 items-center gap-0.5 overflow-x-auto lg:flex">
-            {NAV.map((item) => (
+            {navItems.map((item) => (
               <NavLink
                 key={item.label}
                 to={item.to}
@@ -137,7 +140,7 @@ export default function SiteHeader({ compact = false }: { compact?: boolean }) {
             }
           }}
         >
-          {NAV.map((item) => (
+          {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
