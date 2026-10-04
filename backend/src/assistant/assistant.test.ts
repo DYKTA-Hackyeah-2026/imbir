@@ -321,6 +321,70 @@ describe('AssistantService', () => {
     assert.equal(recommendation.details.some((detail) => detail.label === 'Pomaga w'), false);
   });
 
+  test('uses the AI judge to drop candidates that do not match', async () => {
+    const deterministic = createAssistantLlm();
+    const seen: { query: string; ids: string[] } = { query: '', ids: [] };
+    const llm: AssistantLlm = {
+      kind: 'http',
+      analyze: (input) => deterministic.analyze(input),
+      async rerank({ query, candidates }) {
+        seen.query = query;
+        seen.ids = candidates.map((candidate) => candidate.id);
+        return ['p4'];
+      },
+    };
+    const service = buildService(PROGRAMS, { similarityThreshold: -1, maxRecommendations: 3, llm });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.equal(seen.ids.length, PROGRAMS.length);
+    assert.ok(seen.query.includes('paczkomat'));
+    assert.deepEqual(response.search.recommendations.map((program) => program.id), ['p4']);
+    assert.equal(response.search.pagination.totalResults, 1);
+  });
+
+  test('falls back to the hybrid ranking when the AI judge fails', async () => {
+    const deterministic = createAssistantLlm();
+    const llm: AssistantLlm = {
+      kind: 'http',
+      analyze: (input) => deterministic.analyze(input),
+      async rerank() {
+        throw new Error('judge unavailable');
+      },
+    };
+    const service = buildService(PROGRAMS, { similarityThreshold: -1, maxRecommendations: 2, llm });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.equal(response.search.recommendations.length, 2);
+    assert.equal(response.search.pagination.totalResults, 2);
+  });
+
+  test('ignores invented ids from the AI judge', async () => {
+    const deterministic = createAssistantLlm();
+    const llm: AssistantLlm = {
+      kind: 'http',
+      analyze: (input) => deterministic.analyze(input),
+      async rerank() {
+        return ['does-not-exist'];
+      },
+    };
+    const service = buildService(PROGRAMS, { similarityThreshold: -1, maxRecommendations: 2, llm });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.equal(response.search.recommendations.length, 2);
+  });
+
   test('finds a relevant innovation for an everyday phone problem', async () => {
     const service = buildService(PROGRAMS, { similarityThreshold: 0.35 });
     const response = await service.sendMessage({
