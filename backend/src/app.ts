@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import config from './config/config.js';
+import { chatRouter } from './chat/routes.js';
 import { createErrorHandler, notFoundHandler } from './http/errorHandler.js';
 import { requestIdMiddleware } from './http/requestId.js';
 import type { AssistantService } from './assistant/service.js';
@@ -91,6 +92,7 @@ export function createApp(deps: AppDependencies): express.Express {
 
   app.use('/health', healthRouter);
   app.use('/auth', authRouter);
+  app.use('/api/v1/chat', chatRouter);
   app.use('/content', contentRouter);
   app.use('/contact', contactRouter);
   app.use('/llm', llmRouter);

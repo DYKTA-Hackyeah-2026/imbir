@@ -64,6 +64,43 @@ export const users = pgTable('users', {
 
 });
 
+// A canonical pair is the database-level identity of a direct conversation.
+export const chatConversations = pgTable('chat_conversations', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  pairKey: text('pair_key').notNull().unique(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+export const chatParticipants = pgTable('chat_participants', {
+  conversationId: uuid('conversation_id').notNull().references(() => chatConversations.id, { onDelete: 'cascade' }),
+  userId: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  lastReadAt: timestamp('last_read_at', { withTimezone: true }),
+}, (t) => [primaryKey({ columns: [t.conversationId, t.userId] }), index('chat_participant_user_idx').on(t.userId)]);
+export const chatMessages = pgTable('chat_messages', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  conversationId: uuid('conversation_id').notNull().references(() => chatConversations.id, { onDelete: 'cascade' }),
+  senderId: integer('sender_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  clientMessageId: uuid('client_message_id').notNull(),
+  content: text('content').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [uniqueIndex('chat_message_client_unique').on(t.senderId, t.clientMessageId), index('chat_message_history_idx').on(t.conversationId, t.createdAt, t.id)]);
+export const chatRequests = pgTable('chat_requests', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  pairKey: text('pair_key').notNull(),
+  senderId: integer('sender_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  recipientId: integer('recipient_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  status: text('status', { enum: ['pending', 'accepted', 'declined'] }).notNull().default('pending'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [uniqueIndex('chat_request_pending_pair_unique').on(t.pairKey).where(sql`${t.status} = 'pending'`), index('chat_request_recipient_idx').on(t.recipientId, t.status)]);
+export const chatInvitations = pgTable('chat_invitations', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  senderId: integer('sender_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  email: text('email').notNull(),
+  status: text('status', { enum: ['pending', 'claimed'] }).notNull().default('pending'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [uniqueIndex('chat_invitation_sender_email_unique').on(t.senderId, t.email), index('chat_invitation_email_idx').on(t.email, t.status)]);
+
 
 
 export const refreshTokens = pgTable(

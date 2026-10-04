@@ -27,10 +27,11 @@ import AdminLayout from "./features/admin/AdminLayout"
 import AdminDashboardPage from "./features/admin/AdminDashboardPage"
 import AdminInnovationsPage from "./features/admin/AdminInnovationsPage"
 import AssistantPage from "./features/assistant/AssistantPage"
+import FloatingChat from "./features/chat/FloatingChat"
 
 function App() {
   return (
-    <Routes>
+    <><Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/chat" element={<AssistantPage />} />
       <Route path="/materialy" element={<MaterialsPage />} />
@@ -77,7 +78,7 @@ function App() {
         <Route path="cache" element={<AdminPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    </Routes><FloatingChat /></>
   )
 }
 
