@@ -80,6 +80,10 @@ try {
   const badSocket = new URL(chat('/ws?ticket=invalid'), base); badSocket.protocol = 'ws:';
   check('Unauthenticated WebSocket rejected', await rejectedSocket(badSocket) === 401);
   await request('GET', chat('/conversations'), undefined, undefined, 401);
+  check('User search with an empty query returns nobody', (await request('GET', chat('/users'), a.token)).data.length === 0);
+  const found = (await request('GET', chat(`/users?q=${encodeURIComponent(b.name)}`), a.token)).data;
+  check('User search finds a registered username', found.some((user: any) => user.id === b.id && user.name === b.name));
+  await request('POST', chat('/conversations'), a.token, { recipientId: b.id }, 403);
 
   await request('POST', chat('/requests'), a.token, { recipientId: b.id });
   const pending = (await request('GET', chat('/requests'), b.token)).data;
@@ -148,6 +152,7 @@ try {
   await request('POST', chat(`/requests/${declineId}/decline`), outsider.token, {});
   await sa.event('chat_request:declined', (event) => event.requestId === declineId);
   check('Decline removes pending request and notifies sender', (await request('GET', chat('/requests'), outsider.token)).data.length === 0);
+  await request('POST', chat('/conversations'), a.token, { recipientId: outsider.id }, 403);
 
   const existingInvite = await request('POST', chat('/invitations'), outsider.token, { email: b.email });
   const unknownEmail = `${prefix}-invite@example.com`;

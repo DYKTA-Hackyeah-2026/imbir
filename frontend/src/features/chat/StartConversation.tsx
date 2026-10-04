@@ -4,27 +4,35 @@ import { Input } from "../../components/ui/input"
 import { errorMessage } from "../../lib/api"
 import { chatApi, userName, type ChatUser } from "./api"
 
-export function StartConversation({ busy, onStart, onRequest, onInvite }: { busy: boolean; onStart: (id: number) => void; onRequest: (id: number) => void; onInvite: (email: string) => void }) {
+type SearchResult = { term: string; users: ChatUser[]; error: string }
+
+export function StartConversation({ busy, onInvite }: { busy: boolean; onInvite: (id: number) => void }) {
   const [query, setQuery] = useState("")
-  const [users, setUsers] = useState<ChatUser[]>([])
-  const [email, setEmail] = useState("")
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(true)
+  const [result, setResult] = useState<SearchResult>({ term: "", users: [], error: "" })
+  const [loading, setLoading] = useState(false)
+  const term = query.trim()
   useEffect(() => {
+    if (!term) return
     let active = true
     const timer = setTimeout(() => {
       setLoading(true)
-      chatApi<ChatUser[]>(`/users?q=${encodeURIComponent(query)}`).then((items) => { if (active) { setUsers(items); setError("") } }).catch((err) => { if (active) setError(errorMessage(err)) }).finally(() => { if (active) setLoading(false) })
+      chatApi<ChatUser[]>(`/users?q=${encodeURIComponent(term)}`)
+        .then((users) => { if (active) setResult({ term, users, error: "" }) })
+        .catch((err) => { if (active) setResult({ term, users: [], error: errorMessage(err) }) })
+        .finally(() => { if (active) setLoading(false) })
     }, 300)
     return () => { active = false; clearTimeout(timer) }
-  }, [query])
-  return <div className="space-y-5 p-4">
-    <div className="space-y-3"><label htmlFor="chat-search" className="text-sm font-medium">Znajdź użytkownika</label><Input id="chat-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Szukaj po nazwie" />
-      {loading && <p role="status" className="text-muted-foreground text-sm">Szukanie…</p>}{error && <p role="alert" className="text-destructive text-sm">{error}</p>}
-      {!loading && !error && !users.length && <p role="status" className="text-muted-foreground text-sm">Brak wyników. Możesz zaprosić osobę przez e-mail.</p>}
-      <p role="status" className="sr-only">{!loading && !error && users.length ? `Znaleziono ${users.length} użytkowników.` : ""}</p>
-      <ul className="space-y-3">{users.map((user) => <li key={user.id} className="space-y-2 rounded-lg border p-3"><p className="text-sm font-medium">{userName(user)}</p><div className="flex flex-wrap gap-2"><Button size="sm" disabled={busy} aria-label={`Rozpocznij rozmowę z ${userName(user)}`} onClick={() => onStart(user.id)}>Rozpocznij rozmowę</Button><Button size="sm" variant="outline" disabled={busy} aria-label={`Wyślij prośbę do ${userName(user)}`} onClick={() => onRequest(user.id)}>Wyślij prośbę</Button></div></li>)}</ul>
-    </div>
-    <form className="space-y-3 border-t pt-4" onSubmit={(event) => { event.preventDefault(); if (!busy) onInvite(email) }}><label htmlFor="chat-email" className="text-sm font-medium">Zaproś przez e-mail</label><Input id="chat-email" type="email" autoComplete="email" aria-describedby="chat-invite-hint" required maxLength={254} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="osoba@example.com" /><p id="chat-invite-hint" className="text-muted-foreground text-xs">Prośba będzie dostępna po zalogowaniu lub utworzeniu konta przez zaproszoną osobę.</p><Button type="submit" disabled={busy || !email.trim()}>Wyślij zaproszenie</Button></form>
+  }, [term])
+  const current = result.term === term ? result : { users: [], error: "" }
+  return <div className="space-y-3 p-4">
+    <label htmlFor="chat-search" className="text-sm font-medium">Zaproś do rozmowy</label>
+    <Input id="chat-search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Wpisz nazwę użytkownika" autoComplete="off" />
+    <p id="chat-invite-hint" className="text-muted-foreground text-xs">Rozmowa zacznie się dopiero, gdy druga osoba zaakceptuje zaproszenie.</p>
+    {!term && <p role="status" className="text-muted-foreground text-sm">Wpisz nazwę użytkownika, aby go znaleźć.</p>}
+    {term && loading && <p role="status" className="text-muted-foreground text-sm">Szukanie…</p>}
+    {term && !loading && current.error && <p role="alert" className="text-destructive text-sm">{current.error}</p>}
+    {term && !loading && !current.error && !current.users.length && <p role="status" className="text-muted-foreground text-sm">Brak wyników.</p>}
+    <p role="status" className="sr-only">{term && !loading && !current.error && current.users.length ? `Znaleziono ${current.users.length} użytkowników.` : ""}</p>
+    <ul className="space-y-3">{term && !loading ? current.users.map((user) => <li key={user.id} className="space-y-2 rounded-lg border p-3"><p className="text-sm font-medium">{userName(user)}</p><Button size="sm" disabled={busy} aria-label={`Zaproś do rozmowy: ${userName(user)}`} onClick={() => onInvite(user.id)}>Zaproś do rozmowy</Button></li>) : null}</ul>
   </div>
 }
