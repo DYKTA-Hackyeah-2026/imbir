@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 import { cosineSimilarity, hashEmbedding } from '../matchmaking/text.js';
+import { detectNeeds } from '../matchmaking/needs.js';
+import { scorePrograms } from './relevance.js';
 import type { Conversation, ConversationRepository } from './conversation.repository.js';
 import type {
   ConversationState,
@@ -11,6 +13,7 @@ import type {
   StoredSearchResult,
 } from './domain.js';
 import type { EmbeddingProvider } from './embedding.js';
+import { toRecommendation } from './explanation.js';
 import { createAssistantLlm, type AssistantLlm } from './llm.js';
 import type { ProgramRepository, ProgramWriteInput } from './program.repository.js';
 import type { SearchRepository } from './search.repository.js';
@@ -27,13 +30,19 @@ const embeddings: EmbeddingProvider = {
 
 const programVectors = new Map<string, number[]>();
 
-function makeProgram(id: string, title: string, summary: string, problems: string[]): Program {
+function makeProgram(
+  id: string,
+  title: string,
+  summary: string,
+  problems: string[],
+  topics: string[] = ['wsparcie'],
+): Program {
   const base = {
     title,
     summary,
     description: summary,
     targetGroups: ['mieszkańcy'],
-    topics: ['wsparcie'],
+    topics,
     problemsAddressed: problems,
   };
   programVectors.set(id, hashEmbedding(buildProgramSearchText(base), DIMENSIONS));
@@ -62,6 +71,10 @@ class FakeProgramRepository implements ProgramRepository {
         similarity: cosineSimilarity(embedding, programVectors.get(program.id) ?? embedding),
       }))
       .slice(0, limit);
+  }
+
+  async listActivePrograms(): Promise<Program[]> {
+    return this.items;
   }
 
   async getByIds(ids: string[]): Promise<Program[]> {
@@ -144,7 +157,10 @@ class FakeSearchRepository implements SearchRepository {
   }
 }
 
-function buildService(programs: Program[], overrides: { similarityThreshold?: number; llm?: AssistantLlm } = {}): AssistantService {
+function buildService(
+  programs: Program[],
+  overrides: { similarityThreshold?: number; maxRecommendations?: number; llm?: AssistantLlm } = {},
+): AssistantService {
   return new AssistantService({
     programs: new FakeProgramRepository(programs),
     conversations: new FakeConversationRepository(),
@@ -153,13 +169,16 @@ function buildService(programs: Program[], overrides: { similarityThreshold?: nu
     llm: overrides.llm ?? createAssistantLlm(),
     similarityThreshold: overrides.similarityThreshold ?? -1,
     candidateLimit: 20,
+    maxRecommendations: overrides.maxRecommendations ?? 20,
     defaultPageSize: 2,
     maxPageSize: 20,
   });
 }
 
 const PROGRAMS: Program[] = [
-  makeProgram('p1', 'Cyfrowy Senior', 'Pomoc w obsłudze telefonu i internetu', ['obsługa paczkomatu']),
+  makeProgram('p1', 'Cyfrowy Senior', 'Pomoc w obsłudze telefonu i internetu', ['obsługa paczkomatu'], [
+    'digital_exclusion',
+  ]),
   makeProgram('p2', 'Aktywni Zawodowo', 'Pomoc w znalezieniu pracy', ['brak pracy']),
   makeProgram('p3', 'Pomoc Żywnościowa', 'Pomoc z jedzeniem', ['brak jedzenia']),
   makeProgram('p4', 'Wsparcie Mieszkaniowe', 'Sprawy mieszkaniowe', ['bezdomność']),
@@ -241,21 +260,140 @@ describe('AssistantService', () => {
     const message = { type: 'text' as const, text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' };
     const analysis = await createAssistantLlm().analyze({ state: { summary: '', facts: {}, needs: [] }, message });
     const queryVector = await embeddings.embed(analysis.searchQuery!);
-    const scores = PROGRAMS.map((program) => ({
-      id: program.id,
-      score: cosineSimilarity(queryVector, programVectors.get(program.id)!),
-    })).sort((a, b) => b.score - a.score);
-    const threshold = (scores[0].score + scores[1].score) / 2;
-    assert.ok(scores[0].score > scores[1].score);
+    const vectorSimilarity = new Map(
+      PROGRAMS.map((program) => [
+        program.id,
+        cosineSimilarity(queryVector, programVectors.get(program.id)!),
+      ]),
+    );
+    const scores = scorePrograms({
+      programs: PROGRAMS,
+      query: analysis.state.summary,
+      needs: detectNeeds(analysis.state.summary).map((need) => ({
+        id: need.id,
+        aliases: [need.label],
+      })),
+      vectorSimilarity,
+    }).sort((a, b) => b.relevance - a.relevance);
+    const threshold = (scores[0].relevance + scores[1].relevance) / 2;
+    assert.ok(scores[0].relevance > scores[1].relevance);
     const service = buildService(PROGRAMS, { similarityThreshold: threshold });
     const response = await service.sendMessage({ message });
     if (response.type !== 'recommendations') throw new Error('expected recommendations');
-    assert.deepEqual(response.search.recommendations.map((program) => program.id), [scores[0].id]);
+    assert.deepEqual(
+      response.search.recommendations.map((program) => program.id),
+      [scores[0].program.id],
+    );
     assert.equal(response.search.pagination.totalResults, 1);
     const persisted = await service.getSearchPage(response.search.id, 1, 2);
-    assert.deepEqual(persisted.recommendations.map((program) => program.id), [scores[0].id]);
+    assert.deepEqual(
+      persisted.recommendations.map((program) => program.id),
+      [scores[0].program.id],
+    );
     assert.equal(persisted.pagination.totalResults, 1);
     assert.equal(persisted.pagination.hasNextPage, false);
+  });
+
+  test('caps recommendations to the strongest matches', async () => {
+    const service = buildService(PROGRAMS, { similarityThreshold: -1, maxRecommendations: 2 });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.equal(response.search.recommendations.length, 2);
+    assert.equal(response.search.pagination.totalResults, 2);
+    assert.equal(response.search.pagination.hasNextPage, false);
+  });
+
+  test('shows readable topics once when tags repeat', () => {
+    const program = makeProgram(
+      'p9',
+      'Cyfrowy Senior',
+      'Pomoc w obsłudze telefonu i internetu',
+      ['digital_exclusion'],
+      ['digital_exclusion'],
+    );
+    const recommendation = toRecommendation({ summary: '', facts: {}, needs: [] }, program, 'unknown');
+
+    assert.equal(recommendation.details.find((detail) => detail.label === 'Tematy')?.value, 'Wykluczenie cyfrowe');
+    assert.equal(recommendation.details.some((detail) => detail.label === 'Pomaga w'), false);
+  });
+
+  test('uses the AI judge to drop candidates that do not match', async () => {
+    const deterministic = createAssistantLlm();
+    const seen: { query: string; ids: string[] } = { query: '', ids: [] };
+    const llm: AssistantLlm = {
+      kind: 'http',
+      analyze: (input) => deterministic.analyze(input),
+      async rerank({ query, candidates }) {
+        seen.query = query;
+        seen.ids = candidates.map((candidate) => candidate.id);
+        return ['p4'];
+      },
+    };
+    const service = buildService(PROGRAMS, { similarityThreshold: -1, maxRecommendations: 3, llm });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.equal(seen.ids.length, PROGRAMS.length);
+    assert.ok(seen.query.includes('paczkomat'));
+    assert.deepEqual(response.search.recommendations.map((program) => program.id), ['p4']);
+    assert.equal(response.search.pagination.totalResults, 1);
+  });
+
+  test('falls back to the hybrid ranking when the AI judge fails', async () => {
+    const deterministic = createAssistantLlm();
+    const llm: AssistantLlm = {
+      kind: 'http',
+      analyze: (input) => deterministic.analyze(input),
+      async rerank() {
+        throw new Error('judge unavailable');
+      },
+    };
+    const service = buildService(PROGRAMS, { similarityThreshold: -1, maxRecommendations: 2, llm });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.equal(response.search.recommendations.length, 2);
+    assert.equal(response.search.pagination.totalResults, 2);
+  });
+
+  test('ignores invented ids from the AI judge', async () => {
+    const deterministic = createAssistantLlm();
+    const llm: AssistantLlm = {
+      kind: 'http',
+      analyze: (input) => deterministic.analyze(input),
+      async rerank() {
+        return ['does-not-exist'];
+      },
+    };
+    const service = buildService(PROGRAMS, { similarityThreshold: -1, maxRecommendations: 2, llm });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.equal(response.search.recommendations.length, 2);
+  });
+
+  test('finds a relevant innovation for an everyday phone problem', async () => {
+    const service = buildService(PROGRAMS, { similarityThreshold: 0.35 });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'mam problem z telefonem' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.ok(response.search.recommendations.some((program) => program.id === 'p1'));
   });
 
   test('asks for clarification on a vague request without a conversation id', async () => {

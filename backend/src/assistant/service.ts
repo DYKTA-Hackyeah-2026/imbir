@@ -4,6 +4,7 @@ import {
   buildPagination,
   type Clarification,
   type ConversationState,
+  type RankedProgram,
   type Recommendation,
   type SearchPageResponse,
   type SendAssistantMessageRequest,
@@ -17,7 +18,9 @@ import { buildWeakResultsClarification, type AssistantLlm, type LlmAnalysis } fr
 import type { Conversation, ConversationRepository } from './conversation.repository.js';
 import type { ProgramRepository } from './program.repository.js';
 import { rankCandidates } from './ranking.js';
+import { scorePrograms } from './relevance.js';
 import type { SearchRepository } from './search.repository.js';
+import { detectNeeds } from '../matchmaking/needs.js';
 
 export interface AssistantServiceDeps {
   programs: ProgramRepository;
@@ -27,6 +30,7 @@ export interface AssistantServiceDeps {
   llm: AssistantLlm;
   similarityThreshold: number;
   candidateLimit: number;
+  maxRecommendations: number;
   defaultPageSize: number;
   maxPageSize: number;
 }
@@ -37,6 +41,9 @@ export const NO_SOLUTION_MESSAGE =
 
 /** Where the "kreator pomysłów" wizard lives; the frontend renders the button. */
 export const NEW_INNOVATION_HREF = '/kreator';
+
+/** Minimum number of hits handed to the AI relevance judge (when available). */
+const RERANK_POOL_SIZE = 8;
 
 function cloneEmptyState(): ConversationState {
   return { ...EMPTY_CONVERSATION_STATE, facts: {}, needs: [] };
@@ -56,6 +63,7 @@ export class AssistantService {
   private readonly llm: AssistantLlm;
   private readonly similarityThreshold: number;
   private readonly candidateLimit: number;
+  private readonly maxRecommendations: number;
   private readonly defaultPageSize: number;
   private readonly maxPageSize: number;
 
@@ -67,6 +75,7 @@ export class AssistantService {
     this.llm = deps.llm;
     this.similarityThreshold = deps.similarityThreshold;
     this.candidateLimit = deps.candidateLimit;
+    this.maxRecommendations = deps.maxRecommendations;
     this.defaultPageSize = deps.defaultPageSize;
     this.maxPageSize = deps.maxPageSize;
   }
@@ -204,6 +213,43 @@ export class AssistantService {
     await this.conversations.appendMessage({ conversationId, role: 'assistant', content });
   }
 
+  /**
+   * Final relevance pass. When the AI provider is available it judges the
+   * strongest hybrid hits and keeps only the ones that match the request;
+   * otherwise this is a plain top-N slice.
+   */
+  private async selectCandidates(
+    ranked: RankedProgram[],
+    query: string,
+  ): Promise<RankedProgram[]> {
+    const rerank = this.llm.rerank;
+    if (!rerank || ranked.length <= 1) {
+      return ranked.slice(0, this.maxRecommendations);
+    }
+
+    const pool = ranked.slice(0, Math.max(this.maxRecommendations, RERANK_POOL_SIZE));
+    let relevantIds: string[];
+    try {
+      relevantIds = await rerank({
+        query,
+        candidates: pool.map((item) => ({
+          id: item.program.id,
+          title: item.program.title,
+          summary: item.program.summary,
+          topics: item.program.topics,
+          targetGroups: item.program.targetGroups,
+        })),
+      });
+    } catch {
+      relevantIds = pool.map((item) => item.program.id);
+    }
+
+    const allowed = new Set(relevantIds);
+    const filtered = pool.filter((item) => allowed.has(item.program.id));
+    const result = filtered.length > 0 ? filtered : ranked;
+    return result.slice(0, this.maxRecommendations);
+  }
+
   private async runSearch(
     conversationId: string,
     analysis: LlmAnalysis,
@@ -212,18 +258,34 @@ export class AssistantService {
     const searchQuery = analysis.searchQuery ?? fallbackSearchQuery(state);
     const embedding = await this.embeddings.embed(searchQuery);
 
-    const candidates = await this.programs.semanticSearch({
-      embedding,
-      limit: this.candidateLimit,
-      query: searchQuery,
-    });
+    // Hybrid retrieval: the semantic candidates provide vector similarity, the
+    // full active catalogue provides the lexical + taxonomy signal the offline
+    // embedding lacks. The domain scores and gates them together.
+    const [catalogue, candidates] = await Promise.all([
+      this.programs.listActivePrograms(),
+      this.programs.semanticSearch({ embedding, limit: this.candidateLimit }),
+    ]);
+
+    const vectorSimilarity = new Map(
+      candidates.map((candidate) => [candidate.program.id, candidate.similarity]),
+    );
+    const retrievalText = state.summary.trim().length > 0 ? state.summary : searchQuery;
+    const needs = detectNeeds(retrievalText).map((need) => ({
+      id: need.id,
+      aliases: [need.label],
+    }));
 
     const ranked = rankCandidates(
-      candidates
-        .filter((candidate) => candidate.similarity >= this.similarityThreshold)
+      scorePrograms({
+        programs: catalogue,
+        query: retrievalText,
+        needs,
+        vectorSimilarity,
+      })
+        .filter((candidate) => candidate.relevance >= this.similarityThreshold)
         .map((candidate) => ({
           program: candidate.program,
-          similarity: candidate.similarity,
+          similarity: candidate.relevance,
           eligibilityStatus: evaluateEligibility(state, candidate.program),
         })),
     );
@@ -245,7 +307,11 @@ export class AssistantService {
       };
     }
 
-    const storedResults: StoredSearchResult[] = ranked.map((item, index) => ({
+    // Keep only the strongest matches so the answer stays precise, then let the
+    // AI judge drop hits that only share a broad category with the request.
+    const selected = await this.selectCandidates(ranked, retrievalText);
+
+    const storedResults: StoredSearchResult[] = selected.map((item, index) => ({
       programId: item.program.id,
       position: index + 1,
       similarity: item.similarity,
@@ -267,7 +333,7 @@ export class AssistantService {
     await this.appendAssistant(conversationId, analysis.assistantMessage);
 
     const pageSize = this.defaultPageSize;
-    const pageItems = ranked.slice(0, pageSize);
+    const pageItems = selected.slice(0, pageSize);
     const recommendations = pageItems.map((item) =>
       toRecommendation(state, item.program, item.eligibilityStatus),
     );
@@ -279,7 +345,7 @@ export class AssistantService {
       search: {
         id: search.id,
         recommendations,
-        pagination: buildPagination(1, pageSize, ranked.length),
+        pagination: buildPagination(1, pageSize, selected.length),
       },
     };
   }

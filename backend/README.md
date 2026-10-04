@@ -108,9 +108,8 @@ Load it into PostgreSQL (idempotent upsert) with:
 npm run db:seed:innovations
 ```
 
-The assistant/chatbot retrieves rows from the `programs` table. API startup
-automatically bridges imported ROPS innovations into that search index. To
-refresh the index immediately after importing while the API is running:
+The assistant/chatbot retrieves rows from the `programs` table only, so imported
+innovations are additionally bridged into that semantic-search index:
 
 ```bash
 npm run db:seed:assistant-innovations
@@ -118,11 +117,6 @@ npm run db:seed:assistant-innovations
 
 `RUN_SEED_INNOVATIONS=true` runs both steps automatically on container start
 (import first, then the assistant bridge); the bridge is idempotent and non-fatal.
-
-Search combines embedding similarity with explicit catalogue need tags and exact
-innovation titles, so offline embeddings or an embedding-provider outage do not
-hide matching catalogue entries. Generic support language alone does not match
-the tag/title fallback. The candidate limit is applied after this combined ranking.
 
 ### Synthetic demo data
 

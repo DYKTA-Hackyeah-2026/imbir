@@ -7,13 +7,12 @@ import type {
   ProgramEligibility,
   ProgramStatus,
 } from './domain.js';
-import { buildProgramSearchText, programSearchSimilarity } from './search-text.js';
+import { buildProgramSearchText } from './search-text.js';
 import type { EmbeddingProvider } from './embedding.js';
 
 export interface SemanticSearchInput {
   embedding: number[];
   limit: number;
-  query?: string;
 }
 
 export interface ProgramWriteInput {
@@ -34,6 +33,12 @@ export interface ProgramWriteInput {
 /** Domain port. The domain never builds pgvector SQL itself. */
 export interface ProgramRepository {
   semanticSearch(input: SemanticSearchInput): Promise<ProgramCandidate[]>;
+  /**
+   * Active catalogue used for hybrid lexical + tag retrieval. The offline
+   * embedding is too weak to rank the catalogue reliably, so the domain scores
+   * the documents itself; `limit` keeps the query bounded.
+   */
+  listActivePrograms(limit?: number): Promise<Program[]>;
   getByIds(ids: string[]): Promise<Program[]>;
   getById(id: string): Promise<Program | undefined>;
   createProgram(input: ProgramWriteInput): Promise<Program>;
@@ -101,27 +106,30 @@ function writeValues(input: ProgramWriteInput, searchText: string) {
 export class PostgresProgramRepository implements ProgramRepository {
   constructor(private readonly embeddings: EmbeddingProvider) {}
 
-  async semanticSearch({ embedding, limit, query }: SemanticSearchInput): Promise<ProgramCandidate[]> {
+  async semanticSearch({ embedding, limit }: SemanticSearchInput): Promise<ProgramCandidate[]> {
     const literal = toVectorLiteral(embedding);
     const distance = sql<number>`(${programs.embedding} <=> ${literal}::vector)`;
 
-    const statement = db
+    const rows = await db
       .select({ program: programs, distance })
       .from(programs)
-      .where(query ? eq(programs.status, 'active') : and(eq(programs.status, 'active'), isNotNull(programs.embedding)))
-      .orderBy(distance);
-    // Apply the limit after tag/title matching so vector ordering cannot hide
-    // relevant catalogue rows (including rows awaiting an embedding).
-    const rows = await (query ? statement : statement.limit(limit));
+      .where(and(eq(programs.status, 'active'), isNotNull(programs.embedding)))
+      .orderBy(distance)
+      .limit(limit);
 
-    return rows.map((row) => {
-      const program = toProgram(row.program);
-      const similarity = row.distance == null ? 0 : 1 - Number(row.distance);
-      return {
-        program,
-        similarity: query ? programSearchSimilarity(query, program, similarity) : similarity,
-      };
-    }).sort((a, b) => b.similarity - a.similarity || a.program.id.localeCompare(b.program.id)).slice(0, limit);
+    return rows.map((row) => ({
+      program: toProgram(row.program),
+      similarity: 1 - Number(row.distance),
+    }));
+  }
+
+  async listActivePrograms(limit = 1000): Promise<Program[]> {
+    const rows = await db
+      .select()
+      .from(programs)
+      .where(eq(programs.status, 'active'))
+      .limit(limit);
+    return rows.map(toProgram);
   }
 
   async getByIds(ids: string[]): Promise<Program[]> {
