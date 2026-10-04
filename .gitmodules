@@ -1,9 +1,0 @@
-[submodule "backend"]
-	path = backend
-	url = git@github.com:DYKTA-Hackyeah-2026/backend.git
-[submodule "frontend"]
-	path = frontend
-	url = git@github.com:DYKTA-Hackyeah-2026/frontend.git
-[submodule "pgvector"]
-	path = pgvector
-	url = git@github.com:DYKTA-Hackyeah-2026/pgvector.git
