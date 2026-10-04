@@ -29,6 +29,7 @@ export interface AssistantServiceDeps {
   llm: AssistantLlm;
   similarityThreshold: number;
   candidateLimit: number;
+  maxRecommendations: number;
   defaultPageSize: number;
   maxPageSize: number;
 }
@@ -58,6 +59,7 @@ export class AssistantService {
   private readonly llm: AssistantLlm;
   private readonly similarityThreshold: number;
   private readonly candidateLimit: number;
+  private readonly maxRecommendations: number;
   private readonly defaultPageSize: number;
   private readonly maxPageSize: number;
 
@@ -69,6 +71,7 @@ export class AssistantService {
     this.llm = deps.llm;
     this.similarityThreshold = deps.similarityThreshold;
     this.candidateLimit = deps.candidateLimit;
+    this.maxRecommendations = deps.maxRecommendations;
     this.defaultPageSize = deps.defaultPageSize;
     this.maxPageSize = deps.maxPageSize;
   }
@@ -263,7 +266,10 @@ export class AssistantService {
       };
     }
 
-    const storedResults: StoredSearchResult[] = ranked.map((item, index) => ({
+    // Keep only the strongest matches so the answer stays precise.
+    const selected = ranked.slice(0, this.maxRecommendations);
+
+    const storedResults: StoredSearchResult[] = selected.map((item, index) => ({
       programId: item.program.id,
       position: index + 1,
       similarity: item.similarity,
@@ -285,7 +291,7 @@ export class AssistantService {
     await this.appendAssistant(conversationId, analysis.assistantMessage);
 
     const pageSize = this.defaultPageSize;
-    const pageItems = ranked.slice(0, pageSize);
+    const pageItems = selected.slice(0, pageSize);
     const recommendations = pageItems.map((item) =>
       toRecommendation(state, item.program, item.eligibilityStatus),
     );
@@ -297,7 +303,7 @@ export class AssistantService {
       search: {
         id: search.id,
         recommendations,
-        pagination: buildPagination(1, pageSize, ranked.length),
+        pagination: buildPagination(1, pageSize, selected.length),
       },
     };
   }

@@ -49,8 +49,8 @@ export interface ScoreProgramsInput {
   vectorSimilarity: ReadonlyMap<string, number>;
 }
 
-const LEXICAL_WEIGHT = 0.47;
-const TAG_WEIGHT = 0.38;
+const LEXICAL_WEIGHT = 0.6;
+const TAG_WEIGHT = 0.25;
 const VECTOR_WEIGHT = 0.15;
 
 function stemmedTokens(text: string): string[] {
@@ -85,9 +85,12 @@ export function scorePrograms(input: ScoreProgramsInput): ScoredProgram[] {
 
   const catalogueSize = Math.max(1, input.programs.length);
   const tokenWeights = new Map<string, number>();
+  let totalWeight = 0;
   for (const token of queryTokens) {
     const frequency = documentFrequency.get(token) ?? 0;
-    tokenWeights.set(token, Math.log(1 + catalogueSize / (1 + frequency)));
+    const weight = Math.log(1 + catalogueSize / (1 + frequency));
+    tokenWeights.set(token, weight);
+    totalWeight += weight;
   }
 
   const needs = input.needs.map((need) => ({
@@ -102,8 +105,9 @@ export function scorePrograms(input: ScoreProgramsInput): ScoredProgram[] {
     for (const token of queryTokens) {
       if (tokens.has(token)) matchedWeight += tokenWeights.get(token) ?? 0;
     }
-    // Saturating recall: one distinctive match already carries most of the score.
-    const lexicalScore = matchedWeight > 0 ? 1 - Math.exp(-matchedWeight) : 0;
+    // IDF-weighted coverage: a document must account for the distinctive query
+    // terms, not just a pile of common ones, so generic matches score low.
+    const lexicalScore = totalWeight > 0 ? matchedWeight / totalWeight : 0;
 
     const tags = programTags.get(program.id) ?? new Set<string>();
     let matchedNeeds = 0;

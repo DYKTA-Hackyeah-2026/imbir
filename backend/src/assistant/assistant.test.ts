@@ -13,6 +13,7 @@ import type {
   StoredSearchResult,
 } from './domain.js';
 import type { EmbeddingProvider } from './embedding.js';
+import { toRecommendation } from './explanation.js';
 import { createAssistantLlm, type AssistantLlm } from './llm.js';
 import type { ProgramRepository, ProgramWriteInput } from './program.repository.js';
 import type { SearchRepository } from './search.repository.js';
@@ -156,7 +157,10 @@ class FakeSearchRepository implements SearchRepository {
   }
 }
 
-function buildService(programs: Program[], overrides: { similarityThreshold?: number; llm?: AssistantLlm } = {}): AssistantService {
+function buildService(
+  programs: Program[],
+  overrides: { similarityThreshold?: number; maxRecommendations?: number; llm?: AssistantLlm } = {},
+): AssistantService {
   return new AssistantService({
     programs: new FakeProgramRepository(programs),
     conversations: new FakeConversationRepository(),
@@ -165,6 +169,7 @@ function buildService(programs: Program[], overrides: { similarityThreshold?: nu
     llm: overrides.llm ?? createAssistantLlm(),
     similarityThreshold: overrides.similarityThreshold ?? -1,
     candidateLimit: 20,
+    maxRecommendations: overrides.maxRecommendations ?? 20,
     defaultPageSize: 2,
     maxPageSize: 20,
   });
@@ -287,6 +292,33 @@ describe('AssistantService', () => {
     );
     assert.equal(persisted.pagination.totalResults, 1);
     assert.equal(persisted.pagination.hasNextPage, false);
+  });
+
+  test('caps recommendations to the strongest matches', async () => {
+    const service = buildService(PROGRAMS, { similarityThreshold: -1, maxRecommendations: 2 });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.equal(response.search.recommendations.length, 2);
+    assert.equal(response.search.pagination.totalResults, 2);
+    assert.equal(response.search.pagination.hasNextPage, false);
+  });
+
+  test('shows readable topics once when tags repeat', () => {
+    const program = makeProgram(
+      'p9',
+      'Cyfrowy Senior',
+      'Pomoc w obsłudze telefonu i internetu',
+      ['digital_exclusion'],
+      ['digital_exclusion'],
+    );
+    const recommendation = toRecommendation({ summary: '', facts: {}, needs: [] }, program, 'unknown');
+
+    assert.equal(recommendation.details.find((detail) => detail.label === 'Tematy')?.value, 'Wykluczenie cyfrowe');
+    assert.equal(recommendation.details.some((detail) => detail.label === 'Pomaga w'), false);
   });
 
   test('finds a relevant innovation for an everyday phone problem', async () => {

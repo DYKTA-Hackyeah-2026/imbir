@@ -62,6 +62,10 @@ const envSchema = z.object({
   // assistant offers to submit a new idea) rather than surfaced as a weak match.
   ASSISTANT_SIMILARITY_THRESHOLD: z.coerce.number().min(-1).max(1).default(0.35),
   ASSISTANT_CANDIDATE_LIMIT: z.coerce.number().int().positive().max(100).default(20),
+  // Keep the list short and precise: only the best-matching innovations are
+  // stored for a search, so users see a handful of relevant hits, not the whole
+  // catalogue.
+  ASSISTANT_MAX_RESULTS: z.coerce.number().int().positive().max(50).default(5),
   ASSISTANT_PAGE_SIZE: z.coerce.number().int().positive().max(50).default(3),
   ASSISTANT_MAX_PAGE_SIZE: z.coerce.number().int().positive().max(100).default(20),
 });

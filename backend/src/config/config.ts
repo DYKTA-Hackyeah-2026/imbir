@@ -67,6 +67,8 @@ const config = {
     similarityThreshold: env.ASSISTANT_SIMILARITY_THRESHOLD,
     /** pgvector candidates retrieved before eligibility filtering and ranking. */
     candidateLimit: env.ASSISTANT_CANDIDATE_LIMIT,
+    /** Maximum recommendations stored and returned for a single search. */
+    maxRecommendations: env.ASSISTANT_MAX_RESULTS,
     defaultPageSize: env.ASSISTANT_PAGE_SIZE,
     maxPageSize: env.ASSISTANT_MAX_PAGE_SIZE,
   },

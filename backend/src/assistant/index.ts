@@ -21,6 +21,7 @@ export function createAssistantService(ai: AiGateway): AssistantService {
     llm: createAssistantLlm(),
     similarityThreshold: config.assistant.similarityThreshold,
     candidateLimit: config.assistant.candidateLimit,
+    maxRecommendations: config.assistant.maxRecommendations,
     defaultPageSize: config.assistant.defaultPageSize,
     maxPageSize: config.assistant.maxPageSize,
   });

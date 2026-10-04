@@ -224,6 +224,7 @@ describe('chatbot retrieves a bridged innovation', () => {
       llm: createAssistantLlm(),
       similarityThreshold: 0.05,
       candidateLimit: 20,
+      maxRecommendations: 5,
       defaultPageSize: 3,
       maxPageSize: 20,
     });
