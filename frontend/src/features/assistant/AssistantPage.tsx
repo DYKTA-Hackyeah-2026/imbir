@@ -35,6 +35,13 @@ export default function AssistantPage() {
 
   const lastRequestRef = useRef<SendAssistantMessageRequest | null>(null)
   const requestIdRef = useRef(0)
+  const resultsRequestIdRef = useRef(0)
+  const lastResultsPageRef = useRef<number | null>(null)
+
+  useEffect(() => () => {
+    requestIdRef.current += 1
+    resultsRequestIdRef.current += 1
+  }, [])
 
   useEffect(() => {
     document.title = "Asystent AI · Małopolski Hub Innowacji Społecznych"
@@ -43,6 +50,9 @@ export default function AssistantPage() {
   const runSend = useCallback(async (request: SendAssistantMessageRequest) => {
     const requestId = requestIdRef.current + 1
     requestIdRef.current = requestId
+    resultsRequestIdRef.current += 1
+    lastResultsPageRef.current = null
+    setResultsLoading(false)
     lastRequestRef.current = request
     setLoading(true)
     setError("")
@@ -116,19 +126,23 @@ export default function AssistantPage() {
   const handlePageChange = useCallback(
     async (page: number) => {
       if (!search || page < 1) return
+      const requestId = ++resultsRequestIdRef.current
+      lastResultsPageRef.current = page
       setResultsLoading(true)
       setResultsError("")
       try {
         const response = await getSearchPage(search.id, page)
+        if (requestId !== resultsRequestIdRef.current) return
         setSearch({
           id: response.searchId,
           recommendations: response.recommendations,
           pagination: response.pagination,
         })
       } catch (caught) {
+        if (requestId !== resultsRequestIdRef.current) return
         setResultsError(assistantErrorMessage(caught))
       } finally {
-        setResultsLoading(false)
+        if (requestId === resultsRequestIdRef.current) setResultsLoading(false)
       }
     },
     [search],
@@ -141,7 +155,7 @@ export default function AssistantPage() {
   }
 
   function handleResultsRetry() {
-    if (search) void handlePageChange(search.pagination.page)
+    if (search) void handlePageChange(lastResultsPageRef.current ?? search.pagination.page)
   }
 
   const split = search !== null
