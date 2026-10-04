@@ -131,6 +131,10 @@ class InMemoryProgramRepository implements ProgramRepository {
       .slice(0, limit);
   }
 
+  async listActivePrograms(): Promise<Program[]> {
+    return [...this.items.values()];
+  }
+
   async getByIds(ids: string[]): Promise<Program[]> {
     return ids.map((id) => this.items.get(id)).filter((p): p is Program => Boolean(p));
   }

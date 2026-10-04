@@ -17,7 +17,9 @@ import { buildWeakResultsClarification, type AssistantLlm, type LlmAnalysis } fr
 import type { Conversation, ConversationRepository } from './conversation.repository.js';
 import type { ProgramRepository } from './program.repository.js';
 import { rankCandidates } from './ranking.js';
+import { scorePrograms } from './relevance.js';
 import type { SearchRepository } from './search.repository.js';
+import { detectNeeds } from '../matchmaking/needs.js';
 
 export interface AssistantServiceDeps {
   programs: ProgramRepository;
@@ -212,17 +214,34 @@ export class AssistantService {
     const searchQuery = analysis.searchQuery ?? fallbackSearchQuery(state);
     const embedding = await this.embeddings.embed(searchQuery);
 
-    const candidates = await this.programs.semanticSearch({
-      embedding,
-      limit: this.candidateLimit,
-    });
+    // Hybrid retrieval: the semantic candidates provide vector similarity, the
+    // full active catalogue provides the lexical + taxonomy signal the offline
+    // embedding lacks. The domain scores and gates them together.
+    const [catalogue, candidates] = await Promise.all([
+      this.programs.listActivePrograms(),
+      this.programs.semanticSearch({ embedding, limit: this.candidateLimit }),
+    ]);
+
+    const vectorSimilarity = new Map(
+      candidates.map((candidate) => [candidate.program.id, candidate.similarity]),
+    );
+    const retrievalText = state.summary.trim().length > 0 ? state.summary : searchQuery;
+    const needs = detectNeeds(retrievalText).map((need) => ({
+      id: need.id,
+      aliases: [need.label],
+    }));
 
     const ranked = rankCandidates(
-      candidates
-        .filter((candidate) => candidate.similarity >= this.similarityThreshold)
+      scorePrograms({
+        programs: catalogue,
+        query: retrievalText,
+        needs,
+        vectorSimilarity,
+      })
+        .filter((candidate) => candidate.relevance >= this.similarityThreshold)
         .map((candidate) => ({
           program: candidate.program,
-          similarity: candidate.similarity,
+          similarity: candidate.relevance,
           eligibilityStatus: evaluateEligibility(state, candidate.program),
         })),
     );

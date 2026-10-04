@@ -15,6 +15,10 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { inArray, sql } from 'drizzle-orm';
+import { createAiGateway } from '../ai/index.js';
+import { createEmbeddingProvider } from '../assistant/embedding.js';
+import { PostgresProgramRepository } from '../assistant/program.repository.js';
+import { bridgeInnovations } from '../assistant/seed.assistant-innovations.js';
 import { importCatalogue } from '../repositories/importer.js';
 import { closeDatabase, db } from './client.js';
 import { innovationCitations, innovations, sources } from './schema.js';
@@ -140,6 +144,21 @@ async function main(): Promise<void> {
   process.stdout.write(
     `[seed:innovations] done: ${result.sources.length} sources, ${result.innovations.length} innovations, ${result.citations.length} citations.\n`,
   );
+
+  // Make the freshly imported catalogue searchable by the assistant. Without
+  // this bridge an innovation lives in `innovations` but stays invisible to the
+  // chatbot, which only reads the `programs` index. Non-fatal: a transient
+  // embedding failure must not fail the import.
+  try {
+    const embeddings = createEmbeddingProvider(createAiGateway());
+    const repository = new PostgresProgramRepository(embeddings);
+    const bridged = await bridgeInnovations(repository);
+    process.stdout.write(
+      `[seed:innovations] bridged ${bridged.upserted}/${bridged.considered} innovations into the assistant index.\n`,
+    );
+  } catch (error) {
+    process.stderr.write(`[seed:innovations] assistant bridge failed: ${String(error)}\n`);
+  }
 }
 
 main()

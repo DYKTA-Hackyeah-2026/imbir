@@ -66,7 +66,7 @@ export const NEED_DEFINITIONS: readonly NeedDefinition[] = [
   {
     id: 'digital_exclusion',
     label: 'Wykluczenie cyfrowe',
-    terms: ['cyfrow', 'internet', 'komputer', 'smartfon', 'kompetencj cyfrow', 'e-uslug', 'wykluczen cyfrow'],
+    terms: ['cyfrow', 'internet', 'komputer', 'smartfon', 'telefon', 'paczkomat', 'kompetencj cyfrow', 'e-uslug', 'wykluczen cyfrow'],
   },
   {
     id: 'volunteering_community',

@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 import { cosineSimilarity, hashEmbedding } from '../matchmaking/text.js';
+import { detectNeeds } from '../matchmaking/needs.js';
+import { scorePrograms } from './relevance.js';
 import type { Conversation, ConversationRepository } from './conversation.repository.js';
 import type {
   ConversationState,
@@ -27,13 +29,19 @@ const embeddings: EmbeddingProvider = {
 
 const programVectors = new Map<string, number[]>();
 
-function makeProgram(id: string, title: string, summary: string, problems: string[]): Program {
+function makeProgram(
+  id: string,
+  title: string,
+  summary: string,
+  problems: string[],
+  topics: string[] = ['wsparcie'],
+): Program {
   const base = {
     title,
     summary,
     description: summary,
     targetGroups: ['mieszkańcy'],
-    topics: ['wsparcie'],
+    topics,
     problemsAddressed: problems,
   };
   programVectors.set(id, hashEmbedding(buildProgramSearchText(base), DIMENSIONS));
@@ -62,6 +70,10 @@ class FakeProgramRepository implements ProgramRepository {
         similarity: cosineSimilarity(embedding, programVectors.get(program.id) ?? embedding),
       }))
       .slice(0, limit);
+  }
+
+  async listActivePrograms(): Promise<Program[]> {
+    return this.items;
   }
 
   async getByIds(ids: string[]): Promise<Program[]> {
@@ -159,7 +171,9 @@ function buildService(programs: Program[], overrides: { similarityThreshold?: nu
 }
 
 const PROGRAMS: Program[] = [
-  makeProgram('p1', 'Cyfrowy Senior', 'Pomoc w obsłudze telefonu i internetu', ['obsługa paczkomatu']),
+  makeProgram('p1', 'Cyfrowy Senior', 'Pomoc w obsłudze telefonu i internetu', ['obsługa paczkomatu'], [
+    'digital_exclusion',
+  ]),
   makeProgram('p2', 'Aktywni Zawodowo', 'Pomoc w znalezieniu pracy', ['brak pracy']),
   makeProgram('p3', 'Pomoc Żywnościowa', 'Pomoc z jedzeniem', ['brak jedzenia']),
   makeProgram('p4', 'Wsparcie Mieszkaniowe', 'Sprawy mieszkaniowe', ['bezdomność']),
@@ -241,21 +255,49 @@ describe('AssistantService', () => {
     const message = { type: 'text' as const, text: 'Mam 72 lata i nie umiem korzystać z paczkomatu.' };
     const analysis = await createAssistantLlm().analyze({ state: { summary: '', facts: {}, needs: [] }, message });
     const queryVector = await embeddings.embed(analysis.searchQuery!);
-    const scores = PROGRAMS.map((program) => ({
-      id: program.id,
-      score: cosineSimilarity(queryVector, programVectors.get(program.id)!),
-    })).sort((a, b) => b.score - a.score);
-    const threshold = (scores[0].score + scores[1].score) / 2;
-    assert.ok(scores[0].score > scores[1].score);
+    const vectorSimilarity = new Map(
+      PROGRAMS.map((program) => [
+        program.id,
+        cosineSimilarity(queryVector, programVectors.get(program.id)!),
+      ]),
+    );
+    const scores = scorePrograms({
+      programs: PROGRAMS,
+      query: analysis.state.summary,
+      needs: detectNeeds(analysis.state.summary).map((need) => ({
+        id: need.id,
+        aliases: [need.label],
+      })),
+      vectorSimilarity,
+    }).sort((a, b) => b.relevance - a.relevance);
+    const threshold = (scores[0].relevance + scores[1].relevance) / 2;
+    assert.ok(scores[0].relevance > scores[1].relevance);
     const service = buildService(PROGRAMS, { similarityThreshold: threshold });
     const response = await service.sendMessage({ message });
     if (response.type !== 'recommendations') throw new Error('expected recommendations');
-    assert.deepEqual(response.search.recommendations.map((program) => program.id), [scores[0].id]);
+    assert.deepEqual(
+      response.search.recommendations.map((program) => program.id),
+      [scores[0].program.id],
+    );
     assert.equal(response.search.pagination.totalResults, 1);
     const persisted = await service.getSearchPage(response.search.id, 1, 2);
-    assert.deepEqual(persisted.recommendations.map((program) => program.id), [scores[0].id]);
+    assert.deepEqual(
+      persisted.recommendations.map((program) => program.id),
+      [scores[0].program.id],
+    );
     assert.equal(persisted.pagination.totalResults, 1);
     assert.equal(persisted.pagination.hasNextPage, false);
+  });
+
+  test('finds a relevant innovation for an everyday phone problem', async () => {
+    const service = buildService(PROGRAMS, { similarityThreshold: 0.35 });
+    const response = await service.sendMessage({
+      message: { type: 'text', text: 'mam problem z telefonem' },
+    });
+
+    assert.equal(response.type, 'recommendations');
+    if (response.type !== 'recommendations') return;
+    assert.ok(response.search.recommendations.some((program) => program.id === 'p1'));
   });
 
   test('asks for clarification on a vague request without a conversation id', async () => {

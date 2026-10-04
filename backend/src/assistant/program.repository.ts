@@ -33,6 +33,12 @@ export interface ProgramWriteInput {
 /** Domain port. The domain never builds pgvector SQL itself. */
 export interface ProgramRepository {
   semanticSearch(input: SemanticSearchInput): Promise<ProgramCandidate[]>;
+  /**
+   * Active catalogue used for hybrid lexical + tag retrieval. The offline
+   * embedding is too weak to rank the catalogue reliably, so the domain scores
+   * the documents itself; `limit` keeps the query bounded.
+   */
+  listActivePrograms(limit?: number): Promise<Program[]>;
   getByIds(ids: string[]): Promise<Program[]>;
   getById(id: string): Promise<Program | undefined>;
   createProgram(input: ProgramWriteInput): Promise<Program>;
@@ -115,6 +121,15 @@ export class PostgresProgramRepository implements ProgramRepository {
       program: toProgram(row.program),
       similarity: 1 - Number(row.distance),
     }));
+  }
+
+  async listActivePrograms(limit = 1000): Promise<Program[]> {
+    const rows = await db
+      .select()
+      .from(programs)
+      .where(eq(programs.status, 'active'))
+      .limit(limit);
+    return rows.map(toProgram);
   }
 
   async getByIds(ids: string[]): Promise<Program[]> {

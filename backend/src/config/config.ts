@@ -63,7 +63,7 @@ const config = {
   } satisfies AiConfig,
 
   assistant: {
-    /** Minimum cosine similarity for a candidate to be recommended. */
+    /** Minimum hybrid relevance (lexical + taxonomy + semantic) to recommend. */
     similarityThreshold: env.ASSISTANT_SIMILARITY_THRESHOLD,
     /** pgvector candidates retrieved before eligibility filtering and ranking. */
     candidateLimit: env.ASSISTANT_CANDIDATE_LIMIT,

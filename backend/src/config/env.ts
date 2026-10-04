@@ -56,9 +56,10 @@ const envSchema = z.object({
   AI_EMBEDDING_DIMENSIONS: z.coerce.number().int().positive().default(EMBEDDING_DIMENSIONS),
   AI_TIMEOUT_MS: z.coerce.number().int().positive().max(300_000).default(15_000),
 
-  // Assistant (program matchmaking) tuning. A candidate below this cosine
-  // similarity is treated as "no solution" (the assistant offers to submit a new
-  // idea) rather than being surfaced as a weak recommendation.
+  // Assistant (innovation matchmaking) tuning. Candidates are scored with a
+  // hybrid of IDF-weighted lexical overlap, taxonomy-tag agreement, and vector
+  // similarity; anything below this relevance is treated as "no solution" (the
+  // assistant offers to submit a new idea) rather than surfaced as a weak match.
   ASSISTANT_SIMILARITY_THRESHOLD: z.coerce.number().min(-1).max(1).default(0.35),
   ASSISTANT_CANDIDATE_LIMIT: z.coerce.number().int().positive().max(100).default(20),
   ASSISTANT_PAGE_SIZE: z.coerce.number().int().positive().max(50).default(3),
