@@ -1,0 +1,53 @@
+{
+  "_note": "SCHEMA EXAMPLE ONLY. Every value below is a fictional placeholder using reserved RFC 2606 example domains. This file documents the manual-import format read by src/repositories/importer.ts; it is NOT real ROPS data and must not be imported into a live catalogue.",
+  "sources": [
+    {
+      "id": "example-source-1",
+      "title": "Example Source (placeholder document)",
+      "url": "https://example.org/example-source",
+      "kind": "report",
+      "urlVerified": false,
+      "description": "Placeholder provenance record. The URL points to no real document."
+    }
+  ],
+  "innovations": [
+    {
+      "id": "example-innovation-1",
+      "title": "Example Innovation (placeholder)",
+      "summary": "One-sentence fictional summary used only to illustrate the import schema.",
+      "description": "Fictional description of a placeholder innovation. Replace every value with operator-verified facts before importing.",
+      "sourceId": "example-source-1",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": ["example_tag_a", "example_tag_b"],
+      "targetGroups": ["Example target group A"],
+      "testedIn": ["Example location"],
+      "applicableContexts": ["Example context"],
+      "prerequisites": ["Example prerequisite"],
+      "resourcesRequired": ["Example resource"],
+      "estimatedCostPln": 0,
+      "timeframeWeeks": 12,
+      "citations": [
+        {
+          "sourceId": "example-source-1",
+          "title": "Example Source (placeholder document)",
+          "url": "https://example.org/example-source",
+          "page": 1,
+          "excerpt": "Placeholder excerpt standing in for a real quoted fragment."
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "example-evidence-1",
+      "sourceId": "example-source-1",
+      "title": "Example Evidence (placeholder)",
+      "kind": "report",
+      "summary": "Fictional contextual note used only to illustrate the evidence schema.",
+      "url": "https://example.org/example-source",
+      "synthetic": false,
+      "problemTags": ["example_tag_a"]
+    }
+  ]
+}

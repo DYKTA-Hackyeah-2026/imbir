@@ -1,0 +1,50 @@
+name: backend-dev
+
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-backend}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-backend}
+      POSTGRES_DB: ${POSTGRES_DB:-backend}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-backend} -d ${POSTGRES_DB:-backend}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    # Hot reload: source is bind-mounted; tsx watch restarts on change.
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/dist
+    ports:
+      - "${API_PORT_DEV:-4000}:4000"
+    env_file:
+      - .env.development
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      # Override host for the container network.
+      DATABASE_URL: postgres://${POSTGRES_USER:-backend}:${POSTGRES_PASSWORD:-backend}@db:5432/${POSTGRES_DB:-backend}
+    # Apply migrations, then start with hot reload.
+    # Seed once manually with: docker compose -f docker-compose.dev.yml exec api npm run db:seed
+    command: ["sh", "-c", "npm run db:migrate && npm run dev"]
+    init: true
+    stdin_open: true
+
+volumes:
+  db-data:

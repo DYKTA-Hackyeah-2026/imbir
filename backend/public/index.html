@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API Admin Panel</title>
+    <link rel="stylesheet" href="./admin.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
+        <h1>API Admin Panel</h1>
+      </div>
+      <div class="topbar-actions">
+        <label class="base-url">
+          Base URL
+          <input id="baseUrl" type="text" value="" spellcheck="false" />
+        </label>
+        <button id="runAll" class="btn btn-primary" data-action="run-all">Run all tests</button>
+        <button class="btn" data-action="clear">Clear</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="summary" id="summary">
+        <div class="stat"><span>Total</span><strong id="statTotal">0</strong></div>
+        <div class="stat pass"><span>Passed</span><strong id="statPassed">0</strong></div>
+        <div class="stat fail"><span>Failed</span><strong id="statFailed">0</strong></div>
+        <div class="stat"><span>Panel</span><strong id="statMode">dev</strong></div>
+      </section>
+
+      <section class="card">
+        <h2>Test credentials</h2>
+        <p class="hint">
+          Shared inputs used by the actions below. "Run all tests" generates a unique email
+          automatically.
+        </p>
+        <div class="grid-2">
+          <label>Email<input id="email" type="email" autocomplete="off" /></label>
+          <label>Password<input id="password" type="text" value="Passw0rd!" autocomplete="off" /></label>
+          <label>New password<input id="newPassword" type="text" value="NewPassw0rd!" autocomplete="off" /></label>
+          <label>Reset token<input id="resetToken" type="text" placeholder="paste token from API logs" autocomplete="off" /></label>
+          <label>Cache space<input id="cacheSpace" type="text" value="default" autocomplete="off" /></label>
+        </div>
+        <p class="hint">
+          The password reset token is only written to the API logs
+          (<code>docker compose -f docker-compose.dev.yml logs api</code>) — paste it here to test
+          <code>reset-password</code>.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Health</h2>
+          <div class="actions">
+            <button class="btn" data-action="health">GET /health</button>
+            <button class="btn" data-action="health-ready">GET /health/ready</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Registration</h2>
+          <div class="actions">
+            <button class="btn" data-action="register">Register (201)</button>
+            <button class="btn" data-action="register-duplicate">Duplicate email (409)</button>
+            <button class="btn" data-action="register-weak">Weak password (422)</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Login</h2>
+          <div class="actions">
+            <button class="btn" data-action="login">Login (200)</button>
+            <button class="btn" data-action="login-wrong">Wrong password (401)</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Session</h2>
+          <div class="actions">
+            <button class="btn" data-action="me">GET /me (200)</button>
+            <button class="btn" data-action="me-noauth">GET /me no token (401)</button>
+            <button class="btn" data-action="refresh">Refresh (200)</button>
+            <button class="btn" data-action="refresh-reuse">Reuse old refresh (401)</button>
+            <button class="btn" data-action="logout">Logout (204)</button>
+          </div>
+          <div class="tokens">
+            <div>
+              <span>accessToken</span>
+              <code id="accessToken" class="token">—</code>
+            </div>
+            <div>
+              <span>refreshToken</span>
+              <code id="refreshToken" class="token">—</code>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Password reset</h2>
+          <div class="actions">
+            <button class="btn" data-action="forgot">Forgot password (202)</button>
+            <button class="btn" data-action="reset">Reset password (204)</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Error handling</h2>
+          <div class="actions">
+            <button class="btn" data-action="unknown">Unknown route (404)</button>
+            <button class="btn" data-action="malformed">Malformed JSON (400)</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>LLM cache · proxy</h2>
+          <div class="actions">
+            <button class="btn" data-action="chat-miss">Chat MISS</button>
+            <button class="btn" data-action="chat-hit">Chat HIT</button>
+            <button class="btn" data-action="chat-stream">Stream (BYPASS-STREAM)</button>
+            <button class="btn" data-action="chat-nospace">Unknown space (NO-SPACE)</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>LLM cache · admin</h2>
+          <div class="actions">
+            <button class="btn" data-action="cache-overview">Overview</button>
+            <button class="btn" data-action="cache-spaces">List spaces</button>
+            <button class="btn" data-action="cache-settings">Get settings</button>
+            <button class="btn" data-action="cache-entries">List entries</button>
+            <button class="btn" data-action="cache-create-space">Create space</button>
+            <button class="btn" data-action="cache-pause">Pause space</button>
+            <button class="btn" data-action="cache-resume">Resume space</button>
+            <button class="btn" data-action="cache-purge-expired">Purge expired</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="card results-card">
+        <h2>Results</h2>
+        <div id="results" class="results">
+          <p class="empty">No requests yet. Click an action or “Run all tests”.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./admin.js"></script>
+  </body>
+</html>

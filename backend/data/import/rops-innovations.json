@@ -1,0 +1,4371 @@
+{
+  "_note": "Dane publiczne z Biblioteki Innowacji Społecznych ROPS w Krakowie (strony kategorii). Zawierają wyłącznie tytuły i krótkie opisy innowacji – bez danych osobowych, autorów ani danych wrażliwych (RODO).",
+  "sources": [
+    {
+      "id": "src-library",
+      "title": "Biblioteka Innowacji Społecznych ROPS",
+      "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/kategorie",
+      "kind": "innovation_library",
+      "urlVerified": true,
+      "description": "Publiczny katalog innowacji społecznych ROPS w Krakowie. Rekordy zaimportowane ze stron kategorii; bez danych osobowych."
+    }
+  ],
+  "innovations": [
+    {
+      "id": "rops-bawita",
+      "title": "BaWita",
+      "summary": "BaWita - tablica manipulacyjno terapeutyczna dla seniorów i osób z chorobami dementywnymi",
+      "description": "BaWita - tablica manipulacyjno terapeutyczna dla seniorów i osób z chorobami dementywnymi\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "BaWita",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,bawita",
+          "excerpt": "BaWita - tablica manipulacyjno terapeutyczna dla seniorów i osób z chorobami dementywnymi"
+        }
+      ]
+    },
+    {
+      "id": "rops-senior-cuder",
+      "title": "Senior CUDER",
+      "summary": "Gra karciana dla Seniorów",
+      "description": "Gra karciana dla Seniorów\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Senior CUDER",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,senior-cuder",
+          "excerpt": "Gra karciana dla Seniorów"
+        }
+      ]
+    },
+    {
+      "id": "rops-merkury",
+      "title": "Merkury",
+      "summary": "Merkury - symulator kiosków samoobsługowych",
+      "description": "Merkury - symulator kiosków samoobsługowych\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Merkury",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,merkury",
+          "excerpt": "Merkury - symulator kiosków samoobsługowych"
+        }
+      ]
+    },
+    {
+      "id": "rops-organizator-kompleksowej-opieki-w-miejscu-zamieszkania",
+      "title": "Organizator kompleksowej opieki w miejscu zamieszkania",
+      "summary": "Model interwencji pielęgniarskiej w miejscu zamieszkania chorego w 24 godziny od momentu wypisu ze szpitala",
+      "description": "Model interwencji pielęgniarskiej w miejscu zamieszkania chorego w 24 godziny od momentu wypisu ze szpitala\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Organizator kompleksowej opieki w miejscu zamieszkania",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,organizator-kompleksowej-opieki-w-miejscu-zamieszkania",
+          "excerpt": "Model interwencji pielęgniarskiej w miejscu zamieszkania chorego w 24 godziny od momentu wypisu ze szpitala"
+        }
+      ]
+    },
+    {
+      "id": "rops-przenosne-modularne-lazienki",
+      "title": "Przenośne, modularne łazienki",
+      "summary": "Przenośne, modularne łazienki dla osób ubogich",
+      "description": "Przenośne, modularne łazienki dla osób ubogich\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Przenośne, modularne łazienki",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,przenosne-modularne-lazienki",
+          "excerpt": "Przenośne, modularne łazienki dla osób ubogich"
+        }
+      ]
+    },
+    {
+      "id": "rops-terapeuta-przestrzeni",
+      "title": "Terapeuta przestrzeni",
+      "summary": "Innowacyjna usługa świadczona na rzecz osób starszych mieszkających samodzielnie albo z rodziną",
+      "description": "Innowacyjna usługa świadczona na rzecz osób starszych mieszkających samodzielnie albo z rodziną\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Terapeuta przestrzeni",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,terapeuta-przestrzeni",
+          "excerpt": "Innowacyjna usługa świadczona na rzecz osób starszych mieszkających samodzielnie albo z rodziną"
+        }
+      ]
+    },
+    {
+      "id": "rops-talerze-zdrowia",
+      "title": "Talerze zdrowia",
+      "summary": "Materiały edukacyjne ułatwiające sporządzanie zbilansowanych posiłków dla starszych osób z niepełnosprawnością",
+      "description": "Materiały edukacyjne ułatwiające sporządzanie zbilansowanych posiłków dla starszych osób z niepełnosprawnością\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Talerze zdrowia",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,talerze-zdrowia",
+          "excerpt": "Materiały edukacyjne ułatwiające sporządzanie zbilansowanych posiłków dla starszych osób z niepełnosprawnością"
+        }
+      ]
+    },
+    {
+      "id": "rops-therapy-set",
+      "title": "Therapy Set",
+      "summary": "Zestaw pomocy terapeutycznych przeznaczonych dla osób starszych (m.in. osób leżących, niemobilnych).",
+      "description": "Zestaw pomocy terapeutycznych przeznaczonych dla osób starszych (m.in. osób leżących, niemobilnych).\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Therapy Set",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,therapy-set",
+          "excerpt": "Zestaw pomocy terapeutycznych przeznaczonych dla osób starszych (m.in. osób leżących, niemobilnych)."
+        }
+      ]
+    },
+    {
+      "id": "rops-sciezka-treningu-umyslu",
+      "title": "Ścieżka treningu umysłu",
+      "summary": "Przestrzeń rehabilitacji funkcji poznawczych dla osób starszych z chorobami dementywnymi i otępiennymi",
+      "description": "Przestrzeń rehabilitacji funkcji poznawczych dla osób starszych z chorobami dementywnymi i otępiennymi\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Ścieżka treningu umysłu",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,sciezka-treningu-umyslu",
+          "excerpt": "Przestrzeń rehabilitacji funkcji poznawczych dla osób starszych z chorobami dementywnymi i otępiennymi"
+        }
+      ]
+    },
+    {
+      "id": "rops-edu-gra-hahaha",
+      "title": "Edu gra HaHaHa",
+      "summary": "Integracyjna gra planszowa, która łączy jogę śmiechu z ćwiczeniami przygotowanymi w formie kart-fiszek",
+      "description": "Integracyjna gra planszowa, która łączy jogę śmiechu z ćwiczeniami przygotowanymi w formie kart-fiszek\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Edu gra HaHaHa",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,edu-gra-hahaha",
+          "excerpt": "Integracyjna gra planszowa, która łączy jogę śmiechu z ćwiczeniami przygotowanymi w formie kart-fiszek"
+        }
+      ]
+    },
+    {
+      "id": "rops-obu-obuwie-po-domu",
+      "title": "Obu – obuwie po domu",
+      "summary": "Obuwie przeznaczone dla osób starszych, które zmniejsza ryzyko upadku",
+      "description": "Obuwie przeznaczone dla osób starszych, które zmniejsza ryzyko upadku\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Obu – obuwie po domu",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,obu-obuwie-po-domu",
+          "excerpt": "Obuwie przeznaczone dla osób starszych, które zmniejsza ryzyko upadku"
+        }
+      ]
+    },
+    {
+      "id": "rops-centrum-antydepresyjne",
+      "title": "Centrum antydepresyjne",
+      "summary": "Metoda świadczenia kompleksowej pomocy osobom starszym w stanach depresyjnych i z zachowaniami suicydalnymi",
+      "description": "Metoda świadczenia kompleksowej pomocy osobom starszym w stanach depresyjnych i z zachowaniami suicydalnymi\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Centrum antydepresyjne",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,centrum-antydepresyjne",
+          "excerpt": "Metoda świadczenia kompleksowej pomocy osobom starszym w stanach depresyjnych i z zachowaniami suicydalnymi"
+        }
+      ]
+    },
+    {
+      "id": "rops-zeglowanie-w-wyobrazni-czyli-sposob-na-strachy-na-wodzie",
+      "title": "Żeglowanie w wyobraźni - czyli sposób na strachy na wodzie",
+      "summary": "Umożliwienie żeglowania w wirtualnej rzeczywistości osobom z niepełnosprawnością ruchową i lękiem przed wejściem na jacht",
+      "description": "Umożliwienie żeglowania w wirtualnej rzeczywistości osobom z niepełnosprawnością ruchową i lękiem przed wejściem na jacht\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Żeglowanie w wyobraźni - czyli sposób na strachy na wodzie",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,zeglowanie-w-wyobrazni-czyli-sposob-na-strachy-na-wodzie",
+          "excerpt": "Umożliwienie żeglowania w wirtualnej rzeczywistości osobom z niepełnosprawnością ruchową i lękiem przed wejściem na jacht"
+        }
+      ]
+    },
+    {
+      "id": "rops-stworzenie-narzedzia-ulatwiajacego-seniorom-prawidlowe-regulowanie-spraw-spadkowych",
+      "title": "Stworzenie narzędzia ułatwiającego seniorom prawidłowe regulowanie spraw spadkowych",
+      "summary": "Aplikacja ułatwiająca osobom starszym uregulowanie spraw spadkowych",
+      "description": "Aplikacja ułatwiająca osobom starszym uregulowanie spraw spadkowych\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Stworzenie narzędzia ułatwiającego seniorom prawidłowe regulowanie spraw spadkowych",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,stworzenie-narzedzia-ulatwiajacego-seniorom-prawidlowe-regulowanie-spraw-spadkowych",
+          "excerpt": "Aplikacja ułatwiająca osobom starszym uregulowanie spraw spadkowych"
+        }
+      ]
+    },
+    {
+      "id": "rops-mobilne-centrum-pomocy-dla-osob-starszych",
+      "title": "Mobilne centrum pomocy dla osób starszych",
+      "summary": "Metoda pracy z osobami starszymi na terenach wiejskich",
+      "description": "Metoda pracy z osobami starszymi na terenach wiejskich\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Mobilne centrum pomocy dla osób starszych",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,mobilne-centrum-pomocy-dla-osob-starszych",
+          "excerpt": "Metoda pracy z osobami starszymi na terenach wiejskich"
+        }
+      ]
+    },
+    {
+      "id": "rops-kody-qr-na-pomoc-seniorom",
+      "title": "Kody QR na pomoc seniorom",
+      "summary": "Narzędzie pomocy osobom starszym cierpiącym na zaniki pamięci, demencję, choroby otępienne.",
+      "description": "Narzędzie pomocy osobom starszym cierpiącym na zaniki pamięci, demencję, choroby otępienne.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Kody QR na pomoc seniorom",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,kody-qr-na-pomoc-seniorom",
+          "excerpt": "Narzędzie pomocy osobom starszym cierpiącym na zaniki pamięci, demencję, choroby otępienne."
+        }
+      ]
+    },
+    {
+      "id": "rops-e-rzecznik-konsumenta-seniora",
+      "title": "E-rzecznik konsumenta seniora",
+      "summary": "Aplikacja, która umożliwia seniorom utrzymanie szybkiej, rzetelnej i konkretnej porady prawnej z zakresu wybranych zagadnień prawa konsumenckiego",
+      "description": "Aplikacja, która umożliwia seniorom utrzymanie szybkiej, rzetelnej i konkretnej porady prawnej z zakresu wybranych zagadnień prawa konsumenckiego\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "E-rzecznik konsumenta seniora",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,e-rzecznik-konsumenta-seniora",
+          "excerpt": "Aplikacja, która umożliwia seniorom utrzymanie szybkiej, rzetelnej i konkretnej porady prawnej z zakresu wybranych zagadnień prawa konsumenckiego"
+        }
+      ]
+    },
+    {
+      "id": "rops-sciezka-motosensoryczna",
+      "title": "Ścieżka motosensoryczna",
+      "summary": "Projekt architektoniczno-urbanistyczny umożliwiający realizowanie rehabilitacji \"przy okazji\" wykonywania codziennych aktywności.",
+      "description": "Projekt architektoniczno-urbanistyczny umożliwiający realizowanie rehabilitacji \"przy okazji\" wykonywania codziennych aktywności.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Ścieżka motosensoryczna",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,sciezka-motosensoryczna",
+          "excerpt": "Projekt architektoniczno-urbanistyczny umożliwiający realizowanie rehabilitacji \"przy okazji\" wykonywania codziennych aktywności."
+        }
+      ]
+    },
+    {
+      "id": "rops-korytarz-wspomnien",
+      "title": "Korytarz wspomnień",
+      "summary": "Model systemu audiowizualnego przywoływania wspomnień dla osób z problemami pamięci i chorobami otępiennymi",
+      "description": "Model systemu audiowizualnego przywoływania wspomnień dla osób z problemami pamięci i chorobami otępiennymi\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Korytarz wspomnień",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,korytarz-wspomnien",
+          "excerpt": "Model systemu audiowizualnego przywoływania wspomnień dla osób z problemami pamięci i chorobami otępiennymi"
+        }
+      ]
+    },
+    {
+      "id": "rops-wirtualne-izby-pamieci",
+      "title": "Wirtualne izby pamięci",
+      "summary": "Model pracy z seniorami wykluczonymi cyfrowo",
+      "description": "Model pracy z seniorami wykluczonymi cyfrowo\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla seniorów).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "seniorzy",
+        "senior_loneliness",
+        "zdrowie"
+      ],
+      "targetGroups": [
+        "Seniorzy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Wirtualne izby pamięci",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-seniorow,wirtualne-izby-pamieci",
+          "excerpt": "Model pracy z seniorami wykluczonymi cyfrowo"
+        }
+      ]
+    },
+    {
+      "id": "rops-komix-zyciowy",
+      "title": "koMIX życiowy",
+      "summary": "koMIX życiowy - gra terapeutyczna dla wychowanków placówek opiekuńczo-wychowawczych",
+      "description": "koMIX życiowy - gra terapeutyczna dla wychowanków placówek opiekuńczo-wychowawczych\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "koMIX życiowy",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,komix-zyciowy",
+          "excerpt": "koMIX życiowy - gra terapeutyczna dla wychowanków placówek opiekuńczo-wychowawczych"
+        }
+      ]
+    },
+    {
+      "id": "rops-patryk-i-kropka",
+      "title": "Patryk i Kropka",
+      "summary": "Patryk i Kropka - opowiadania łatwe do czytania i rozumienia dla młodzieży z niepełnosprawnością intelektualną",
+      "description": "Patryk i Kropka - opowiadania łatwe do czytania i rozumienia dla młodzieży z niepełnosprawnością intelektualną\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Patryk i Kropka",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,patryk-i-kropka",
+          "excerpt": "Patryk i Kropka - opowiadania łatwe do czytania i rozumienia dla młodzieży z niepełnosprawnością intelektualną"
+        }
+      ]
+    },
+    {
+      "id": "rops-edki-kredki-terapeutyczne",
+      "title": "Edki - kredki terapeutyczne",
+      "summary": "Kredki terapeutyczne dla dzieci ze spastycznością kończyny górnej.",
+      "description": "Kredki terapeutyczne dla dzieci ze spastycznością kończyny górnej.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Edki - kredki terapeutyczne",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,edki-kredki-terapeutyczne",
+          "excerpt": "Kredki terapeutyczne dla dzieci ze spastycznością kończyny górnej."
+        }
+      ]
+    },
+    {
+      "id": "rops-rodzina-adopcyjna-dorasta",
+      "title": "Rodzina adopcyjna dorasta",
+      "summary": "Narządzie do pracy własnej dla rodziców adopcyjnych, których dzieci wkraczają w wiek nastoletnim.",
+      "description": "Narządzie do pracy własnej dla rodziców adopcyjnych, których dzieci wkraczają w wiek nastoletnim.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Rodzina adopcyjna dorasta",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,rodzina-adopcyjna-dorasta",
+          "excerpt": "Narządzie do pracy własnej dla rodziców adopcyjnych, których dzieci wkraczają w wiek nastoletnim."
+        }
+      ]
+    },
+    {
+      "id": "rops-puzzle-3d",
+      "title": "Puzzle 3D",
+      "summary": "Zabawki edukacyjne (puzzle 3D) wspomagające naukę alfabetu Braille'a dzieci i młodzieży z dysfunkcją wzroku",
+      "description": "Zabawki edukacyjne (puzzle 3D) wspomagające naukę alfabetu Braille'a dzieci i młodzieży z dysfunkcją wzroku\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Puzzle 3D",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,puzzle-3d",
+          "excerpt": "Zabawki edukacyjne (puzzle 3D) wspomagające naukę alfabetu Braille'a dzieci i młodzieży z dysfunkcją wzroku"
+        }
+      ]
+    },
+    {
+      "id": "rops-hop-hop-mobilny-plac-zabaw",
+      "title": "Hop hop - mobilny plac zabaw",
+      "summary": "Meblozabawka wspomagająca rozwój ruchowy i rehabilitację dzieci w wieku przedszkolnym z trudnościami motorycznymi.",
+      "description": "Meblozabawka wspomagająca rozwój ruchowy i rehabilitację dzieci w wieku przedszkolnym z trudnościami motorycznymi.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Hop hop - mobilny plac zabaw",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,hop-hop-mobilny-plac-zabaw",
+          "excerpt": "Meblozabawka wspomagająca rozwój ruchowy i rehabilitację dzieci w wieku przedszkolnym z trudnościami motorycznymi."
+        }
+      ]
+    },
+    {
+      "id": "rops-mobilny-pomocnik-dydaktyczno-sensoryczny-dla-uczniowstudentow-ze-spektrum-autyzmu",
+      "title": "Mobilny pomocnik dydaktyczno-sensoryczny dla uczniów/studentów ze spektrum autyzmu",
+      "summary": "Sprzęt wspomagający proces nauki uczniów/studentów ze spektrum autyzmu",
+      "description": "Sprzęt wspomagający proces nauki uczniów/studentów ze spektrum autyzmu\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Mobilny pomocnik dydaktyczno-sensoryczny dla uczniów/studentów ze spektrum autyzmu",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,mobilny-pomocnik-dydaktyczno-sensoryczny-dla-uczniowstudentow-ze-spektrum-autyzmu",
+          "excerpt": "Sprzęt wspomagający proces nauki uczniów/studentów ze spektrum autyzmu"
+        }
+      ]
+    },
+    {
+      "id": "rops-przewodnik-dla-osob-z-asd-moje-potrzeby-gdzie-i-jak-je-realizowac",
+      "title": "Przewodnik dla osób z ASD \"Moje potrzeby - gdzie i jak je realizować?\"",
+      "summary": "Słowno-graficzny przewodnik dla młodzieży i dorosłych osób z zaburzeniami ze spektrum autyzmu (dalej jako ASD) dotyczący miejsc i sposobów realizacji codziennych i podstawowych potrzeb realizowanych poza domem.",
+      "description": "Słowno-graficzny przewodnik dla młodzieży i dorosłych osób z zaburzeniami ze spektrum autyzmu (dalej jako ASD) dotyczący miejsc i sposobów realizacji codziennych i podstawowych potrzeb realizowanych poza domem.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Przewodnik dla osób z ASD \"Moje potrzeby - gdzie i jak je realizować?\"",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,przewodnik-dla-osob-z-asd-moje-potrzeby-gdzie-i-jak-je-realizowac",
+          "excerpt": "Słowno-graficzny przewodnik dla młodzieży i dorosłych osób z zaburzeniami ze spektrum autyzmu (dalej jako ASD) dotyczący miejsc i sposobów realizacji codziennych i podstawowych potrzeb realizowanych poza domem."
+        }
+      ]
+    },
+    {
+      "id": "rops-bez-presji-z-depresji",
+      "title": "Bez presji z depresji",
+      "summary": "Komplet materiałów psychoedukacyjnych wspierających dzieci i młodzież szkolną doświadczających kryzysów psychicznych",
+      "description": "Komplet materiałów psychoedukacyjnych wspierających dzieci i młodzież szkolną doświadczających kryzysów psychicznych\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Bez presji z depresji",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,bez-presji-z-depresji",
+          "excerpt": "Komplet materiałów psychoedukacyjnych wspierających dzieci i młodzież szkolną doświadczających kryzysów psychicznych"
+        }
+      ]
+    },
+    {
+      "id": "rops-bez-stresu-do-sukcesu-terapia-neurologiczna-przyjazna-dziecku",
+      "title": "Bez stresu do sukcesu - terapia neurologiczna przyjazna dziecku",
+      "summary": "Model pracy z pacjentami z niepełnosprawnością do 3. roku życia, wykorzystujący synergię pomiędzy terapią NDT, dogoterapią i psychologią dziecięcą",
+      "description": "Model pracy z pacjentami z niepełnosprawnością do 3. roku życia, wykorzystujący synergię pomiędzy terapią NDT, dogoterapią i psychologią dziecięcą\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Bez stresu do sukcesu - terapia neurologiczna przyjazna dziecku",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,bez-stresu-do-sukcesu-terapia-neurologiczna-przyjazna-dziecku",
+          "excerpt": "Model pracy z pacjentami z niepełnosprawnością do 3. roku życia, wykorzystujący synergię pomiędzy terapią NDT, dogoterapią i psychologią dziecięcą"
+        }
+      ]
+    },
+    {
+      "id": "rops-uwaznione-rodzienstwo",
+      "title": "Uważnione rodzieństwo",
+      "summary": "Model postępowania rodziców dziecka z niepełnosprawnością ze zdrowymi dziećmi (rodzeństwem dzieci z niepełnosprawnością)",
+      "description": "Model postępowania rodziców dziecka z niepełnosprawnością ze zdrowymi dziećmi (rodzeństwem dzieci z niepełnosprawnością)\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Uważnione rodzieństwo",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,uwaznione-rodzienstwo",
+          "excerpt": "Model postępowania rodziców dziecka z niepełnosprawnością ze zdrowymi dziećmi (rodzeństwem dzieci z niepełnosprawnością)"
+        }
+      ]
+    },
+    {
+      "id": "rops-brzuszkole-brzuszek-zostaje-w-przedszkolu",
+      "title": "Brzuszkole - brzuszek zostaje w przedszkolu",
+      "summary": "Kompendium wiedzy oraz narzędzia w postaci list zadaniowych, ćwiczeń, które pomagają rodzicom i ich dzieciom kształtować zdrowe nawyki żywieniowe od najmłodszych lat.",
+      "description": "Kompendium wiedzy oraz narzędzia w postaci list zadaniowych, ćwiczeń, które pomagają rodzicom i ich dzieciom kształtować zdrowe nawyki żywieniowe od najmłodszych lat.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Brzuszkole - brzuszek zostaje w przedszkolu",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,brzuszkole-brzuszek-zostaje-w-przedszkolu",
+          "excerpt": "Kompendium wiedzy oraz narzędzia w postaci list zadaniowych, ćwiczeń, które pomagają rodzicom i ich dzieciom kształtować zdrowe nawyki żywieniowe od najmłodszych lat."
+        }
+      ]
+    },
+    {
+      "id": "rops-to-nie-koniec-swiata-to-poczatek-swiata",
+      "title": "To nie koniec świata - to początek świata",
+      "summary": "Specjalistyczne narzędzia i materiały edukacyjne dla rodzin osób z niepełnosprawnością intelektualną",
+      "description": "Specjalistyczne narzędzia i materiały edukacyjne dla rodzin osób z niepełnosprawnością intelektualną\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "To nie koniec świata - to początek świata",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,to-nie-koniec-swiata-to-poczatek-swiata",
+          "excerpt": "Specjalistyczne narzędzia i materiały edukacyjne dla rodzin osób z niepełnosprawnością intelektualną"
+        }
+      ]
+    },
+    {
+      "id": "rops-jezykolamacz",
+      "title": "Językołamacz",
+      "summary": "Aplikacja służąca do wsparcia rozwoju mowy języka polskiego u słyszących dzieci w spektrum autyzmu w wieku 3–10 lat z użyciem rozszerzonej rzeczywistości",
+      "description": "Aplikacja służąca do wsparcia rozwoju mowy języka polskiego u słyszących dzieci w spektrum autyzmu w wieku 3–10 lat z użyciem rozszerzonej rzeczywistości\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Językołamacz",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,jezykolamacz",
+          "excerpt": "Aplikacja służąca do wsparcia rozwoju mowy języka polskiego u słyszących dzieci w spektrum autyzmu w wieku 3–10 lat z użyciem rozszerzonej rzeczywistości"
+        }
+      ]
+    },
+    {
+      "id": "rops-piosenki-uczestniczace",
+      "title": "Piosenki uczestniczące",
+      "summary": "Piosenki dla dzieci z problemami z mową i komunikacją, które pomogą je aktywizować społecznie",
+      "description": "Piosenki dla dzieci z problemami z mową i komunikacją, które pomogą je aktywizować społecznie\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Piosenki uczestniczące",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,piosenki-uczestniczace",
+          "excerpt": "Piosenki dla dzieci z problemami z mową i komunikacją, które pomogą je aktywizować społecznie"
+        }
+      ]
+    },
+    {
+      "id": "rops-moj-pomocny-virtual-world",
+      "title": "Mój pomocny Virtual World",
+      "summary": "Aplikacja mobilna z wykorzystaniem funkcji Rozszerzonej Rzeczywistości, której zadaniem jest pomoc we włączeniu i adaptacji ukraińskich dzieci do polskiego środowiska szkolnego",
+      "description": "Aplikacja mobilna z wykorzystaniem funkcji Rozszerzonej Rzeczywistości, której zadaniem jest pomoc we włączeniu i adaptacji ukraińskich dzieci do polskiego środowiska szkolnego\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Mój pomocny Virtual World",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,moj-pomocny-virtual-world",
+          "excerpt": "Aplikacja mobilna z wykorzystaniem funkcji Rozszerzonej Rzeczywistości, której zadaniem jest pomoc we włączeniu i adaptacji ukraińskich dzieci do polskiego środowiska szkolnego"
+        }
+      ]
+    },
+    {
+      "id": "rops-mobilna-pomoc-terapeutyczna",
+      "title": "Mobilna pomoc terapeutyczna",
+      "summary": "Model diagnozy, pracy i działania z rodziną z problemem przemocy w rodzinie w momencie zanim istniejące rozwiązania systemowe będą mogły zostać uruchomione. Projekt ten miał na celu wypełnienie luki pomiędzy uzyskaniem przez Ośrodek Pomocy Społecznej (OPS) pierwszej informacji o zaistnieniu sytuacji kryzysowej, a możliwością uruchomienia przez OPS dostępnego na danym terenie wsparcia.",
+      "description": "Model diagnozy, pracy i działania z rodziną z problemem przemocy w rodzinie w momencie zanim istniejące rozwiązania systemowe będą mogły zostać uruchomione. Projekt ten miał na celu wypełnienie luki pomiędzy uzyskaniem przez Ośrodek Pomocy Społecznej (OPS) pierwszej informacji o zaistnieniu sytuacji kryzysowej, a możliwością uruchomienia przez OPS dostępnego na danym terenie wsparcia.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Mobilna pomoc terapeutyczna",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,mobilna-pomoc-terapeutyczna",
+          "excerpt": "Model diagnozy, pracy i działania z rodziną z problemem przemocy w rodzinie w momencie zanim istniejące rozwiązania systemowe będą mogły zostać uruchomione. Projekt ten miał na celu wypełnienie luki pomiędzy uzyskaniem przez Ośrodek Pomocy Społecznej (OPS) pierwszej informacji o zaistnieniu sytuacji kryzysowej, a możliwością uruchomienia przez OPS dostępnego na danym terenie wsparcia."
+        }
+      ]
+    },
+    {
+      "id": "rops-marimbaza",
+      "title": "MarimBaza!",
+      "summary": "Model pracy z młodzieżą wykorzystujący aktywności związane z przygotowaniem projektu muzycznego, opartego na grze na własnoręcznie wykonanych marimbach",
+      "description": "Model pracy z młodzieżą wykorzystujący aktywności związane z przygotowaniem projektu muzycznego, opartego na grze na własnoręcznie wykonanych marimbach\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "MarimBaza!",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,marimbaza",
+          "excerpt": "Model pracy z młodzieżą wykorzystujący aktywności związane z przygotowaniem projektu muzycznego, opartego na grze na własnoręcznie wykonanych marimbach"
+        }
+      ]
+    },
+    {
+      "id": "rops-nasz-wspolny-rodzinny-swiat-poznaje-ucze-reaguje",
+      "title": "Nasz wspólny, rodzinny świat - poznaję, uczę, reaguję",
+      "summary": "Autorskia terapeutyczna gra rodzinna oraz organizacja zespołu szybkiego reagowania na problemy rodzin dzieci z niepełnosprawnością",
+      "description": "Autorskia terapeutyczna gra rodzinna oraz organizacja zespołu szybkiego reagowania na problemy rodzin dzieci z niepełnosprawnością\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Nasz wspólny, rodzinny świat - poznaję, uczę, reaguję",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,nasz-wspolny-rodzinny-swiat-poznaje-ucze-reaguje",
+          "excerpt": "Autorskia terapeutyczna gra rodzinna oraz organizacja zespołu szybkiego reagowania na problemy rodzin dzieci z niepełnosprawnością"
+        }
+      ]
+    },
+    {
+      "id": "rops-mpatyk",
+      "title": "mPatyk",
+      "summary": "Edukacyjna, inkluzywna gra planszowa dla dzieci i młodzieży (również z niepełnosprawnościami).",
+      "description": "Edukacyjna, inkluzywna gra planszowa dla dzieci i młodzieży (również z niepełnosprawnościami).\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "mPatyk",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,mpatyk",
+          "excerpt": "Edukacyjna, inkluzywna gra planszowa dla dzieci i młodzieży (również z niepełnosprawnościami)."
+        }
+      ]
+    },
+    {
+      "id": "rops-czas-na-aktywnosc",
+      "title": "Czas na aktywność!",
+      "summary": "Platforma internetowa dla osób z niepełnosprawnością intelektualną",
+      "description": "Platforma internetowa dla osób z niepełnosprawnością intelektualną\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla dzieci, młodzieży i rodziny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Dzieci i młodzież",
+        "Rodziny"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "szkoła",
+        "gmina",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Czas na aktywność!",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-dzieci-mlodziezy-i-rodziny,czas-na-aktywnosc",
+          "excerpt": "Platforma internetowa dla osób z niepełnosprawnością intelektualną"
+        }
+      ]
+    },
+    {
+      "id": "rops-agencja-pracy-incydentalnej",
+      "title": "Agencja pracy incydentalnej",
+      "summary": "Model działania Agencji Pracy Incydentalnej pomagającej osobom znajdującym się w głębokim kryzysie powrócić na rynek pracy.",
+      "description": "Model działania Agencji Pracy Incydentalnej pomagającej osobom znajdującym się w głębokim kryzysie powrócić na rynek pracy.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla rynku pracy).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "unemployment_activation",
+        "poverty_exclusion",
+        "disability_accessibility"
+      ],
+      "targetGroups": [
+        "Osoby bezrobotne",
+        "Osoby z niepełnosprawnościami"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "powiat",
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Agencja pracy incydentalnej",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-rynku-pracy,agencja-pracy-incydentalnej",
+          "excerpt": "Model działania Agencji Pracy Incydentalnej pomagającej osobom znajdującym się w głębokim kryzysie powrócić na rynek pracy."
+        }
+      ]
+    },
+    {
+      "id": "rops-niewypaleni",
+      "title": "NIEwypaleni",
+      "summary": "Narzędzia przeciwdziałające wypaleniu zawodowemu osób z niepełnosprawnością intelektualną",
+      "description": "Narzędzia przeciwdziałające wypaleniu zawodowemu osób z niepełnosprawnością intelektualną\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla rynku pracy).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "unemployment_activation",
+        "poverty_exclusion",
+        "disability_accessibility"
+      ],
+      "targetGroups": [
+        "Osoby bezrobotne",
+        "Osoby z niepełnosprawnościami"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "powiat",
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "NIEwypaleni",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-rynku-pracy,niewypaleni",
+          "excerpt": "Narzędzia przeciwdziałające wypaleniu zawodowemu osób z niepełnosprawnością intelektualną"
+        }
+      ]
+    },
+    {
+      "id": "rops-konsultant-etr",
+      "title": "Konsultant ETR",
+      "summary": "Model nowego zawodu tj. konsultanta tekstów ETR dla osób z niepełnosprawnością intelektualną w celu ich aktywizacji zawodowej.",
+      "description": "Model nowego zawodu tj. konsultanta tekstów ETR dla osób z niepełnosprawnością intelektualną w celu ich aktywizacji zawodowej.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla rynku pracy).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "unemployment_activation",
+        "poverty_exclusion",
+        "disability_accessibility"
+      ],
+      "targetGroups": [
+        "Osoby bezrobotne",
+        "Osoby z niepełnosprawnościami"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "powiat",
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Konsultant ETR",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-rynku-pracy,konsultant-etr",
+          "excerpt": "Model nowego zawodu tj. konsultanta tekstów ETR dla osób z niepełnosprawnością intelektualną w celu ich aktywizacji zawodowej."
+        }
+      ]
+    },
+    {
+      "id": "rops-mobilna-gielda-pracy",
+      "title": "Mobilna giełda pracy",
+      "summary": "Model wsparcia kobiet nieaktywnych zawodowo zamieszkujących obszary wiejskie i małomiasteczkowe",
+      "description": "Model wsparcia kobiet nieaktywnych zawodowo zamieszkujących obszary wiejskie i małomiasteczkowe\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla rynku pracy).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "unemployment_activation",
+        "poverty_exclusion",
+        "disability_accessibility"
+      ],
+      "targetGroups": [
+        "Osoby bezrobotne",
+        "Osoby z niepełnosprawnościami"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "powiat",
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Mobilna giełda pracy",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-rynku-pracy,mobilna-gielda-pracy",
+          "excerpt": "Model wsparcia kobiet nieaktywnych zawodowo zamieszkujących obszary wiejskie i małomiasteczkowe"
+        }
+      ]
+    },
+    {
+      "id": "rops-oddawacze",
+      "title": "Oddawacze",
+      "summary": "Platforma służąca do wymiany przedmiotów używanych w zamian za symboliczne wsparcie celów i organizacji charytatywnych",
+      "description": "Platforma służąca do wymiany przedmiotów używanych w zamian za symboliczne wsparcie celów i organizacji charytatywnych\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla rynku pracy).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "unemployment_activation",
+        "poverty_exclusion",
+        "disability_accessibility"
+      ],
+      "targetGroups": [
+        "Osoby bezrobotne",
+        "Osoby z niepełnosprawnościami"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "powiat",
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Oddawacze",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-rynku-pracy,oddawacze",
+          "excerpt": "Platforma służąca do wymiany przedmiotów używanych w zamian za symboliczne wsparcie celów i organizacji charytatywnych"
+        }
+      ]
+    },
+    {
+      "id": "rops-uniodziez",
+      "title": "Uniodzież",
+      "summary": "Płaszcz przeciwdeszczowy dla osób poruszających się na wózkach",
+      "description": "Płaszcz przeciwdeszczowy dla osób poruszających się na wózkach\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Uniodzież",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,uniodziez",
+          "excerpt": "Płaszcz przeciwdeszczowy dla osób poruszających się na wózkach"
+        }
+      ]
+    },
+    {
+      "id": "rops-zakupy-na-jednym-wozku-z-dzieckiem-z-niepelnosprawnoscia-ruchowa",
+      "title": "Zakupy na jednym wózku z dzieckiem z niepełnosprawnością ruchową",
+      "summary": "Nakładka na wózek zakupowy, umożliwiająca dokonywanie samodzielnych zakupów z dzieckiem z niepełnosprawnością (m.in. z mózgowym porażeniem dziecięcym).",
+      "description": "Nakładka na wózek zakupowy, umożliwiająca dokonywanie samodzielnych zakupów z dzieckiem z niepełnosprawnością (m.in. z mózgowym porażeniem dziecięcym).\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Zakupy na jednym wózku z dzieckiem z niepełnosprawnością ruchową",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,zakupy-na-jednym-wozku-z-dzieckiem-z-niepelnosprawnoscia-ruchowa",
+          "excerpt": "Nakładka na wózek zakupowy, umożliwiająca dokonywanie samodzielnych zakupów z dzieckiem z niepełnosprawnością (m.in. z mózgowym porażeniem dziecięcym)."
+        }
+      ]
+    },
+    {
+      "id": "rops-kompleksowa-pomoc-dla-osob-po-amputacji-konczyny-dolnej",
+      "title": "Kompleksowa pomoc dla osób po amputacji kończyny dolnej",
+      "summary": "Kompleksowy model opieki nad osobami bezpośrednio po amputacji kończyny dolnej",
+      "description": "Kompleksowy model opieki nad osobami bezpośrednio po amputacji kończyny dolnej\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Kompleksowa pomoc dla osób po amputacji kończyny dolnej",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,kompleksowa-pomoc-dla-osob-po-amputacji-konczyny-dolnej",
+          "excerpt": "Kompleksowy model opieki nad osobami bezpośrednio po amputacji kończyny dolnej"
+        }
+      ]
+    },
+    {
+      "id": "rops-puzzles-ramp",
+      "title": "Puzzle's Ramp",
+      "summary": "pobierz materiały sprawdź zasady wykorzystania otwórz w telefonie",
+      "description": "pobierz materiały sprawdź zasady wykorzystania otwórz w telefonie\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Puzzle's Ramp",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,puzzles-ramp",
+          "excerpt": "pobierz materiały sprawdź zasady wykorzystania otwórz w telefonie"
+        }
+      ]
+    },
+    {
+      "id": "rops-chlap-pro",
+      "title": "Chlap Pro",
+      "summary": "Chlapoodporny ochraniacz protezy nogi",
+      "description": "Chlapoodporny ochraniacz protezy nogi\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Chlap Pro",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,chlap-pro",
+          "excerpt": "Chlapoodporny ochraniacz protezy nogi"
+        }
+      ]
+    },
+    {
+      "id": "rops-marina-pai",
+      "title": "Marina Pai",
+      "summary": "Narzędzie do autodiagnozy dostępności marin i przystani na wodach morskich",
+      "description": "Narzędzie do autodiagnozy dostępności marin i przystani na wodach morskich\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Marina Pai",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,marina-pai",
+          "excerpt": "Narzędzie do autodiagnozy dostępności marin i przystani na wodach morskich"
+        }
+      ]
+    },
+    {
+      "id": "rops-zakupy-bez-barier",
+      "title": "Zakupy bez barier",
+      "summary": "Dyskretny dzwonek przywołujący asystę dla osoby z niepełnosprawnością w sklepie wielkopowierzchniowym",
+      "description": "Dyskretny dzwonek przywołujący asystę dla osoby z niepełnosprawnością w sklepie wielkopowierzchniowym\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Zakupy bez barier",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,zakupy-bez-barier",
+          "excerpt": "Dyskretny dzwonek przywołujący asystę dla osoby z niepełnosprawnością w sklepie wielkopowierzchniowym"
+        }
+      ]
+    },
+    {
+      "id": "rops-nakreceni-na-aktywnosc",
+      "title": "Nakręceni na aktywność",
+      "summary": "Aplikacja, która pomaga osobom z niepełnosprawnością za sprawą przekazywania im informacji o standardach dostępności obiektów użyteczności publicznej",
+      "description": "Aplikacja, która pomaga osobom z niepełnosprawnością za sprawą przekazywania im informacji o standardach dostępności obiektów użyteczności publicznej\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Nakręceni na aktywność",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,nakreceni-na-aktywnosc",
+          "excerpt": "Aplikacja, która pomaga osobom z niepełnosprawnością za sprawą przekazywania im informacji o standardach dostępności obiektów użyteczności publicznej"
+        }
+      ]
+    },
+    {
+      "id": "rops-moduly-niezaleznosci",
+      "title": "Moduły niezależności",
+      "summary": "Model zabudowy campingowej, który dostosowany będzie do potrzeb osób z dysfunkcjami ruchu, wzroku i słuchu",
+      "description": "Model zabudowy campingowej, który dostosowany będzie do potrzeb osób z dysfunkcjami ruchu, wzroku i słuchu\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Moduły niezależności",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,moduly-niezaleznosci",
+          "excerpt": "Model zabudowy campingowej, który dostosowany będzie do potrzeb osób z dysfunkcjami ruchu, wzroku i słuchu"
+        }
+      ]
+    },
+    {
+      "id": "rops-biustspinka",
+      "title": "BiustSPINKA",
+      "summary": "Urządzenie wspomagające zakładanie biustonosza dla kobiet posiadających różnego typu ograniczenia ruchowe i fizyczne",
+      "description": "Urządzenie wspomagające zakładanie biustonosza dla kobiet posiadających różnego typu ograniczenia ruchowe i fizyczne\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "BiustSPINKA",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,biustspinka",
+          "excerpt": "Urządzenie wspomagające zakładanie biustonosza dla kobiet posiadających różnego typu ograniczenia ruchowe i fizyczne"
+        }
+      ]
+    },
+    {
+      "id": "rops-szablony-piekna",
+      "title": "Szablony piękna",
+      "summary": "Bielizna adaptacyjna (majtki i biustonosze) dla kobiet z ograniczoną ruchomością poruszających się na wózkach",
+      "description": "Bielizna adaptacyjna (majtki i biustonosze) dla kobiet z ograniczoną ruchomością poruszających się na wózkach\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Szablony piękna",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,szablony-piekna",
+          "excerpt": "Bielizna adaptacyjna (majtki i biustonosze) dla kobiet z ograniczoną ruchomością poruszających się na wózkach"
+        }
+      ]
+    },
+    {
+      "id": "rops-ev-modul-do-wozkow-inwalidzkich",
+      "title": "EV moduł do wózków inwalidzkich",
+      "summary": "Modułu elektryczny do wózka inwalidzkiego, dzięki któremu zwiększa się jego stabilność – szczególnie podczas jazdy pod górę i po chodnikach.",
+      "description": "Modułu elektryczny do wózka inwalidzkiego, dzięki któremu zwiększa się jego stabilność – szczególnie podczas jazdy pod górę i po chodnikach.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "EV moduł do wózków inwalidzkich",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,ev-modul-do-wozkow-inwalidzkich",
+          "excerpt": "Modułu elektryczny do wózka inwalidzkiego, dzięki któremu zwiększa się jego stabilność – szczególnie podczas jazdy pod górę i po chodnikach."
+        }
+      ]
+    },
+    {
+      "id": "rops-dostepny-stol-targowy",
+      "title": "Dostępny stół targowy",
+      "summary": "Prototypu stołu targowego, dostosowanego do możliwości osób ze specjalnymi potrzebami.",
+      "description": "Prototypu stołu targowego, dostosowanego do możliwości osób ze specjalnymi potrzebami.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Dostępny stół targowy",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,dostepny-stol-targowy",
+          "excerpt": "Prototypu stołu targowego, dostosowanego do możliwości osób ze specjalnymi potrzebami."
+        }
+      ]
+    },
+    {
+      "id": "rops-cloudleg",
+      "title": "Cloudleg",
+      "summary": "Metoda tworzenia i wykonania protez kosmetycznych dla osób po amputacji kończyn dolnych poruszających się̨ na wózku.",
+      "description": "Metoda tworzenia i wykonania protez kosmetycznych dla osób po amputacji kończyn dolnych poruszających się̨ na wózku.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Cloudleg",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,cloudleg",
+          "excerpt": "Metoda tworzenia i wykonania protez kosmetycznych dla osób po amputacji kończyn dolnych poruszających się̨ na wózku."
+        }
+      ]
+    },
+    {
+      "id": "rops-lekki-wozek-aktywny",
+      "title": "Lekki wózek aktywny",
+      "summary": "Lekki i funkcjonalny wózek aktwny przy obniżonej cenie",
+      "description": "Lekki i funkcjonalny wózek aktwny przy obniżonej cenie\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Lekki wózek aktywny",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,lekki-wozek-aktywny",
+          "excerpt": "Lekki i funkcjonalny wózek aktwny przy obniżonej cenie"
+        }
+      ]
+    },
+    {
+      "id": "rops-wozek-szermierczy",
+      "title": "Wózek szermierczy",
+      "summary": "Prototypu tańszego i lekkiego samoobsługowego wózka szermierczego",
+      "description": "Prototypu tańszego i lekkiego samoobsługowego wózka szermierczego\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Wózek szermierczy",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,wozek-szermierczy",
+          "excerpt": "Prototypu tańszego i lekkiego samoobsługowego wózka szermierczego"
+        }
+      ]
+    },
+    {
+      "id": "rops-dostepna-szermierka",
+      "title": "Dostępna szermierka",
+      "summary": "Platforma szermiercza dla zawodników na wózkach (nie wymagająca dodatkowej asysty, lekka w transporcie, tańsza oraz bardziej niezwodna)",
+      "description": "Platforma szermiercza dla zawodników na wózkach (nie wymagająca dodatkowej asysty, lekka w transporcie, tańsza oraz bardziej niezwodna)\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Dostępna szermierka",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,dostepna-szermierka",
+          "excerpt": "Platforma szermiercza dla zawodników na wózkach (nie wymagająca dodatkowej asysty, lekka w transporcie, tańsza oraz bardziej niezwodna)"
+        }
+      ]
+    },
+    {
+      "id": "rops-innotextil",
+      "title": "Innotextil",
+      "summary": "Inteligentna odzież wspierająca rehabilitację",
+      "description": "Inteligentna odzież wspierająca rehabilitację\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób o ograniczonej mobilności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "transport_rural",
+        "housing"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby o ograniczonej mobilności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Innotextil",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-o-ograniczonej-mobilnosci,innotextil",
+          "excerpt": "Inteligentna odzież wspierająca rehabilitację"
+        }
+      ]
+    },
+    {
+      "id": "rops-straznik",
+      "title": "Strażnik",
+      "summary": "Aplikacja mobilna dla osób g/Głuchych współpracująca z opaskami typu \"smart band\" i telefonami, która powiadamia użytkownika o sygnale dźwiękowym wskazującym na zagrożenie (np. pożar).",
+      "description": "Aplikacja mobilna dla osób g/Głuchych współpracująca z opaskami typu \"smart band\" i telefonami, która powiadamia użytkownika o sygnale dźwiękowym wskazującym na zagrożenie (np. pożar).\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Strażnik",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,straznik",
+          "excerpt": "Aplikacja mobilna dla osób g/Głuchych współpracująca z opaskami typu \"smart band\" i telefonami, która powiadamia użytkownika o sygnale dźwiękowym wskazującym na zagrożenie (np. pożar)."
+        }
+      ]
+    },
+    {
+      "id": "rops-wsparcie-imprez-masowych-dla-osob-z-niepelnosprawnoscia-wzroku",
+      "title": "Wsparcie imprez masowych dla osób z niepełnosprawnością wzroku",
+      "summary": "Modułowe, mobilne maty naprowadzające, które tworzą drogi bezpiecznego poruszania się na koncertach, festiwalach oraz wewnątrz budynków dla osób z niepełnosprawnościami.",
+      "description": "Modułowe, mobilne maty naprowadzające, które tworzą drogi bezpiecznego poruszania się na koncertach, festiwalach oraz wewnątrz budynków dla osób z niepełnosprawnościami.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Wsparcie imprez masowych dla osób z niepełnosprawnością wzroku",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,wsparcie-imprez-masowych-dla-osob-z-niepelnosprawnoscia-wzroku",
+          "excerpt": "Modułowe, mobilne maty naprowadzające, które tworzą drogi bezpiecznego poruszania się na koncertach, festiwalach oraz wewnątrz budynków dla osób z niepełnosprawnościami."
+        }
+      ]
+    },
+    {
+      "id": "rops-teleasystent",
+      "title": "Teleasystent",
+      "summary": "Aplikacja umożliwiająca zdalną asystę dla osób niewidzących i słabowidzących.",
+      "description": "Aplikacja umożliwiająca zdalną asystę dla osób niewidzących i słabowidzących.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Teleasystent",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,teleasystent",
+          "excerpt": "Aplikacja umożliwiająca zdalną asystę dla osób niewidzących i słabowidzących."
+        }
+      ]
+    },
+    {
+      "id": "rops-hear-it",
+      "title": "Hear IT",
+      "summary": "Internetowa platforma edukacyjna opracowana w Polskim Języku Migowym dla osób g/Głuchych pragnących wejść w branżę IT.",
+      "description": "Internetowa platforma edukacyjna opracowana w Polskim Języku Migowym dla osób g/Głuchych pragnących wejść w branżę IT.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Hear IT",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,hear-it",
+          "excerpt": "Internetowa platforma edukacyjna opracowana w Polskim Języku Migowym dla osób g/Głuchych pragnących wejść w branżę IT."
+        }
+      ]
+    },
+    {
+      "id": "rops-gluchy-czytelnik-w-bibliotece",
+      "title": "Głuchy czytelnik w bibliotece",
+      "summary": "Publikacja przybliżająca osobom g/Głuchym instytucję jaką jest biblioteka oraz pokazująca, że czytanie jest ważne",
+      "description": "Publikacja przybliżająca osobom g/Głuchym instytucję jaką jest biblioteka oraz pokazująca, że czytanie jest ważne\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Głuchy czytelnik w bibliotece",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,gluchy-czytelnik-w-bibliotece",
+          "excerpt": "Publikacja przybliżająca osobom g/Głuchym instytucję jaką jest biblioteka oraz pokazująca, że czytanie jest ważne"
+        }
+      ]
+    },
+    {
+      "id": "rops-blue-sea-eye",
+      "title": "Blue Sea Eye",
+      "summary": "Urządzenie nawigacyjne połączone z aplikacją, które umożliwia osobom z dysfunkcją wzroku samodzielne sterowanie jednostką pływającą",
+      "description": "Urządzenie nawigacyjne połączone z aplikacją, które umożliwia osobom z dysfunkcją wzroku samodzielne sterowanie jednostką pływającą\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Blue Sea Eye",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,blue-sea-eye",
+          "excerpt": "Urządzenie nawigacyjne połączone z aplikacją, które umożliwia osobom z dysfunkcją wzroku samodzielne sterowanie jednostką pływającą"
+        }
+      ]
+    },
+    {
+      "id": "rops-osoby-niewidome-i-niedowidzace-jako-nauczyciele-jezyka-polskiego",
+      "title": "Osoby niewidome i niedowidzące jako nauczyciele języka polskiego",
+      "summary": "Model wsparcia nauczania języka polskiego dla migrantów prowadzonego przez osoby niewidome",
+      "description": "Model wsparcia nauczania języka polskiego dla migrantów prowadzonego przez osoby niewidome\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Osoby niewidome i niedowidzące jako nauczyciele języka polskiego",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,osoby-niewidome-i-niedowidzace-jako-nauczyciele-jezyka-polskiego",
+          "excerpt": "Model wsparcia nauczania języka polskiego dla migrantów prowadzonego przez osoby niewidome"
+        }
+      ]
+    },
+    {
+      "id": "rops-ngoz-nawigacja-glosowa-osob-zaleznych",
+      "title": "NGOZ - nawigacja głosowa osób zależnych",
+      "summary": "Udźwiękowiona wewnątrzbudynkowa nawigacja dla osób z dysfunkcją wzroku.",
+      "description": "Udźwiękowiona wewnątrzbudynkowa nawigacja dla osób z dysfunkcją wzroku.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "NGOZ - nawigacja głosowa osób zależnych",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,ngoz-nawigacja-glosowa-osob-zaleznych",
+          "excerpt": "Udźwiękowiona wewnątrzbudynkowa nawigacja dla osób z dysfunkcją wzroku."
+        }
+      ]
+    },
+    {
+      "id": "rops-wibraap",
+      "title": "Wibraap",
+      "summary": "Urządzenie elektroniczne w postaci kamizelki, które umożliwia pozasłuchowe odczuwanie muzyki osobom z niepełnosprawnością narządu słuchu.",
+      "description": "Urządzenie elektroniczne w postaci kamizelki, które umożliwia pozasłuchowe odczuwanie muzyki osobom z niepełnosprawnością narządu słuchu.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Wibraap",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,wibraap",
+          "excerpt": "Urządzenie elektroniczne w postaci kamizelki, które umożliwia pozasłuchowe odczuwanie muzyki osobom z niepełnosprawnością narządu słuchu."
+        }
+      ]
+    },
+    {
+      "id": "rops-my-way-to-culture",
+      "title": "My way to culture",
+      "summary": "Aplikacja wykorzystująca system nawigacji wewnątrzbudynkowej, aby umożliwić osobom z niepełnosprawnością wzroku, słuchu i/lub ruchu zwiedzanie muzeum",
+      "description": "Aplikacja wykorzystująca system nawigacji wewnątrzbudynkowej, aby umożliwić osobom z niepełnosprawnością wzroku, słuchu i/lub ruchu zwiedzanie muzeum\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "My way to culture",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,my-way-to-culture",
+          "excerpt": "Aplikacja wykorzystująca system nawigacji wewnątrzbudynkowej, aby umożliwić osobom z niepełnosprawnością wzroku, słuchu i/lub ruchu zwiedzanie muzeum"
+        }
+      ]
+    },
+    {
+      "id": "rops-glucha-ankieta",
+      "title": "Głucha ankieta",
+      "summary": "Wtyczka pozwalająca na odpowiadanie w PJM na ankiety internetowego serwisu ankietowego",
+      "description": "Wtyczka pozwalająca na odpowiadanie w PJM na ankiety internetowego serwisu ankietowego\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Głucha ankieta",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,glucha-ankieta",
+          "excerpt": "Wtyczka pozwalająca na odpowiadanie w PJM na ankiety internetowego serwisu ankietowego"
+        }
+      ]
+    },
+    {
+      "id": "rops-dostepny-wniosek-dla-ggluchych",
+      "title": "Dostępny wniosek dla g/Głuchych",
+      "summary": "Wzory dokumentów urzędowych będących wnioskami o zapewnienie dostępności w określonym obszarze usług publicznych",
+      "description": "Wzory dokumentów urzędowych będących wnioskami o zapewnienie dostępności w określonym obszarze usług publicznych\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Dostępny wniosek dla g/Głuchych",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,dostepny-wniosek-dla-ggluchych",
+          "excerpt": "Wzory dokumentów urzędowych będących wnioskami o zapewnienie dostępności w określonym obszarze usług publicznych"
+        }
+      ]
+    },
+    {
+      "id": "rops-czytamoda",
+      "title": "Czytamoda",
+      "summary": "Aplikacja audiodeskrypcyjna, która umożliwia osobom z niepełnosprawnością wzroku dokonywanie samodzielnych zakupów odzieży online i w sklepach stacjonarnych.",
+      "description": "Aplikacja audiodeskrypcyjna, która umożliwia osobom z niepełnosprawnością wzroku dokonywanie samodzielnych zakupów odzieży online i w sklepach stacjonarnych.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Czytamoda",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,czytamoda",
+          "excerpt": "Aplikacja audiodeskrypcyjna, która umożliwia osobom z niepełnosprawnością wzroku dokonywanie samodzielnych zakupów odzieży online i w sklepach stacjonarnych."
+        }
+      ]
+    },
+    {
+      "id": "rops-dostepny-transport-publiczny",
+      "title": "Dostępny transport publiczny",
+      "summary": "Przeniesienie aplikacji „Zaraz Jadę”, ułatwiającej osobom niewidomym korzystanie z komunikacji miejskiej, z systemu iOS na system Android",
+      "description": "Przeniesienie aplikacji „Zaraz Jadę”, ułatwiającej osobom niewidomym korzystanie z komunikacji miejskiej, z systemu iOS na system Android\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Dostępny transport publiczny",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,dostepny-transport-publiczny",
+          "excerpt": "Przeniesienie aplikacji „Zaraz Jadę”, ułatwiającej osobom niewidomym korzystanie z komunikacji miejskiej, z systemu iOS na system Android"
+        }
+      ]
+    },
+    {
+      "id": "rops-turystyka-gorskawspinaczka-dostepna-dla-wszystkich",
+      "title": "Turystyka górska/wspinaczka dostępna dla wszystkich",
+      "summary": "Nowe metody i formy współpracy podczas wspinaczki wysokogórskiej, ściankowej i skałkowej z udziałem osób z niepełnosprawnością wzrokową",
+      "description": "Nowe metody i formy współpracy podczas wspinaczki wysokogórskiej, ściankowej i skałkowej z udziałem osób z niepełnosprawnością wzrokową\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Turystyka górska/wspinaczka dostępna dla wszystkich",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,turystyka-gorskawspinaczka-dostepna-dla-wszystkich",
+          "excerpt": "Nowe metody i formy współpracy podczas wspinaczki wysokogórskiej, ściankowej i skałkowej z udziałem osób z niepełnosprawnością wzrokową"
+        }
+      ]
+    },
+    {
+      "id": "rops-zdobadz-swoje-szczyty",
+      "title": "Zdobądź swoje szczyty",
+      "summary": "Górski przewodnik multimedialny po szlakach turystycznych z uwzględnieniem potrzeb osób z niepełnosprawnościami",
+      "description": "Górski przewodnik multimedialny po szlakach turystycznych z uwzględnieniem potrzeb osób z niepełnosprawnościami\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Zdobądź swoje szczyty",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,zdobadz-swoje-szczyty",
+          "excerpt": "Górski przewodnik multimedialny po szlakach turystycznych z uwzględnieniem potrzeb osób z niepełnosprawnościami"
+        }
+      ]
+    },
+    {
+      "id": "rops-spotkania-kulturlove",
+      "title": "Spotkania KulturLove",
+      "summary": "Strona internetowa, która łączy osoby z niepełnosprawnością z wolontariuszami gotowymi wesprzeć je w dotarciu do obiektów kultury (teatru, kina, muzeum)",
+      "description": "Strona internetowa, która łączy osoby z niepełnosprawnością z wolontariuszami gotowymi wesprzeć je w dotarciu do obiektów kultury (teatru, kina, muzeum)\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Spotkania KulturLove",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,spotkania-kulturlove",
+          "excerpt": "Strona internetowa, która łączy osoby z niepełnosprawnością z wolontariuszami gotowymi wesprzeć je w dotarciu do obiektów kultury (teatru, kina, muzeum)"
+        }
+      ]
+    },
+    {
+      "id": "rops-zmysly-w-ruchu-model-choreografii-dla-osob-niewidomych",
+      "title": "Zmysły w ruchu. Model choreografii dla osób niewidomych.",
+      "summary": "Model pracy ruchowo-choreograficznej, np. terapii opartych na tańcu, dla osób z niepełnosprawnością wzroku.",
+      "description": "Model pracy ruchowo-choreograficznej, np. terapii opartych na tańcu, dla osób z niepełnosprawnością wzroku.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Zmysły w ruchu. Model choreografii dla osób niewidomych.",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,zmysly-w-ruchu-model-choreografii-dla-osob-niewidomych",
+          "excerpt": "Model pracy ruchowo-choreograficznej, np. terapii opartych na tańcu, dla osób z niepełnosprawnością wzroku."
+        }
+      ]
+    },
+    {
+      "id": "rops-kaski-binauralne",
+      "title": "Kaski binauralne",
+      "summary": "Narzędzie do rehabilitacji społecznej osób ociemniałych, które niedawno straciły wzrok lub są w procesie jego tracenia i przygotowują się do życia w nowej dla nich rzeczywistości.",
+      "description": "Narzędzie do rehabilitacji społecznej osób ociemniałych, które niedawno straciły wzrok lub są w procesie jego tracenia i przygotowują się do życia w nowej dla nich rzeczywistości.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Kaski binauralne",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,kaski-binauralne",
+          "excerpt": "Narzędzie do rehabilitacji społecznej osób ociemniałych, które niedawno straciły wzrok lub są w procesie jego tracenia i przygotowują się do życia w nowej dla nich rzeczywistości."
+        }
+      ]
+    },
+    {
+      "id": "rops-wielodziedzinowy-slownik-terminow-specjalistycznych-pl-pjm",
+      "title": "Wielodziedzinowy słownik terminów specjalistycznych PL-PJM",
+      "summary": "Aplikacja mobilna stanowiąca specjalistyczny słownik wielodziedzinowy PL- PJM, polegający na umieszczaniu w aplikacji filmów z miganiem specjalistycznego słowa.",
+      "description": "Aplikacja mobilna stanowiąca specjalistyczny słownik wielodziedzinowy PL- PJM, polegający na umieszczaniu w aplikacji filmów z miganiem specjalistycznego słowa.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością sensoryczną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "digital_exclusion"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością sensoryczną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Wielodziedzinowy słownik terminów specjalistycznych PL-PJM",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-sensoryczna,wielodziedzinowy-slownik-terminow-specjalistycznych-pl-pjm",
+          "excerpt": "Aplikacja mobilna stanowiąca specjalistyczny słownik wielodziedzinowy PL- PJM, polegający na umieszczaniu w aplikacji filmów z miganiem specjalistycznego słowa."
+        }
+      ]
+    },
+    {
+      "id": "rops-bajkala",
+      "title": "Bajkala",
+      "summary": "Lampka włączająca kulturowo dzieci czeczeńskie",
+      "description": "Lampka włączająca kulturowo dzieci czeczeńskie\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla cudzoziemców).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "migrant_integration",
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Migranci i uchodźcy",
+        "Cudzoziemcy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Bajkala",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-cudzoziemcow,bajkala",
+          "excerpt": "Lampka włączająca kulturowo dzieci czeczeńskie"
+        }
+      ]
+    },
+    {
+      "id": "rops-dialog-ponad-kulturami",
+      "title": "Dialog ponad kulturami",
+      "summary": "Wystandaryzowany model mediacji transgranicznej, który ma zastosowanie w przypadku porwania lub zagrożenia porwaniem rodzicielskim wobec skonfliktowanych rodziców pochodzących z odmiennych kręgów kulturowych.",
+      "description": "Wystandaryzowany model mediacji transgranicznej, który ma zastosowanie w przypadku porwania lub zagrożenia porwaniem rodzicielskim wobec skonfliktowanych rodziców pochodzących z odmiennych kręgów kulturowych.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla cudzoziemców).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "migrant_integration",
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Migranci i uchodźcy",
+        "Cudzoziemcy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Dialog ponad kulturami",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-cudzoziemcow,dialog-ponad-kulturami",
+          "excerpt": "Wystandaryzowany model mediacji transgranicznej, który ma zastosowanie w przypadku porwania lub zagrożenia porwaniem rodzicielskim wobec skonfliktowanych rodziców pochodzących z odmiennych kręgów kulturowych."
+        }
+      ]
+    },
+    {
+      "id": "rops-wortal-informacyjny",
+      "title": "Wortal informacyjny",
+      "summary": "Wortal informacyjny w języku dari dedykowany Afgańczykom przebywającym w Polsce",
+      "description": "Wortal informacyjny w języku dari dedykowany Afgańczykom przebywającym w Polsce\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla cudzoziemców).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "migrant_integration",
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Migranci i uchodźcy",
+        "Cudzoziemcy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Wortal informacyjny",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-cudzoziemcow,wortal-informacyjny",
+          "excerpt": "Wortal informacyjny w języku dari dedykowany Afgańczykom przebywającym w Polsce"
+        }
+      ]
+    },
+    {
+      "id": "rops-dialog-ponad-kulturami-1",
+      "title": "Dialog ponad kulturami",
+      "summary": "Aplikacja umożliwiająca porozumiewanie się dedykowana Afgańczykom przebywającym w Polsce",
+      "description": "Aplikacja umożliwiająca porozumiewanie się dedykowana Afgańczykom przebywającym w Polsce\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla cudzoziemców).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "migrant_integration",
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Migranci i uchodźcy",
+        "Cudzoziemcy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Dialog ponad kulturami",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-cudzoziemcow,dialog-ponad-kulturami-1",
+          "excerpt": "Aplikacja umożliwiająca porozumiewanie się dedykowana Afgańczykom przebywającym w Polsce"
+        }
+      ]
+    },
+    {
+      "id": "rops-health-guide-pl",
+      "title": "Health Guide PL",
+      "summary": "Przewodnika przeznaczony dla obcokrajowców pracujących w Polsce, który zapewnia im łatwy dostęp do informacji o polskiej publicznej ochronie zdrowia.",
+      "description": "Przewodnika przeznaczony dla obcokrajowców pracujących w Polsce, który zapewnia im łatwy dostęp do informacji o polskiej publicznej ochronie zdrowia.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla cudzoziemców).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "migrant_integration",
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Migranci i uchodźcy",
+        "Cudzoziemcy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Health Guide PL",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-cudzoziemcow,health-guide-pl",
+          "excerpt": "Przewodnika przeznaczony dla obcokrajowców pracujących w Polsce, który zapewnia im łatwy dostęp do informacji o polskiej publicznej ochronie zdrowia."
+        }
+      ]
+    },
+    {
+      "id": "rops-zrozum-moja-kulture-zrozum-mnie",
+      "title": "Zrozum moją kulturę, zrozum mnie",
+      "summary": "Gra integracyjna przeznaczona dla grup uchodźczych/migracyjnych, które zamieszkują Polskę",
+      "description": "Gra integracyjna przeznaczona dla grup uchodźczych/migracyjnych, które zamieszkują Polskę\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla cudzoziemców).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "migrant_integration",
+        "children_youth",
+        "family_support",
+        "education_competences"
+      ],
+      "targetGroups": [
+        "Migranci i uchodźcy",
+        "Cudzoziemcy"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Zrozum moją kulturę, zrozum mnie",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-cudzoziemcow,zrozum-moja-kulture-zrozum-mnie",
+          "excerpt": "Gra integracyjna przeznaczona dla grup uchodźczych/migracyjnych, które zamieszkują Polskę"
+        }
+      ]
+    },
+    {
+      "id": "rops-urzedowy-ambaras",
+      "title": "Urzędowy ambaras",
+      "summary": "Edukacyjna gra planszowa wspierająca proces samodzielnego załatwiania spraw urzędowych.",
+      "description": "Edukacyjna gra planszowa wspierająca proces samodzielnego załatwiania spraw urzędowych.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Urzędowy ambaras",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,urzedowy-ambaras",
+          "excerpt": "Edukacyjna gra planszowa wspierająca proces samodzielnego załatwiania spraw urzędowych."
+        }
+      ]
+    },
+    {
+      "id": "rops-stop-otylosci-innowacyjna-metoda-pracy-z-osobami-niepelnosprawnymi-intelektualnie",
+      "title": "Stop otyłości - innowacyjna metoda pracy z osobami niepełnosprawnymi intelektualnie",
+      "summary": "Metoda pracy z osobami niepełnosprawnymi intelektualnie z problemem otyłości II i III stopnia",
+      "description": "Metoda pracy z osobami niepełnosprawnymi intelektualnie z problemem otyłości II i III stopnia\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Stop otyłości - innowacyjna metoda pracy z osobami niepełnosprawnymi intelektualnie",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,stop-otylosci-innowacyjna-metoda-pracy-z-osobami-niepelnosprawnymi-intelektualnie",
+          "excerpt": "Metoda pracy z osobami niepełnosprawnymi intelektualnie z problemem otyłości II i III stopnia"
+        }
+      ]
+    },
+    {
+      "id": "rops-pelna-wokanda",
+      "title": "Pełna wokanda",
+      "summary": "Edukacyjna gra planszowa skoncentrowana wokół świata polskiego sądownictwa.",
+      "description": "Edukacyjna gra planszowa skoncentrowana wokół świata polskiego sądownictwa.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Pełna wokanda",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,pelna-wokanda",
+          "excerpt": "Edukacyjna gra planszowa skoncentrowana wokół świata polskiego sądownictwa."
+        }
+      ]
+    },
+    {
+      "id": "rops-pelnia-zdrowia",
+      "title": "Pełnia zdrowia",
+      "summary": "Pudełko edukacyjne, które wyposaża osoby z niepełnosprawnością intelektualną w umiejętności niezbędne do korzystania z usług medycznych",
+      "description": "Pudełko edukacyjne, które wyposaża osoby z niepełnosprawnością intelektualną w umiejętności niezbędne do korzystania z usług medycznych\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Pełnia zdrowia",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,pelnia-zdrowia",
+          "excerpt": "Pudełko edukacyjne, które wyposaża osoby z niepełnosprawnością intelektualną w umiejętności niezbędne do korzystania z usług medycznych"
+        }
+      ]
+    },
+    {
+      "id": "rops-niepelnosprawnosc-szansa-na-pelnosprawnosc-w-pracy-i-zyciu",
+      "title": "Niepełnosprawność szansą na pełnosprawność w pracy i życiu",
+      "summary": "Model pracy o charakterze socjoterapeutycznym, skierowany do osób (uczniów) z niepełnosprawnością intelektualną w stopniu umiarkowanym, który zwiększa ich dostęp do rynku pracy.",
+      "description": "Model pracy o charakterze socjoterapeutycznym, skierowany do osób (uczniów) z niepełnosprawnością intelektualną w stopniu umiarkowanym, który zwiększa ich dostęp do rynku pracy.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Niepełnosprawność szansą na pełnosprawność w pracy i życiu",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,niepelnosprawnosc-szansa-na-pelnosprawnosc-w-pracy-i-zyciu",
+          "excerpt": "Model pracy o charakterze socjoterapeutycznym, skierowany do osób (uczniów) z niepełnosprawnością intelektualną w stopniu umiarkowanym, który zwiększa ich dostęp do rynku pracy."
+        }
+      ]
+    },
+    {
+      "id": "rops-dostepna-polska",
+      "title": "Dostępna Polska",
+      "summary": "Przewodniki po polskich miastach, dostosowane do potrzeb osób z niepełnosprawnością intelektualną",
+      "description": "Przewodniki po polskich miastach, dostosowane do potrzeb osób z niepełnosprawnością intelektualną\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Dostępna Polska",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,dostepna-polska",
+          "excerpt": "Przewodniki po polskich miastach, dostosowane do potrzeb osób z niepełnosprawnością intelektualną"
+        }
+      ]
+    },
+    {
+      "id": "rops-zalatw-to-sam",
+      "title": "Załatw to sam",
+      "summary": "Gra planszowa pomagająca osobom z niepełnosprawnością intelektualną samodzielnie załatwiać swoje sprawy w urzędach i instytucjach publicznych",
+      "description": "Gra planszowa pomagająca osobom z niepełnosprawnością intelektualną samodzielnie załatwiać swoje sprawy w urzędach i instytucjach publicznych\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Załatw to sam",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,zalatw-to-sam",
+          "excerpt": "Gra planszowa pomagająca osobom z niepełnosprawnością intelektualną samodzielnie załatwiać swoje sprawy w urzędach i instytucjach publicznych"
+        }
+      ]
+    },
+    {
+      "id": "rops-go-ahead-mow-smialo",
+      "title": "Go ahead - mów śmiało!",
+      "summary": "Aplikacja służąca rozwijaniu umiejętności komunikacyjnych osób z niepełnosprawnością intelektualną",
+      "description": "Aplikacja służąca rozwijaniu umiejętności komunikacyjnych osób z niepełnosprawnością intelektualną\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Go ahead - mów śmiało!",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,go-ahead-mow-smialo",
+          "excerpt": "Aplikacja służąca rozwijaniu umiejętności komunikacyjnych osób z niepełnosprawnością intelektualną"
+        }
+      ]
+    },
+    {
+      "id": "rops-autyzm-i-ja",
+      "title": "AuTyzm i ja",
+      "summary": "Rekomendacje dla opiekunów, nauczycieli i terapeutów dotyczące edukacji przedszkolnej i wczesnej interwencji dzieci ze spektrum autyzmu i z innymi zaburzeniami neurorozwojowymi",
+      "description": "Rekomendacje dla opiekunów, nauczycieli i terapeutów dotyczące edukacji przedszkolnej i wczesnej interwencji dzieci ze spektrum autyzmu i z innymi zaburzeniami neurorozwojowymi\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "AuTyzm i ja",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,autyzm-i-ja",
+          "excerpt": "Rekomendacje dla opiekunów, nauczycieli i terapeutów dotyczące edukacji przedszkolnej i wczesnej interwencji dzieci ze spektrum autyzmu i z innymi zaburzeniami neurorozwojowymi"
+        }
+      ]
+    },
+    {
+      "id": "rops-podroz-poza-domem-w-wirtualnej-rzeczywistosci",
+      "title": "Podróż poza domem w wirtualnej rzeczywistości",
+      "summary": "Aplikacja VR pomagająca w terapii osób z zaburzeniami lękowymi",
+      "description": "Aplikacja VR pomagająca w terapii osób z zaburzeniami lękowymi\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Podróż poza domem w wirtualnej rzeczywistości",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,podroz-poza-domem-w-wirtualnej-rzeczywistosci",
+          "excerpt": "Aplikacja VR pomagająca w terapii osób z zaburzeniami lękowymi"
+        }
+      ]
+    },
+    {
+      "id": "rops-ta-sciezka-terapeutyczna-sciezka-kulturowa-dla-dzieci-i-doroslych-z-autyzmem",
+      "title": "TA ścieżka. Terapeutyczna ścieżka kulturowa dla dzieci i dorosłych z autyzmem.",
+      "summary": "Aplikacja dla osób neuroatypowych (w tym w spektrum autyzmu), która zwiększa ich komfort poruszania się po przestrzeni publicznej",
+      "description": "Aplikacja dla osób neuroatypowych (w tym w spektrum autyzmu), która zwiększa ich komfort poruszania się po przestrzeni publicznej\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "TA ścieżka. Terapeutyczna ścieżka kulturowa dla dzieci i dorosłych z autyzmem.",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,ta-sciezka-terapeutyczna-sciezka-kulturowa-dla-dzieci-i-doroslych-z-autyzmem",
+          "excerpt": "Aplikacja dla osób neuroatypowych (w tym w spektrum autyzmu), która zwiększa ich komfort poruszania się po przestrzeni publicznej"
+        }
+      ]
+    },
+    {
+      "id": "rops-osa-i-eco-puzzle",
+      "title": "OSA i eco puzzle",
+      "summary": "Program wsparcia dla rodzin z OSA, którego celem jest stworzenie grupy samopomocowej dającej jej członkom przestrzeń do aktywności społecznej i zarobkowej",
+      "description": "Program wsparcia dla rodzin z OSA, którego celem jest stworzenie grupy samopomocowej dającej jej członkom przestrzeń do aktywności społecznej i zarobkowej\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "OSA i eco puzzle",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,osa-i-eco-puzzle",
+          "excerpt": "Program wsparcia dla rodzin z OSA, którego celem jest stworzenie grupy samopomocowej dającej jej członkom przestrzeń do aktywności społecznej i zarobkowej"
+        }
+      ]
+    },
+    {
+      "id": "rops-rodzinny-system-wzajemnej-pomocy",
+      "title": "Rodzinny system wzajemnej pomocy",
+      "summary": "Model włączenia społecznego dorosłych osób z autyzmem, w przedziale wiekowym 20 – 26 lat, które zakończyły proces edukacji i dalej jej nie kontynuują, jednocześnie nie są też aktywne zawodowo",
+      "description": "Model włączenia społecznego dorosłych osób z autyzmem, w przedziale wiekowym 20 – 26 lat, które zakończyły proces edukacji i dalej jej nie kontynuują, jednocześnie nie są też aktywne zawodowo\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Rodzinny system wzajemnej pomocy",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,rodzinny-system-wzajemnej-pomocy",
+          "excerpt": "Model włączenia społecznego dorosłych osób z autyzmem, w przedziale wiekowym 20 – 26 lat, które zakończyły proces edukacji i dalej jej nie kontynuują, jednocześnie nie są też aktywne zawodowo"
+        }
+      ]
+    },
+    {
+      "id": "rops-mix-ar-i-vr-dla-koordynacji-ruchowej",
+      "title": "Mix AR i VR dla koordynacji ruchowej",
+      "summary": "Aplikacja do codziennego ćwiczenia motoryki małej ręki przy wykorzystaniu technologii mix AR i VR przez osoby w spektrum autyzmu",
+      "description": "Aplikacja do codziennego ćwiczenia motoryki małej ręki przy wykorzystaniu technologii mix AR i VR przez osoby w spektrum autyzmu\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób z niepełnosprawnością intelektualną).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "disability_accessibility",
+        "education_competences",
+        "unemployment_activation"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnością intelektualną"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "szkoła",
+        "obszar miejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Mix AR i VR dla koordynacji ruchowej",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-z-niepelnosprawnoscia-intelektualna,mix-ar-i-vr-dla-koordynacji-ruchowej",
+          "excerpt": "Aplikacja do codziennego ćwiczenia motoryki małej ręki przy wykorzystaniu technologii mix AR i VR przez osoby w spektrum autyzmu"
+        }
+      ]
+    },
+    {
+      "id": "rops-szlakiem-ludzi-bezdomnych",
+      "title": "Szlakiem ludzi bezdomnych",
+      "summary": "Mobilny Punkt Higieniczny, zapewniający osobom w kryzysie bezdomności łatwiejszy dostęp do usług higienicznych i czystą odzież na zmianę.",
+      "description": "Mobilny Punkt Higieniczny, zapewniający osobom w kryzysie bezdomności łatwiejszy dostęp do usług higienicznych i czystą odzież na zmianę.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób w kryzysie bezdomności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "housing",
+        "poverty_exclusion",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby w kryzysie bezdomności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "obszar miejski",
+        "gmina"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Szlakiem ludzi bezdomnych",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-w-kryzysie-bezdomnosci,szlakiem-ludzi-bezdomnych",
+          "excerpt": "Mobilny Punkt Higieniczny, zapewniający osobom w kryzysie bezdomności łatwiejszy dostęp do usług higienicznych i czystą odzież na zmianę."
+        }
+      ]
+    },
+    {
+      "id": "rops-wiejski-program-pomocy-osobom-w-kryzysie-bezdomnosci-sciezka-feniksa",
+      "title": "Wiejski program pomocy osobom w kryzysie bezdomności - Ścieżka Feniksa",
+      "summary": "Program pomocy dla osób znajdujących się w kryzysie bezdomności zakładający realizację procesu wychodzenia z bezdomności poprzez powrót w rodzinne strony, zamieszkanie na obszarze wiejskim oraz pracę na rzecz ośrodka ekologicznego, który może świadczyć dla społeczności lokalnej usługi rekreacji i odpoczynku.",
+      "description": "Program pomocy dla osób znajdujących się w kryzysie bezdomności zakładający realizację procesu wychodzenia z bezdomności poprzez powrót w rodzinne strony, zamieszkanie na obszarze wiejskim oraz pracę na rzecz ośrodka ekologicznego, który może świadczyć dla społeczności lokalnej usługi rekreacji i odpoczynku.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla osób w kryzysie bezdomności).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "housing",
+        "poverty_exclusion",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby w kryzysie bezdomności"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "obszar miejski",
+        "gmina"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Wiejski program pomocy osobom w kryzysie bezdomności - Ścieżka Feniksa",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-osob-w-kryzysie-bezdomnosci,wiejski-program-pomocy-osobom-w-kryzysie-bezdomnosci-sciezka-feniksa",
+          "excerpt": "Program pomocy dla osób znajdujących się w kryzysie bezdomności zakładający realizację procesu wychodzenia z bezdomności poprzez powrót w rodzinne strony, zamieszkanie na obszarze wiejskim oraz pracę na rzecz ośrodka ekologicznego, który może świadczyć dla społeczności lokalnej usługi rekreacji i odpoczynku."
+        }
+      ]
+    },
+    {
+      "id": "rops-paszport-pacjenta-z-choroba-rzadka",
+      "title": "Paszport pacjenta z chorobą rzadką",
+      "summary": "Paszport jest rozwiązaniem informatycznym, w ramach którego zapisane są najważniejsze informacje na temat choroby, leków, lekarzy prowadzących pacjenta z chorobą rzadką. Informacje te znajdują się na elektronicznym nośniku, który pacjent może zawsze mieć przy sobie.",
+      "description": "Paszport jest rozwiązaniem informatycznym, w ramach którego zapisane są najważniejsze informacje na temat choroby, leków, lekarzy prowadzących pacjenta z chorobą rzadką. Informacje te znajdują się na elektronicznym nośniku, który pacjent może zawsze mieć przy sobie.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla zdrowia i medycyny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "health",
+        "disability_accessibility",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby chore"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Paszport pacjenta z chorobą rzadką",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-zdrowia-i-medycyny,paszport-pacjenta-z-choroba-rzadka",
+          "excerpt": "Paszport jest rozwiązaniem informatycznym, w ramach którego zapisane są najważniejsze informacje na temat choroby, leków, lekarzy prowadzących pacjenta z chorobą rzadką. Informacje te znajdują się na elektronicznym nośniku, który pacjent może zawsze mieć przy sobie."
+        }
+      ]
+    },
+    {
+      "id": "rops-himalaje-autyzmu",
+      "title": "Himalaje autyzmu",
+      "summary": "Metoda pracy z osobami neuroatypowymi (przede wszystkim ze spektrum autyzmu), które przejawiają zachowania nieakceptowane społecznie, w tym agresywne i autoagresywne mająca na celu przygotowanie pacjenta do wizyty lekarskiej, umożliwienie diagnozy schorzenia i podjęcie leczenia.",
+      "description": "Metoda pracy z osobami neuroatypowymi (przede wszystkim ze spektrum autyzmu), które przejawiają zachowania nieakceptowane społecznie, w tym agresywne i autoagresywne mająca na celu przygotowanie pacjenta do wizyty lekarskiej, umożliwienie diagnozy schorzenia i podjęcie leczenia.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla zdrowia i medycyny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "health",
+        "disability_accessibility",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby chore"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Himalaje autyzmu",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-zdrowia-i-medycyny,himalaje-autyzmu",
+          "excerpt": "Metoda pracy z osobami neuroatypowymi (przede wszystkim ze spektrum autyzmu), które przejawiają zachowania nieakceptowane społecznie, w tym agresywne i autoagresywne mająca na celu przygotowanie pacjenta do wizyty lekarskiej, umożliwienie diagnozy schorzenia i podjęcie leczenia."
+        }
+      ]
+    },
+    {
+      "id": "rops-gra-o-zdrowie",
+      "title": "Gra o zdrowie",
+      "summary": "Terapeutyczna gra planszowa dotycząca rynku pracy, dedykowana osobom z doświadczeniem problemów zdrowia psychicznego.",
+      "description": "Terapeutyczna gra planszowa dotycząca rynku pracy, dedykowana osobom z doświadczeniem problemów zdrowia psychicznego.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla zdrowia i medycyny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "health",
+        "disability_accessibility",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby chore"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Gra o zdrowie",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-zdrowia-i-medycyny,gra-o-zdrowie",
+          "excerpt": "Terapeutyczna gra planszowa dotycząca rynku pracy, dedykowana osobom z doświadczeniem problemów zdrowia psychicznego."
+        }
+      ]
+    },
+    {
+      "id": "rops-telerehabilitacja-oddechowa",
+      "title": "Telerehabilitacja oddechowa",
+      "summary": "Model telerehabilitacji oddechowej, który zapewnia możliwość prowadzenia rehabilitacji oddechowej metodą zdalną",
+      "description": "Model telerehabilitacji oddechowej, który zapewnia możliwość prowadzenia rehabilitacji oddechowej metodą zdalną\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla zdrowia i medycyny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "health",
+        "disability_accessibility",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby chore"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Telerehabilitacja oddechowa",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-zdrowia-i-medycyny,telerehabilitacja-oddechowa",
+          "excerpt": "Model telerehabilitacji oddechowej, który zapewnia możliwość prowadzenia rehabilitacji oddechowej metodą zdalną"
+        }
+      ]
+    },
+    {
+      "id": "rops-inteligentny-organizer-do-lekow",
+      "title": "Inteligentny organizer do leków",
+      "summary": "Inteligentny organizer na leki połączony z aplikacją mobilną",
+      "description": "Inteligentny organizer na leki połączony z aplikacją mobilną\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla zdrowia i medycyny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "health",
+        "disability_accessibility",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby chore"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Inteligentny organizer do leków",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-zdrowia-i-medycyny,inteligentny-organizer-do-lekow",
+          "excerpt": "Inteligentny organizer na leki połączony z aplikacją mobilną"
+        }
+      ]
+    },
+    {
+      "id": "rops-drogowskazy-ajkum",
+      "title": "Drogowskazy AJKUM",
+      "summary": "System nawigacji w budynkach użyteczności publicznej dla pacjentów onkologicznych i osób o obniżonym poziomie percepcji.",
+      "description": "System nawigacji w budynkach użyteczności publicznej dla pacjentów onkologicznych i osób o obniżonym poziomie percepcji.\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla zdrowia i medycyny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "health",
+        "disability_accessibility",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby chore"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Drogowskazy AJKUM",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-zdrowia-i-medycyny,drogowskazy-ajkum",
+          "excerpt": "System nawigacji w budynkach użyteczności publicznej dla pacjentów onkologicznych i osób o obniżonym poziomie percepcji."
+        }
+      ]
+    },
+    {
+      "id": "rops-cold-box",
+      "title": "Cold Box",
+      "summary": "Przenośny pojemnik chłodzący, który służy przechowywaniu leków (np. insuliny) w odpowiednich warunkach",
+      "description": "Przenośny pojemnik chłodzący, który służy przechowywaniu leków (np. insuliny) w odpowiednich warunkach\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla zdrowia i medycyny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "health",
+        "disability_accessibility",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby chore"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Cold Box",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-zdrowia-i-medycyny,cold-box",
+          "excerpt": "Przenośny pojemnik chłodzący, który służy przechowywaniu leków (np. insuliny) w odpowiednich warunkach"
+        }
+      ]
+    },
+    {
+      "id": "rops-pacjent-pro",
+      "title": "Pacjent Pro",
+      "summary": "Aplikacja, która pomoże pacjentom funkcjonować na oddziale ogólnopsychiatrycznym, obniżając poziom niepokoju i poprawiając samopoczucie",
+      "description": "Aplikacja, która pomoże pacjentom funkcjonować na oddziale ogólnopsychiatrycznym, obniżając poziom niepokoju i poprawiając samopoczucie\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla zdrowia i medycyny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "health",
+        "disability_accessibility",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby chore"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Pacjent Pro",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-zdrowia-i-medycyny,pacjent-pro",
+          "excerpt": "Aplikacja, która pomoże pacjentom funkcjonować na oddziale ogólnopsychiatrycznym, obniżając poziom niepokoju i poprawiając samopoczucie"
+        }
+      ]
+    },
+    {
+      "id": "rops-oncotriada",
+      "title": "Oncotriada",
+      "summary": "Model wsparcia osób z diagnozą onkologiczną na wczesnym etapie leczenia, pod okiem psychoonkologa oraz z udziałem pacjenta w fazie remisji",
+      "description": "Model wsparcia osób z diagnozą onkologiczną na wczesnym etapie leczenia, pod okiem psychoonkologa oraz z udziałem pacjenta w fazie remisji\n\nRekord zaimportowany z publicznej Biblioteki Innowacji Społecznych ROPS (kategoria: Dla zdrowia i medycyny).",
+      "sourceId": "src-library",
+      "synthetic": false,
+      "evidenceStatus": "partially_documented",
+      "problemTags": [
+        "health",
+        "disability_accessibility",
+        "mental_health"
+      ],
+      "targetGroups": [
+        "Osoby z niepełnosprawnościami",
+        "Osoby chore"
+      ],
+      "testedIn": [
+        "Małopolska"
+      ],
+      "applicableContexts": [
+        "gmina",
+        "powiat",
+        "obszar miejski",
+        "obszar wiejski"
+      ],
+      "prerequisites": [],
+      "resourcesRequired": [],
+      "estimatedCostPln": null,
+      "timeframeWeeks": null,
+      "citations": [
+        {
+          "sourceId": "src-library",
+          "title": "Oncotriada",
+          "url": "https://rops.krakow.pl/innowacje-spoleczne/biblioteka-innowacji-spolecznych/dla-zdrowia-i-medycyny,oncotriada",
+          "excerpt": "Model wsparcia osób z diagnozą onkologiczną na wczesnym etapie leczenia, pod okiem psychoonkologa oraz z udziałem pacjenta w fazie remisji"
+        }
+      ]
+    }
+  ]
+}

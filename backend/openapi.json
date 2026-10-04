@@ -1,0 +1,3575 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Małopolska Social Innovation Hub — Matchmaking API",
+    "version": "1.0.0",
+    "description": "AI-assisted matchmaking between a described social problem and existing social innovations, documented cases and contextual evidence. Relevance means suitability for the described need, not a probability of success."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Current host"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Matchmaking",
+      "description": "Problem intake, matching and feedback."
+    },
+    {
+      "name": "Innovations",
+      "description": "Innovation details and source references."
+    },
+    {
+      "name": "Tester",
+      "description": "Innovation tests, tester applications, ratings and feedback."
+    },
+    {
+      "name": "Problem reports",
+      "description": "Grassroots problem reporting: residents, NGOs and institutions signal local problems; the public list shows the review status and the administrator response."
+    },
+    {
+      "name": "Assistant",
+      "description": "Conversational assistant that clarifies a resident need and recommends municipal programs. State is stored per conversation; searches are stable and paginated without re-running the LLM."
+    },
+    {
+      "name": "Admin",
+      "description": "Administrator-only dashboard statistics and innovation submission review. Every endpoint requires a Bearer token belonging to an administrator."
+    }
+  ],
+  "paths": {
+    "/api/v1/matchmaking": {
+      "post": {
+        "tags": [
+          "Matchmaking"
+        ],
+        "operationId": "createMatchmakingRequest",
+        "summary": "Interpret a problem and return ranked innovations",
+        "description": "Interprets the problem, retrieves catalogue candidates and returns up to five grounded recommendations. Returns `needs_clarification` with up to three questions when material information is missing, `no_match` when nothing fits, and `degraded` when part of the AI pipeline is unavailable.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatchmakingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Matchmaking result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchmakingResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/innovations": {
+      "get": {
+        "tags": [
+          "Innovations"
+        ],
+        "operationId": "listInnovations",
+        "summary": "List and search catalogue innovations",
+        "description": "Returns a paginated list of catalogue innovations for the knowledge library. Filter by free text (`q`), problem tag, target group, evidence status and synthesis flag.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "description": "Free-text search over title, summary, description and tags.",
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "problemTag",
+            "in": "query",
+            "required": false,
+            "description": "Exact problem tag match (diacritic-insensitive, case-insensitive).",
+            "schema": {
+              "type": "string",
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "targetGroup",
+            "in": "query",
+            "required": false,
+            "description": "Exact target group match (diacritic-insensitive, case-insensitive).",
+            "schema": {
+              "type": "string",
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "evidenceStatus",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/EvidenceStatus"
+            }
+          },
+          {
+            "name": "synthetic",
+            "in": "query",
+            "required": false,
+            "description": "When set, only synthetic (true) or verified (false) records are returned.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "title",
+                "cost",
+                "timeframe"
+              ],
+              "default": "title"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated innovation list.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InnovationListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/innovations/{innovationId}": {
+      "get": {
+        "tags": [
+          "Innovations"
+        ],
+        "operationId": "getInnovation",
+        "summary": "Get innovation details and source references",
+        "parameters": [
+          {
+            "name": "innovationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Innovation detail.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InnovationDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Innovation not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tests": {
+      "get": {
+        "tags": [
+          "Tester"
+        ],
+        "operationId": "listInnovationTests",
+        "summary": "List innovation tests open to testers",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/TestStatus"
+            }
+          },
+          {
+            "name": "innovationId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of innovation tests.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tester"
+        ],
+        "operationId": "createInnovationTest",
+        "summary": "Create an innovation test (operator)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Test created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/InnovationTest"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tests/{testId}": {
+      "get": {
+        "tags": [
+          "Tester"
+        ],
+        "operationId": "getInnovationTest",
+        "summary": "Get test details, application count and remaining slots",
+        "parameters": [
+          {
+            "name": "testId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Test details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/InnovationTest"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tests/{testId}/applications": {
+      "post": {
+        "tags": [
+          "Tester"
+        ],
+        "operationId": "applyForInnovationTest",
+        "summary": "Declare willingness to take part in a test",
+        "description": "Registers the caller (Bearer token) or the shared demo user when no token is provided. One application per test and user.",
+        "parameters": [
+          {
+            "name": "testId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestApplicationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Application registered.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/TestApplication"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Test not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Recruitment closed or application already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tester/applications": {
+      "get": {
+        "tags": [
+          "Tester"
+        ],
+        "operationId": "listMyTestApplications",
+        "summary": "List my test applications with their feedback",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "My applications.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "data"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/MyTestApplication"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tester/applications/{applicationId}/feedback": {
+      "post": {
+        "tags": [
+          "Tester"
+        ],
+        "operationId": "submitTesterFeedback",
+        "summary": "Submit or update test feedback, rating and improvement suggestions",
+        "parameters": [
+          {
+            "name": "applicationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TesterFeedbackRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Existing feedback updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TesterFeedbackEnvelope"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Feedback recorded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TesterFeedbackEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/innovations/{innovationId}/tester-feedback": {
+      "get": {
+        "tags": [
+          "Tester"
+        ],
+        "operationId": "getInnovationTesterFeedback",
+        "summary": "Aggregated tester ratings and improvement suggestions for an innovation",
+        "parameters": [
+          {
+            "name": "innovationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aggregated feedback.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TesterFeedbackAggregate"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/problem-reports": {
+      "get": {
+        "tags": [
+          "Problem reports"
+        ],
+        "operationId": "listProblemReports",
+        "summary": "List reported social problems with their review status",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ProblemReportStatus"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of problem reports.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemReportListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Problem reports"
+        ],
+        "operationId": "createProblemReport",
+        "summary": "Report a local social problem (residents, NGOs, institutions)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemReportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Problem report accepted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ProblemReport"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/problem-reports/{reportId}": {
+      "get": {
+        "tags": [
+          "Problem reports"
+        ],
+        "operationId": "getProblemReport",
+        "summary": "Get a single problem report and its review status",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Problem report.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/ProblemReport"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Report not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Problem reports"
+        ],
+        "operationId": "updateProblemReport",
+        "summary": "Update the review status / response (administrator)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemReportUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Report updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ProblemReport"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Administrator role required.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Report not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/stats": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "getAdminStats",
+        "summary": "Dashboard statistics for administrators",
+        "description": "Aggregated counters for users, catalogue innovations, innovation submissions, problem reports, tests, tester applications and matchmaking, plus 14-day activity, category breakdown and recent items. `pending` submissions are those not yet accepted.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dashboard statistics.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminStats"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Administrator role required.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/submissions": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "listAdminSubmissions",
+        "summary": "List innovation submissions for review",
+        "description": "Paginated innovation submissions with the author. Filter by free text (`q`, matched against title, description and author e-mail), acceptance flag and workflow status. `counts` are computed over all submissions and are not affected by the filters.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "description": "Case-insensitive search over title, description and author e-mail.",
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "accepted",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/InnovationStatus"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated submission list with global counts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminSubmissionListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Administrator role required.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/submissions/{submissionId}": {
+      "patch": {
+        "tags": [
+          "Admin"
+        ],
+        "operationId": "updateAdminSubmission",
+        "summary": "Accept or reject an innovation submission",
+        "description": "Updates only `isAccepted` and/or `status`; at least one field is required. The expected review actions are `{ \"isAccepted\": true, \"status\": \"approved\" }` and `{ \"isAccepted\": false, \"status\": \"rejected\" }`.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "submissionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminSubmissionUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Submission updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/AdminSubmission"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Administrator role required.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Submission not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/matchmaking/{requestId}/feedback": {
+      "post": {
+        "tags": [
+          "Matchmaking"
+        ],
+        "operationId": "submitMatchmakingFeedback",
+        "summary": "Record usefulness feedback for a recommendation",
+        "parameters": [
+          {
+            "name": "requestId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 128
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Feedback recorded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown requestId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assistant/messages": {
+      "post": {
+        "tags": [
+          "Assistant"
+        ],
+        "operationId": "sendAssistantMessage",
+        "summary": "Send a message and receive the next assistant step",
+        "description": "Send free text (omit `conversationId` to start a new conversation) or answer a clarification question. Depending on the updated conversation state the response is `clarification`, `recommendations` (a first page of a stable search) or `message`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendAssistantMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Clarification, recommendations or a plain assistant message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendAssistantMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or a stale clarification answer.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown conversationId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assistant/searches/{searchId}": {
+      "get": {
+        "tags": [
+          "Assistant"
+        ],
+        "operationId": "getAssistantSearchPage",
+        "summary": "Read a page of a stored search ranking",
+        "description": "Returns a slice of the stable ranking saved for a search. Does not call the LLM, generate an embedding or run vector search again.",
+        "parameters": [
+          {
+            "name": "searchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20,
+              "default": 3
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of recommendations with pagination metadata.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchPageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown searchId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserType": {
+        "type": "string",
+        "enum": [
+          "resident",
+          "ngo",
+          "local_government",
+          "institution"
+        ]
+      },
+      "LocationInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "municipality": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "county": {
+            "type": "string",
+            "maxLength": 120
+          }
+        }
+      },
+      "ConstraintsInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "budgetPln": {
+            "type": "number",
+            "minimum": 0
+          },
+          "timeframeWeeks": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "availableResources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20
+          },
+          "accessibilityNeeds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20
+          }
+        }
+      },
+      "ClarificationAnswer": {
+        "type": "object",
+        "required": [
+          "questionId",
+          "answer"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "questionId": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "answer": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        }
+      },
+      "MatchmakingRequest": {
+        "type": "object",
+        "required": [
+          "problemDescription",
+          "userType"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "problemDescription": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 5000
+          },
+          "userType": {
+            "$ref": "#/components/schemas/UserType"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationInput"
+          },
+          "targetGroups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20
+          },
+          "constraints": {
+            "$ref": "#/components/schemas/ConstraintsInput"
+          },
+          "clarificationAnswers": {
+            "type": "array",
+            "maxItems": 10,
+            "items": {
+              "$ref": "#/components/schemas/ClarificationAnswer"
+            }
+          }
+        }
+      },
+      "ClarifyingQuestion": {
+        "type": "object",
+        "required": [
+          "id",
+          "question"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          }
+        }
+      },
+      "Citation": {
+        "type": "object",
+        "required": [
+          "sourceId",
+          "title",
+          "excerpt"
+        ],
+        "properties": {
+          "sourceId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "excerpt": {
+            "type": "string"
+          }
+        }
+      },
+      "Match": {
+        "type": "object",
+        "required": [
+          "innovationId",
+          "title",
+          "summary",
+          "relevance",
+          "whyItMatches",
+          "limitations",
+          "suggestedNextSteps",
+          "evidenceStatus",
+          "citations"
+        ],
+        "properties": {
+          "innovationId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "relevance": {
+            "type": "string",
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "whyItMatches": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "suggestedNextSteps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidenceStatus": {
+            "type": "string",
+            "enum": [
+              "documented",
+              "partially_documented",
+              "synthetic"
+            ]
+          },
+          "citations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Citation"
+            }
+          }
+        }
+      },
+      "RelatedEvidence": {
+        "type": "object",
+        "required": [
+          "id",
+          "sourceId",
+          "title",
+          "kind",
+          "summary",
+          "synthetic"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sourceId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "synthetic": {
+            "type": "boolean"
+          }
+        }
+      },
+      "MatchmakingResponse": {
+        "type": "object",
+        "required": [
+          "requestId",
+          "status",
+          "mode",
+          "problemSummary",
+          "identifiedNeeds",
+          "clarifyingQuestions",
+          "matches",
+          "relatedEvidence",
+          "warnings"
+        ],
+        "properties": {
+          "requestId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "matched",
+              "needs_clarification",
+              "no_match",
+              "degraded"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "live",
+              "demo"
+            ]
+          },
+          "problemSummary": {
+            "type": "string"
+          },
+          "identifiedNeeds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "clarifyingQuestions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClarifyingQuestion"
+            }
+          },
+          "matches": {
+            "type": "array",
+            "maxItems": 5,
+            "items": {
+              "$ref": "#/components/schemas/Match"
+            }
+          },
+          "relatedEvidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedEvidence"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "FeedbackRequest": {
+        "type": "object",
+        "required": [
+          "innovationId",
+          "useful"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "innovationId": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "useful": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "not_relevant",
+              "target_group_mismatch",
+              "constraints_mismatch",
+              "insufficient_evidence",
+              "already_known",
+              "other"
+            ]
+          },
+          "comment": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        }
+      },
+      "FeedbackResponse": {
+        "type": "object",
+        "required": [
+          "feedbackId",
+          "requestId",
+          "innovationId",
+          "recorded",
+          "message"
+        ],
+        "properties": {
+          "feedbackId": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          },
+          "innovationId": {
+            "type": "string"
+          },
+          "recorded": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "SourceSummary": {
+        "type": "object",
+        "required": [
+          "sourceId",
+          "title",
+          "urlVerified",
+          "kind",
+          "synthetic"
+        ],
+        "properties": {
+          "sourceId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "urlVerified": {
+            "type": "boolean"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "synthetic": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EvidenceStatus": {
+        "type": "string",
+        "enum": [
+          "documented",
+          "partially_documented",
+          "synthetic"
+        ]
+      },
+      "InnovationSummary": {
+        "type": "object",
+        "required": [
+          "innovationId",
+          "title",
+          "summary",
+          "sourceId",
+          "evidenceStatus",
+          "synthetic",
+          "problemTags",
+          "targetGroups",
+          "testedIn",
+          "applicableContexts",
+          "estimatedCostPln",
+          "timeframeWeeks"
+        ],
+        "properties": {
+          "innovationId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "sourceId": {
+            "type": "string"
+          },
+          "evidenceStatus": {
+            "$ref": "#/components/schemas/EvidenceStatus"
+          },
+          "synthetic": {
+            "type": "boolean"
+          },
+          "problemTags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "targetGroups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "testedIn": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "applicableContexts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "estimatedCostPln": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "timeframeWeeks": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        }
+      },
+      "InnovationListResponse": {
+        "type": "object",
+        "required": [
+          "total",
+          "count",
+          "limit",
+          "offset",
+          "mode",
+          "data",
+          "warnings"
+        ],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total records after filtering."
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Records in this page."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "live",
+              "demo"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InnovationSummary"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "InnovationDetail": {
+        "type": "object",
+        "required": [
+          "innovationId",
+          "title",
+          "summary",
+          "description",
+          "evidenceStatus",
+          "synthetic",
+          "source",
+          "problemTags",
+          "targetGroups",
+          "testedIn",
+          "applicableContexts",
+          "prerequisites",
+          "resourcesRequired",
+          "estimatedCostPln",
+          "timeframeWeeks",
+          "citations",
+          "disclaimer"
+        ],
+        "properties": {
+          "innovationId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "evidenceStatus": {
+            "type": "string",
+            "enum": [
+              "documented",
+              "partially_documented",
+              "synthetic"
+            ]
+          },
+          "synthetic": {
+            "type": "boolean"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceSummary"
+          },
+          "problemTags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "targetGroups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "testedIn": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "applicableContexts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "prerequisites": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "resourcesRequired": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "estimatedCostPln": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "timeframeWeeks": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "citations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Citation"
+            }
+          },
+          "disclaimer": {
+            "type": "string"
+          }
+        }
+      },
+      "TestStatus": {
+        "type": "string",
+        "enum": [
+          "recruiting",
+          "active",
+          "completed",
+          "cancelled"
+        ]
+      },
+      "TestApplicationStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "accepted",
+          "rejected",
+          "withdrawn",
+          "completed"
+        ]
+      },
+      "InnovationTest": {
+        "type": "object",
+        "required": [
+          "id",
+          "innovationId",
+          "title",
+          "status",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "innovationId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "instructions": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "location": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "maxTesters": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "startAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "endAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TestStatus"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "innovationTitle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "innovationSummary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "applicationsCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "acceptedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "slotsLeft": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          }
+        }
+      },
+      "TestListResponse": {
+        "type": "object",
+        "required": [
+          "total",
+          "count",
+          "limit",
+          "offset",
+          "data"
+        ],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InnovationTest"
+            }
+          }
+        }
+      },
+      "CreateTestRequest": {
+        "type": "object",
+        "required": [
+          "innovationId",
+          "title"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "innovationId": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "instructions": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "location": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "maxTesters": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100000
+          },
+          "startAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TestStatus"
+          }
+        }
+      },
+      "TestApplicationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "motivation": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        }
+      },
+      "TestApplication": {
+        "type": "object",
+        "required": [
+          "id",
+          "testId",
+          "status",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "testId": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "motivation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "$ref": "#/components/schemas/TestApplicationStatus"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MyTestApplication": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/TestApplication"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "test": {
+                "$ref": "#/components/schemas/InnovationTest"
+              },
+              "feedback": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/TesterFeedback"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "TesterFeedbackRequest": {
+        "type": "object",
+        "required": [
+          "overallRating"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "overallRating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "usefulnessRating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "easeOfUseRating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "wouldUseAgain": {
+            "type": "boolean"
+          },
+          "whatWorked": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "problems": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "suggestions": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "comment": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "answers": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "TesterFeedback": {
+        "type": "object",
+        "required": [
+          "id",
+          "applicationId",
+          "overallRating",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "applicationId": {
+            "type": "integer"
+          },
+          "overallRating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "usefulnessRating": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 5
+          },
+          "easeOfUseRating": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 5
+          },
+          "wouldUseAgain": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "whatWorked": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "problems": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "suggestions": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "comment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "answers": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TesterFeedbackEnvelope": {
+        "type": "object",
+        "required": [
+          "message",
+          "data"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TesterFeedback"
+          }
+        }
+      },
+      "TesterFeedbackAggregate": {
+        "type": "object",
+        "required": [
+          "innovationId",
+          "applicationCount",
+          "feedbackCount",
+          "averages",
+          "wouldUseAgainRatio",
+          "data"
+        ],
+        "properties": {
+          "innovationId": {
+            "type": "string"
+          },
+          "applicationCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "feedbackCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "averages": {
+            "type": "object",
+            "required": [
+              "overall",
+              "usefulness",
+              "easeOfUse"
+            ],
+            "properties": {
+              "overall": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "usefulness": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "easeOfUse": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            }
+          },
+          "wouldUseAgainRatio": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "data": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "$ref": "#/components/schemas/TesterFeedback"
+            }
+          }
+        }
+      },
+      "EligibilityStatus": {
+        "type": "string",
+        "enum": [
+          "eligible",
+          "unknown",
+          "conflict"
+        ],
+        "description": "`conflict` means an explicit mismatch (never returned to the client as a recommendation)."
+      },
+      "TextMessageInput": {
+        "type": "object",
+        "required": [
+          "type",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "text"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+          }
+        }
+      },
+      "ClarificationAnswerInput": {
+        "type": "object",
+        "required": [
+          "type",
+          "questionId",
+          "selectedOptionIds"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "clarification_answer"
+          },
+          "questionId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "selectedOptionIds": {
+            "type": "array",
+            "maxItems": 10,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          },
+          "additionalText": {
+            "type": "string",
+            "maxLength": 2000
+          }
+        }
+      },
+      "AssistantMessageInput": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/TextMessageInput"
+          },
+          {
+            "$ref": "#/components/schemas/ClarificationAnswerInput"
+          }
+        ]
+      },
+      "SendAssistantMessageRequest": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "conversationId": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Omit on the first message to start a new conversation."
+          },
+          "message": {
+            "$ref": "#/components/schemas/AssistantMessageInput"
+          }
+        }
+      },
+      "ClarificationOption": {
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      },
+      "Clarification": {
+        "type": "object",
+        "required": [
+          "id",
+          "question",
+          "selectionMode",
+          "options",
+          "allowAdditionalText"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "selectionMode": {
+            "type": "string",
+            "enum": [
+              "single",
+              "multiple"
+            ]
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClarificationOption"
+            }
+          },
+          "allowAdditionalText": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ClarificationResponse": {
+        "type": "object",
+        "required": [
+          "type",
+          "conversationId",
+          "assistantMessage",
+          "clarification"
+        ],
+        "properties": {
+          "type": {
+            "const": "clarification"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "assistantMessage": {
+            "type": "string"
+          },
+          "clarification": {
+            "$ref": "#/components/schemas/Clarification"
+          }
+        }
+      },
+      "RecommendationDetail": {
+        "type": "object",
+        "required": [
+          "label",
+          "value"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "Recommendation": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "summary",
+          "matchExplanation",
+          "eligibilityStatus",
+          "details"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "matchExplanation": {
+            "type": "string"
+          },
+          "eligibilityStatus": {
+            "$ref": "#/components/schemas/EligibilityStatus"
+          },
+          "eligibilityDescription": {
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecommendationDetail"
+            }
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "required": [
+          "page",
+          "pageSize",
+          "totalResults",
+          "totalPages",
+          "hasNextPage",
+          "hasPreviousPage"
+        ],
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "totalResults": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "totalPages": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RecommendationsResponse": {
+        "type": "object",
+        "required": [
+          "type",
+          "conversationId",
+          "assistantMessage",
+          "search"
+        ],
+        "properties": {
+          "type": {
+            "const": "recommendations"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "assistantMessage": {
+            "type": "string"
+          },
+          "search": {
+            "type": "object",
+            "required": [
+              "id",
+              "recommendations",
+              "pagination"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "recommendations": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Recommendation"
+                }
+              },
+              "pagination": {
+                "$ref": "#/components/schemas/Pagination"
+              }
+            }
+          }
+        }
+      },
+      "AssistantMessageResponse": {
+        "type": "object",
+        "required": [
+          "type",
+          "conversationId",
+          "assistantMessage"
+        ],
+        "properties": {
+          "type": {
+            "const": "message"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "assistantMessage": {
+            "type": "string"
+          }
+        }
+      },
+      "SendAssistantMessageResponse": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ClarificationResponse"
+          },
+          {
+            "$ref": "#/components/schemas/RecommendationsResponse"
+          },
+          {
+            "$ref": "#/components/schemas/AssistantMessageResponse"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "clarification": "#/components/schemas/ClarificationResponse",
+            "recommendations": "#/components/schemas/RecommendationsResponse",
+            "message": "#/components/schemas/AssistantMessageResponse"
+          }
+        }
+      },
+      "SearchPageResponse": {
+        "type": "object",
+        "required": [
+          "searchId",
+          "recommendations",
+          "pagination"
+        ],
+        "properties": {
+          "searchId": {
+            "type": "string"
+          },
+          "recommendations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Recommendation"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "ProblemReportStatus": {
+        "type": "string",
+        "enum": [
+          "new",
+          "in_review",
+          "planned",
+          "resolved",
+          "rejected"
+        ]
+      },
+      "ProblemReportReporter": {
+        "type": "string",
+        "enum": [
+          "resident",
+          "ngo",
+          "local_government",
+          "institution",
+          "other"
+        ]
+      },
+      "ProblemReport": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description",
+          "reporterType",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "municipality": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "county": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reporterType": {
+            "$ref": "#/components/schemas/ProblemReportReporter"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ProblemReportStatus"
+          },
+          "adminResponse": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ProblemReportRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "description"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 300
+          },
+          "description": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 5000
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "municipality": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "county": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "reporterType": {
+            "$ref": "#/components/schemas/ProblemReportReporter"
+          },
+          "contactEmail": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 320
+          }
+        }
+      },
+      "ProblemReportUpdateRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ProblemReportStatus"
+          },
+          "adminResponse": {
+            "type": "string",
+            "maxLength": 5000
+          }
+        }
+      },
+      "ProblemReportListResponse": {
+        "type": "object",
+        "required": [
+          "total",
+          "count",
+          "limit",
+          "offset",
+          "data"
+        ],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProblemReport"
+            }
+          }
+        }
+      },
+      "InnovationStatus": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "completed",
+          "submitted",
+          "approved",
+          "rejected"
+        ]
+      },
+      "AdminSubmission": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "status",
+          "isAccepted",
+          "currentStep",
+          "createdAt",
+          "updatedAt",
+          "authorEmail",
+          "authorName"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "$ref": "#/components/schemas/InnovationStatus"
+          },
+          "isAccepted": {
+            "type": "boolean"
+          },
+          "currentStep": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "authorEmail": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "authorName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "AdminSubmissionUpdateRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "anyOf": [
+          {
+            "required": [
+              "isAccepted"
+            ]
+          },
+          {
+            "required": [
+              "status"
+            ]
+          }
+        ],
+        "properties": {
+          "isAccepted": {
+            "type": "boolean",
+            "description": "Administrator decision flag. `true` accepts the submission."
+          },
+          "status": {
+            "$ref": "#/components/schemas/InnovationStatus"
+          }
+        }
+      },
+      "AdminSubmissionListResponse": {
+        "type": "object",
+        "required": [
+          "total",
+          "count",
+          "limit",
+          "offset",
+          "counts",
+          "data"
+        ],
+        "properties": {
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total records after filtering."
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Records in this page."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "counts": {
+            "type": "object",
+            "required": [
+              "pending",
+              "accepted",
+              "rejected"
+            ],
+            "description": "Global counters over all submissions, independent of the filters.",
+            "properties": {
+              "pending": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Submissions with `isAccepted = false`."
+              },
+              "accepted": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Submissions with `isAccepted = true`."
+              },
+              "rejected": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Submissions with `status = 'rejected'`."
+              }
+            }
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminSubmission"
+            }
+          }
+        }
+      },
+      "AdminStats": {
+        "type": "object",
+        "required": [
+          "generatedAt",
+          "users",
+          "innovations",
+          "submissions",
+          "problemReports",
+          "tests",
+          "testerApplications",
+          "matchmaking",
+          "categories",
+          "activityByDay",
+          "recentSubmissions",
+          "recentReports",
+          "recentActivity"
+        ],
+        "properties": {
+          "generatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "users": {
+            "type": "object",
+            "required": [
+              "total",
+              "newThisWeek"
+            ],
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "newThisWeek": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "innovations": {
+            "type": "object",
+            "required": [
+              "catalogue"
+            ],
+            "properties": {
+              "catalogue": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Catalogue innovations (not submissions)."
+              }
+            }
+          },
+          "submissions": {
+            "type": "object",
+            "required": [
+              "total",
+              "pending",
+              "accepted",
+              "rejected",
+              "newThisWeek"
+            ],
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "pending": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "accepted": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "rejected": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "newThisWeek": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "problemReports": {
+            "type": "object",
+            "required": [
+              "total",
+              "new",
+              "inReview",
+              "planned",
+              "resolved",
+              "rejected",
+              "newThisWeek"
+            ],
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "new": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "inReview": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "planned": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "resolved": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "rejected": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "newThisWeek": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "tests": {
+            "type": "object",
+            "required": [
+              "total",
+              "recruiting",
+              "active"
+            ],
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "recruiting": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "active": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "testerApplications": {
+            "type": "object",
+            "required": [
+              "total",
+              "pending"
+            ],
+            "properties": {
+              "total": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "pending": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "matchmaking": {
+            "type": "object",
+            "required": [
+              "requests",
+              "feedback"
+            ],
+            "properties": {
+              "requests": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "feedback": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "categories": {
+            "type": "array",
+            "maxItems": 5,
+            "description": "Top problem report categories; missing category counts as `Inne`.",
+            "items": {
+              "type": "object",
+              "required": [
+                "category",
+                "count"
+              ],
+              "properties": {
+                "category": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          },
+          "activityByDay": {
+            "type": "array",
+            "minItems": 14,
+            "maxItems": 14,
+            "description": "Last 14 days, inclusive, chronological; missing days are filled with zeros.",
+            "items": {
+              "type": "object",
+              "required": [
+                "date",
+                "submissions",
+                "reports"
+              ],
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                },
+                "submissions": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "reports": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          },
+          "recentSubmissions": {
+            "type": "array",
+            "maxItems": 5,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "title",
+                "status",
+                "isAccepted",
+                "createdAt",
+                "authorEmail"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "title": {
+                  "type": "string"
+                },
+                "status": {
+                  "$ref": "#/components/schemas/InnovationStatus"
+                },
+                "isAccepted": {
+                  "type": "boolean"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "authorEmail": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "recentReports": {
+            "type": "array",
+            "maxItems": 5,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "title",
+                "status",
+                "category",
+                "createdAt"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "title": {
+                  "type": "string"
+                },
+                "status": {
+                  "$ref": "#/components/schemas/ProblemReportStatus"
+                },
+                "category": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "recentActivity": {
+            "type": "array",
+            "maxItems": 8,
+            "description": "Merged submissions, problem reports, tester applications and tests, newest first.",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "title",
+                "at",
+                "status"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "submission",
+                    "report",
+                    "application",
+                    "test"
+                  ]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ErrorEnvelope": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "requestId",
+              "retryable"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string",
+                "description": "Safe Polish message."
+              },
+              "requestId": {
+                "type": "string"
+              },
+              "retryable": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
